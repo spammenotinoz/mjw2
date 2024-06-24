@@ -25,7 +25,7 @@ if(rt.name =='GPTs'){
   gptConfigStore.setMyData({model:model});
   ms.success(`GPTs ${t('mj.modleSuccess')}`);
 }else if(rt.name=='Setting'){ 
-  openaiSetting( rt.query,ms );
+  openaiSetting( rt.query, ms );
   if(isObject( rt.query ))  ms.success( t('mj.setingSuccess') ); 
 }else if(rt.name=='Model'){ 
   let model= `${rt.params.gid.toString()}`  ;

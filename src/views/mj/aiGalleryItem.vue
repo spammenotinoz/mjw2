@@ -200,8 +200,7 @@ loadImg();
     <n-empty :description="$t('mjchat.noproduct')" />
 </div>
 
-
-<NImage   :src="st.showImg"  ref="showImg" v-if="st.showImg" :width="1" />
+<NImage   :src="st.showImg"  ref="showImg" v-if="st.showImg" :width="1"  target="_blank" />
  <!-- <NButton type="primary" size="small" @click="copy2('abdd' )" >复制</NButton> -->
 
 <!-- <div @click="copy2('abdd' )">复制测试</div> -->

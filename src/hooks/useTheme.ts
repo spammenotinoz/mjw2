@@ -8,24 +8,16 @@ export function useTheme() {
 
   const OsTheme = useOsTheme()
 
-  const isDark = computed(() => {
-    if (appStore.theme === 'auto')
-      return OsTheme.value === 'dark'
-    else
-      return appStore.theme === 'dark'
-  })
+  const isDark = computed(() => true) // Force dark theme
 
   const theme = computed(() => {
     return isDark.value ? darkTheme : undefined
   })
 
   const themeOverrides = computed<GlobalThemeOverrides>(() => {
-    if (isDark.value) {
-      return {
-        common: {},
-      }
+    return {
+      common: {},
     }
-    return {}
   })
 
   watch(

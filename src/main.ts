@@ -3,20 +3,23 @@ import App from './App.vue'
 import { setupI18n } from './locales'
 import { setupAssets, setupScrollbarStyle } from './plugins'
 import { setupStore } from './store'
-import { setupRouter } from './router'
+import { router, setupRouter } from './router' // Ensure router is exported from './router'
+
+async function setupApplication(app) {
+  setupAssets()
+  setupScrollbarStyle()
+  setupI18n(app)
+  await setupRouter(app)
+  await setupStore(app)
+}
 
 async function bootstrap() {
   const app = createApp(App)
-  setupAssets()
 
-  setupScrollbarStyle()
+  // Setup application plugins and router
+  await setupApplication(app)
 
-  setupStore(app)
-
-  setupI18n(app)
-
-  await setupRouter(app)
-
+  // Mount the Vue application
   app.mount('#app')
 }
 

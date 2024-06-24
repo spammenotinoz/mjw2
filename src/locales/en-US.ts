@@ -206,7 +206,7 @@ export default {
   "mjtab": {
     "chat": "Chat",
     "draw": "Drawing",
-    "drawinfo": "AI Drawing with Midjourney Engine",
+    "drawinfo": "AI Drawing with Midjourney",
     "gallery": "Gallery",
     "galleryInfo": "My Gallery"
   },
@@ -403,7 +403,7 @@ export default {
     "nodata": "Please compose first to have a list of songs",
 
     "menu": "Music",
-    "menuinfo": "Suno Music Creation",
+    "menuinfo": "AI Music Creation",
     "server": "Suno API Endpoint",
     "serverabout": "Suno Related",
     "setOpenKeyPlaceholder": "Related KEY for Suno API; optional"

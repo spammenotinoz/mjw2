@@ -231,6 +231,14 @@ const changCustom = ()=>{
 // });
 
 load();
+
+const downloadImage = () => {
+  const imageUrl = chat.value.opt?.imageUrl;
+  if (imageUrl) {
+    window.open(mjImgUrl(imageUrl), '_blank');
+  }
+};
+
 </script>
 <template>
 <div v-if="st.isLoadImg">
@@ -242,8 +250,14 @@ load();
              
         </div> 
         <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
-        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64: mjImgUrl( chat.opt.imageUrl)" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
-        <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
+		<NImage
+		v-if="chat.opt.imageUrl"
+		:src="mjImgUrl(chat.opt?.imageUrl)"
+		class="rounded-sm"
+		:class="[isMobile?'':'!max-w-[500px]']"
+		@click="downloadImage" preview-disabled
+		/>
+		<div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">
                 <div v-for="(bts,ii) in bt" class=" flex justify-start items-center flex-wrap "> 
                     <template v-for="ib in bts" >
@@ -255,20 +269,20 @@ load();
             </template>
             <template v-else-if="chat.opt?.action==='UPSCALE' || 'DESCRIBE'===chat.opt?.action"></template>
             <template v-else>
-                <div class="flex space-x-2">
-                    <NButton type="primary" @click="sub('UPSCALE',1)" size="small">U1</NButton>
-                    <NButton type="primary" @click="sub('UPSCALE',2)"  size="small">U2</NButton>
-                    <NButton type="primary" @click="sub('UPSCALE',3)"  size="small">U3</NButton>
-                    <NButton type="primary" @click="sub('UPSCALE',4)"  size="small">U4</NButton>
-                </div>
-                <div class="flex space-x-2">
-                    <NButton type="warning" @click="sub('VARIATION',1)"  size="small">V1</NButton>
-                    <NButton type="warning" @click="sub('VARIATION',2)"  size="small">V2</NButton>
-                    <NButton type="warning" @click="sub('VARIATION',3)"  size="small">V3</NButton>
-                    <NButton type="warning" @click="sub('VARIATION',4)"  size="small">V4</NButton>
-                    <NButton type="warning" @click="sub('REROLL',1)"  size="small" v-if="chat.opt?.action==='IMAGINE'">{{ $t('mjchat.reroll') }}</NButton>
-
-                </div>
+		<div class="flex space-x-2">
+			<NButton type="primary" @click="sub('UPSCALE',1)" size="small">U1</NButton>
+			<NButton type="primary" @click="sub('UPSCALE',2)" size="small">U2</NButton>
+			<NButton type="warning" @click="sub('VARIATION',1)" size="small">V1</NButton>
+			<NButton type="warning" @click="sub('VARIATION',2)" size="small">V2</NButton>
+			<NButton type="warning" @click="sub('REROLL',1)" size="small" v-if="chat.opt?.action==='IMAGINE'">{{ $t('mjchat.reroll') }}</NButton>
+		</div>
+		<div class="flex space-x-2">
+			<NButton type="primary" @click="sub('UPSCALE',3)" size="small">U3</NButton>
+			<NButton type="primary" @click="sub('UPSCALE',4)" size="small">U4</NButton>
+			<NButton type="warning" @click="sub('VARIATION',3)" size="small">V3</NButton>
+			<NButton type="warning" @click="sub('VARIATION',4)" size="small">V4</NButton>
+			<NButton type="warning" @click="downloadImage" size="small">Full Resolution Image</NButton>
+		</div>
             </template>
         </div>
         <div v-else-if="!chat.loading"> <NButton type="primary" @click="reload()">{{ $t('mjchat.reload') }}</NButton></div>
