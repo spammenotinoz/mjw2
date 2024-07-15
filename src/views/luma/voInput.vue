@@ -179,7 +179,7 @@ const mvOption= [
                 <input type="file"  @change="selectFile2"  ref="fsRef2" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
                 <div class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef2.click()">
                     <img :src="luma.image_end_url" v-if="luma.image_end_url" />
-                    <div class="text-center" v-else>尾帧图</div> 
+                    <div class="text-center" v-else>End Frame</div> 
                 </div>
             </div>
            

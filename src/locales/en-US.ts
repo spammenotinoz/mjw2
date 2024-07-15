@@ -424,7 +424,7 @@ export default {
     setOpenKeyPlaceholder: "Key for Luma API, optional",
     generate: "Generate video",
     nodata: "No available videos, please generate first!",
-    selectimg: "Select image",
+    selectimg: "Start Image",
     clear: "Clear",
     plsInput: "Please input content!",
     submitSuccess: "Submitted successfully!",
