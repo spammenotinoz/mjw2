@@ -1,5 +1,21 @@
 # build front-end
-FROM node:lts-alpine AS frontend
+FROM node:lts AS frontend
+
+# Define build-time variables
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+# Set them as environment variables for use in the container
+ENV NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+
+# Set build arguments
+ARG VITE_LUMA_KEY
+ARG VITE_LUMA_SERVER
+
+# Set environment variables
+ENV VITE_LUMA_KEY=$VITE_LUMA_KEY
+ENV VITE_LUMA_SERVER=$VITE_LUMA_SERVER
 
 RUN npm install pnpm -g
 
@@ -16,7 +32,7 @@ COPY . /app
 RUN pnpm run build
 
 # build backend
-FROM node:lts-alpine as backend
+FROM node:lts as backend
 
 RUN npm install pnpm -g
 
@@ -33,7 +49,7 @@ COPY /service /app
 RUN pnpm build
 
 # service
-FROM node:lts-alpine
+FROM node:lts
 
 RUN npm install pnpm -g
 

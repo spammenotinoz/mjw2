@@ -206,7 +206,7 @@ export default {
   "mjtab": {
     "chat": "Chat",
     "draw": "Drawing",
-    "drawinfo": "AI Drawing with Midjourney Engine",
+    "drawinfo": "AI Drawing with Midjourney",
     "gallery": "Gallery",
     "galleryInfo": "My Gallery"
   },
@@ -220,8 +220,8 @@ export default {
     "reroll": "Redraw",
     "wait2": "Task {id} has been submitted, please wait",
     "redrawEditing": "Partial Redraw Editing",
-    "face": "Change Face",
-    "blend": "Blend Images",
+    "face": "Face Swap",
+    "blend": "Blend",
     "draw": "Drawing",
     "submiting": "Submitting",
     "submit": "Submit",
@@ -247,9 +247,9 @@ export default {
     "attr": "Attachments",
     "noproduct": "Gallery has no entries yet",
     "myGallery": "My Gallery",
-    "yourHead": "Your Avatar",
-    "your2Head": "Celebrity Image",
-    "tipInfo": "Note:<li>1. Images must include faces for proper rendering</li><li>2. 'Celebrity Image' can be created using MJ drawing</li><li>3. 'Celebrity Image' can also include anime characters</li><li>4. 'Your Avatar' is recommended to be a passport-sized personal photo</li>",
+    "yourHead": "Face Portrait",
+    "your2Head": "Target Image",
+    "tipInfo": "Note:<li>1. Face Portrait must include face, passport style recommended</li><li>2. 'Target Image' to replace face.</li>",
     "placeInput": "Please fill in the prompt!",
     "more5sb": "Upload up to 5 images at most",
     "exSuccess": "Export successful... Please check the download folder",
@@ -403,7 +403,7 @@ export default {
     "nodata": "Please compose first to have a list of songs",
 
     "menu": "Music",
-    "menuinfo": "Suno Music Creation",
+    "menuinfo": "AI Music Creation",
     "server": "Suno API Endpoint",
     "serverabout": "Suno Related",
     "setOpenKeyPlaceholder": "Related KEY for Suno API; optional"

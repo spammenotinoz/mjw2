@@ -5,7 +5,7 @@ import { ss } from '@/utils/storage'
     width: number;
     height: number;
     thumbnail: string | null;
-    download_url?: string;
+	download_url?: string;
 };
 
  

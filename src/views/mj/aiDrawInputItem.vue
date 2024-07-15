@@ -297,17 +297,6 @@ const selectFile3=  (input:any)=>{
 <div class="overflow-y-auto bg-[#fafbfc] px-4 dark:bg-[#18181c] h-full ">
 
     <section class="mb-4">
-        <div class="mr-1  mb-2 flex justify-between items-center">
-            <div class="text-sm">{{ $t('mjchat.imgBili') }}</div>
-            <div>
-            <NPopover trigger="hover">
-                <template #trigger>
-                 <SvgIcon icon="iconoir:database-export" class="text-lg cursor-pointer" @click="exportToTxt"></SvgIcon>
-                </template>
-                <div>{{ $t('mjchat.imagEx') }}</div>
-            </NPopover>
-            </div>
-        </div>
         <div class=" flex items-center justify-between space-x-1">
             <template  v-for="(item,index) in vf" >
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':index==f.bili}"  @click="f.bili=index">
@@ -327,24 +316,29 @@ const selectFile3=  (input:any)=>{
     <!-- <template  >  </template> -->
         <section class="mb-4 flex justify-between items-center"  >
         <div  >cw(0-100)</div>
-        <NInputNumber :min="0" :max="100" v-model:value="f.cw" class="!w-[60%]" size="small" clearable placeholder="0-100 角色参考程度" />
+        <NInputNumber :min="0" :max="100" v-model:value="f.cw" class="!w-[60%]" size="small" clearable placeholder="0-100 Character Weight" />
         </section >
     
         <section class="mb-4 flex justify-between items-center"  >
         <div class="w-[45px]">sref</div>
-            <NInput v-model:value="f.sref" size="small" placeholder="图片url 生成风格一致的图像" clearable >
-                 <template #suffix>
-                    <SvgIcon icon="ri:upload-line"  class="cursor-pointer" @click="uploader('sref')"></SvgIcon>
-                </template>
-            </NInput>
-        </section>
-        <section class="mb-4 flex justify-between items-center"  >
-        <div class="w-[45px]">cref</div>
-            <NInput  v-model:value="f.cref" size="small" placeholder="图片url 生成角色一致的图像" clearable>
+
+
+            <NInput  v-model:value="f.cref" size="small" placeholder="Character Reference" clearable>
                 <template #suffix>
                     <SvgIcon icon="ri:upload-line" class="cursor-pointer"  @click="uploader('cref')"></SvgIcon>
                 </template>
             </NInput>
+   		
+        </section>
+        <section class="mb-4 flex justify-between items-center"  >
+        <div class="w-[45px]">cref</div>
+
+            <NInput v-model:value="f.sref" size="small" placeholder="Style Reference" clearable >
+                 <template #suffix>
+                    <SvgIcon icon="ri:upload-line"  class="cursor-pointer" @click="uploader('sref')"></SvgIcon>
+                </template>
+            </NInput>	
+			
         </section>
    
     
@@ -390,11 +384,6 @@ const selectFile3=  (input:any)=>{
                      <div  style="max-width: 240px;" v-html="$t('mjchat.img2textinfo')">
                      </div>
                 </NPopover>
-            </div>
-            <div class="pt-1" >
-                <n-tag type="success" round size="small" style="cursor: pointer; " :bordered="false" @click="shorten()"   >
-                     <div style="display: flex;">  <SvgIcon icon="game-icons:bouncing-spring" /> Shorten </div>
-                </n-tag>
             </div>
 
         </div>

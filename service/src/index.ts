@@ -97,15 +97,11 @@ router.post('/session', async (req, res) => {
     const isCloseMdPreview = process.env.CLOSE_MD_PREVIEW?true:false
     const uploadType= process.env.UPLOAD_TYPE
     const turnstile= process.env.TURNSTILE_SITE
-    const menuDisable= process.env.MENU_DISABLE??""
-    const visionModel= process.env.VISION_MODEL??""
-    const systemMessage= process.env.SYSTEM_MESSAGE??""
-    const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
 
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
-      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel
+      ,turnstile
     }
     res.send({  status: 'Success', message: '', data})
   }
@@ -321,24 +317,6 @@ app.use('/sunoapi' ,authV2, proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
     //mlog("sunoapi")
     if ( process.env.SUNO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.SUNO_KEY;
     else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
-    proxyReqOpts.headers['Content-Type'] = 'application/json';
-    proxyReqOpts.headers['Mj-Version'] = pkg.version;
-    return proxyReqOpts;
-  },
-  
-}));
-
-
-//代理luma 接口 
-app.use('/luma' ,authV2, proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
-  https: false, limit: '10mb',
-  proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
-  },
-  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    //mlog("sunoapi")
-    if ( process.env.LUMA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.LUMA_KEY;
-    //else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;

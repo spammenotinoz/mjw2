@@ -47,7 +47,7 @@ const getContainerClass = computed(() => {
             <component :is="Component" :key="route.fullPath" />
           </RouterView>
         </NLayoutContent>
-         <Sider />
+         <!-- <Sider /> -->
       </NLayout>
     </div>
     <Permission :visible="needPermission" />

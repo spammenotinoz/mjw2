@@ -28,7 +28,7 @@ initLoad();
         <div v-for="(item, index) in list" :key="index" class="relative" @mousemove="st.pIndex=index" @mouseout="st.pIndex=-1">
             <div class="relative flex items-center justify-center bg-white bg-opacity-10 rounded-[16px] overflow-hidden aspect-[16/8.85] ">
                 <video v-if="item.video?.url|| item.video?.download_url" :src="item.video?.download_url? item.video?.download_url:item.video?.url" loop  playsinline  :controls="st.pIndex==index" class="w-full h-full object-cover"></video>
-                <div class=" text-center" v-else>
+				<div class=" text-center" v-else>
                     
                     <NButton  size="small" type="primary" @click="FeedLumaTask( item.id )"   v-if="!item.last_feed|| ((new Date().getTime())-item.last_feed)>20*1000" >{{$t('video.repeat')}}</NButton>
                     <div class="pt-2" v-else>{{$t('video.process')}}{{ new Date(item.last_feed).toLocaleString() }}</div>
@@ -45,8 +45,8 @@ initLoad();
                 </n-popover>
                 
                 </div>
-                <div> 
-                     <a :href="item.video?.download_url? item.video?.download_url:item.video?.url" download  target="_blank" v-if="item.video?.url|| item.video?.download_url"  ><SvgIcon icon="mdi:download" class="cursor-pointer"/></a>
+                <div>
+                     <a :href="item.video?.download_url? item.video?.download_url:item.video?.url" download  target="_blank" v-if="item.video?.url|| item.video?.download_url"  ><SvgIcon icon="mdi:download" class="cursor-pointer"/></a>                     
                 </div>
             </div>
         </div>

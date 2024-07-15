@@ -1,44 +1,38 @@
 <script setup lang='ts'>
 import { computed, ref } from 'vue'
 import { NButton, NInput, NModal, useMessage } from 'naive-ui'
-import { fetchVerify } from '@/api'
+import { createClient } from '@supabase/supabase-js'
 import { useAuthStore } from '@/store'
 import Icon403 from '@/icons/403.vue'
 
-interface Props {
-  visible: boolean
-}
-
-defineProps<Props>()
-
 const authStore = useAuthStore()
-
 const ms = useMessage()
-
 const loading = ref(false)
-const token = ref('')
+const email = ref('')
+const password = ref('')
+const disabled = computed(() => !email.value.trim() || !password.value.trim() || loading.value)
+const supabaseUrl = import.meta.env.NEXT_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.NEXT_SUPABASE_ANON_KEY
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-const disabled = computed(() => !token.value.trim() || loading.value)
-
-async function handleVerify() {
-  const secretKey = token.value.trim()
-
-  if (!secretKey)
-    return
-
+async function handleSupabaseAuth(email, password) {
   try {
     loading.value = true
-    await fetchVerify(secretKey)
-    authStore.setToken(secretKey)
-    ms.success('success')
-    window.location.reload()
-  }
-  catch (error: any) {
-    ms.error(error.message ?? 'error')
-    authStore.removeToken()
-    token.value = ''
-  }
-  finally {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    if (error) {
+      ms.error(error.message)
+      return
+    }
+    const { session } = data
+    authStore.setToken(session.access_token)
+    ms.success('Authentication successful')
+  } catch (error) {
+    ms.error('An error occurred during authentication')
+    console.error(error)
+  } finally {
     loading.value = false
   }
 }
@@ -46,13 +40,13 @@ async function handleVerify() {
 function handlePress(event: KeyboardEvent) {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault()
-    handleVerify()
+    handleSupabaseAuth(email.value, password.value)
   }
 }
 </script>
 
 <template>
-  <NModal :show="visible" style="width: 90%; max-width: 640px">
+  <NModal :show="authStore.isAuthRequired" style="width: 90%; max-width: 640px">
     <div class="p-10 bg-white rounded dark:bg-slate-800">
       <div class="space-y-4">
         <header class="space-y-2">
@@ -64,16 +58,19 @@ function handlePress(event: KeyboardEvent) {
           </p>
           <Icon403 class="w-[200px] m-auto" />
         </header>
-        <NInput v-model:value="token" type="password" placeholder="" @keypress="handlePress" />
-        <NButton
-          block
-          type="primary"
-          :disabled="disabled"
-          :loading="loading"
-          @click="handleVerify"
-        >
-          {{ $t('common.verify') }}
-        </NButton>
+        <div class="space-y-4">
+          <NInput v-model:value="email" type="email" placeholder="Email" />
+          <NInput v-model:value="password" type="password" placeholder="Password" @keypress="handlePress" />
+          <NButton
+            block
+            type="primary"
+            :disabled="disabled"
+            :loading="loading"
+            @click="handleSupabaseAuth(email, password)"
+          >
+            {{ $t('common.login') }}
+          </NButton>
+        </div>
       </div>
     </div>
   </NModal>
