@@ -8,76 +8,79 @@ import sunoLayout from '@/views/suno/layout.vue'
 import lumaLayout from '@/views/luma/layout.vue'
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'Root',
-    component: ChatLayout,
-    redirect: '/chat',
-    children: [
-      {
-        path: '/chat/:uuid?',
-        name: 'Chat',
-        component: () => import('@/views/chat/index.vue'),
-      },
-    ],
-  },
-   {
-    path: '/g',
-    name: 'g',
-    component: ChatLayout,
-    redirect: '/g/g-2fkFE8rbu',
-    children: [
-      {
-        path: '/g/:gid',
-        name: 'GPTs',
-        component: () => import('@/views/chat/index.vue'),
-      },
-    ],
-  },
-   {
-    path: '/m',
-    name: 'm',
-    component: ChatLayout,
-    redirect: '/m/gpt-3.5-turbo',
-    children: [
-      {
-        path: '/m/:gid',
-        name: 'Model',
-        component: () => import('@/views/chat/index.vue'),
-      },
-    ],
-  },
-  {
-    path: '/s',
-    name: 's',
-    component: ChatLayout,
-    redirect: '/s/t',
-    children: [
-      {
-        path: '/s/t',
-        name: 'Setting',
-        component: () => import('@/views/chat/index.vue'),
-      },
-    ],
-  },
-
-
-  {
-    path: '/draw',
-    name: 'Rootdraw',
-    component: mjlayout,
-    redirect: '/draw/index',
-    children: [
-      {
-        path: '/draw/:uuid?',
-        name: 'draw',
-        component: () => import('@/views/mj/draw.vue'),
-      },
-    ],
-  },
-
+    // Move the SignIn route to the top
     {
-    path: '/music',
+        path: '/signin',
+        name: 'SignIn',
+        component: () => import('@/views/SignIn.vue'),
+    },
+    {
+        path: '/',
+        name: 'Root',
+        component: mjlayout,
+        redirect: '/draw',
+        children: [
+            {
+                path: '/draw/:uuid?',
+                name: 'Chat',
+                component: () => import('@/views/mj/draw.vue'),
+            },
+        ],
+    },
+    {
+        path: '/g',
+        name: 'g',
+        component: ChatLayout,
+        redirect: '/g/g-2fkFE8rbu',
+        children: [
+            {
+                path: '/g/:gid',
+                name: 'GPTs',
+                component: () => import('@/views/mj/draw.vue'),
+            },
+        ],
+    },
+    {
+        path: '/m',
+        name: 'm',
+        component: ChatLayout,
+        redirect: '/m/gpt-3.5-turbo',
+        children: [
+            {
+                path: '/m/:gid',
+                name: 'Model',
+                component: () => import('@/views/mj/draw.vue'),
+            },
+        ],
+    },
+    {
+        path: '/s',
+        name: 's',
+        component: ChatLayout,
+        redirect: '/s/t',
+        children: [
+            {
+                path: '/s/t',
+                name: 'Setting',
+                component: () => import('@/views/mj/draw.vue'),
+            },
+        ],
+    },
+    {
+        path: '/draw',
+        name: 'Rootdraw',
+        component: mjlayout,
+        redirect: '/draw/index',
+        children: [
+            {
+                path: '/draw/:uuid?',
+                name: 'draw',
+                component: () => import('@/views/mj/draw.vue'),
+            },
+        ],
+    },
+	{
+	path: '/music',
     name: 'music',
     component: sunoLayout,
     redirect: '/music/index',
@@ -88,11 +91,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/suno/music.vue'),
       },
     ],
+    },
 
-    
-
-  },
-  {
+   {
     path: '/video',
     name: 'video',
     component: lumaLayout,
@@ -104,9 +105,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/luma/video.vue'),
       },
     ],
-  },
+	},
 
-  {
+   {
     path: '/dance',
     name: 'dance',
     component: lumaLayout,
@@ -118,43 +119,36 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/viggle/dance.vue'),
       },
     ],
-  },
+   },
 
-  //调试
-  // {
-  //   path: '/mytest',
-  //   name: 'mytest',
-  //   component: () => import('@/views/mj/myTest.vue'),
-  // },
-
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/exception/404/index.vue'),
-  },
-
-  {
-    path: '/500',
-    name: '500',
-    component: () => import('@/views/exception/500/index.vue'),
-  },
-
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'notFound',
-    redirect: '/404',
-  },
+		
+    // Moved the catch-all route to the bottom
+    {
+        path: '/404',
+        name: '404',
+        component: () => import('@/views/exception/404/index.vue'),
+    },
+    {
+        path: '/500',
+        name: '500',
+        component: () => import('@/views/exception/500/index.vue'),
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'notFound',
+        redirect: '/404',
+    },
 ]
 
 export const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-  scrollBehavior: () => ({ left: 0, top: 0 }),
+    history: createWebHashHistory(),
+    routes,
+    scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
 setupPageGuard(router)
 
 export async function setupRouter(app: App) {
-  app.use(router)
-  await router.isReady()
+    app.use(router)
+    await router.isReady()
 }
