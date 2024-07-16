@@ -36,20 +36,17 @@ const generate= async ()=>{
     try{
         let url= '/generations/';
         if(exLuma.value) url= `/generations/${exLuma.value.id}/extend`
-        //homeStore.myData.is_luma_pro?'/pro':''
-        //if(homeStore)
+
         const is_luma_pro=homeStore.myData.is_luma_pro
-        if (is_luma_pro) url= '/pro'+url
+        //if (is_luma_pro) url= '/pro'+url
         const d:any=  await lumaFetch(url, luma.value);
         mlog("d", d )
-        // if(d.id ) FeedLumaTask(d.id )
-        // else FeedLumaTask(d[0].id )
         
         const taskID= d.id??d[0].id
-        if( is_luma_pro ){
-            const hk= new lumaHkStore();
-            hk.save({id:taskID,isHK:true})
-        }
+        //if( is_luma_pro ){
+        //    const hk= new lumaHkStore();
+        //    hk.save({id:taskID,isHK:true})
+        //}
        
         
         ms.success( t('video.submitSuccess'))
@@ -59,7 +56,7 @@ const generate= async ()=>{
         
     }
     st.value.isDo= false
-    //FeedLumaTask('33ace512-9a46-40ab-9d08-a05eff989831')
+    
 }
 
 function selectFile(input:any){
@@ -154,10 +151,6 @@ const mvOption= [
                 <video v-if="exLuma.video?.url|| exLuma.video?.download_url" :src="exLuma.video?.download_url? exLuma.video?.download_url:exLuma.video?.url" @error="$event.target.src=exLuma.video?.url" loop  playsinline  controls class="w-full h-full object-cover"></video>    
         </div>
             
-    </div>
-
-    <div  class="pt-1" v-if="isHK">
-        <n-select v-model:value="st.version" :options="mvOption" size="small" />
     </div>
     
     <div class="pt-1">
