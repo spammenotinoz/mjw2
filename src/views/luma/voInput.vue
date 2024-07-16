@@ -22,16 +22,10 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
-onMounted(() => {
-    homeStore.setMyData({ms:ms})
-    st.value.version= gptServerStore.myData.IS_LUMA_PRO?'pro':'relax'
-});
-
-
-
 const canPost = computed(() => {
     return luma.value.user_prompt!='' && !st.value.isDo
 })
+
 const generate= async ()=>{
     mlog("generate", luma.value )
     st.value.isDo= true
