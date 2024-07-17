@@ -5,8 +5,8 @@ import { ViggleTask, viggleStore } from "./viggleStore";
 import { lumaHkStore } from "./lumaStore";
 
 function initializeLumaConfig() {
-  const lumaKey = import.meta.env.VITE_VIGGLE_KEY;
-  const lumaServer = import.meta.env.VITE_VIGGLE_SERVER;
+  const viggleKey = import.meta.env.VITE_VIGGLE_KEY;
+  const viggleServer = import.meta.env.VITE_VIGGLE_SERVER;
   
   //if (lumaKey && lumaServer) {
     gptServerStore.myData.VIGGLE_KEY = viggleKey;
