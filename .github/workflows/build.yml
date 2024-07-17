@@ -31,7 +31,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: spammenotinoz/chatgpt-web-midjourney-proxy
+          images: spammenotinoz/mjw2
           tags: |
             type=raw,value=latest
             type=ref,event=branch
