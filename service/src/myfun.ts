@@ -25,14 +25,14 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   
 });
 
-export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
+export const viggleProxy=proxy(process.env.VITE.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
-    if ( process.env.VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VIGGLE_KEY;
+    if ( process.env.VITE_VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VITE_VIGGLE_KEY;
     else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
@@ -49,7 +49,7 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
     let  API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
-    API_BASE_URL= process.env.VIGGLE_SERVER??  API_BASE_URL
+    API_BASE_URL= process.env.VITE_VIGGLE_SERVER??  API_BASE_URL
     if(req.file.buffer) {
       const fileBuffer = req.file.buffer;
       const formData = new FormData();
@@ -59,7 +59,7 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
        let url = `${API_BASE_URL}${req.originalUrl}` ;
       let responseBody = await axios.post( url , formData, {
               headers: {
-              Authorization: 'Bearer '+ (process.env.VIGGLE_KEY??process.env.OPENAI_API_KEY) ,
+              Authorization: 'Bearer '+ (process.env.VITE_VIGGLE_KEY??process.env.OPENAI_API_KEY) ,
               'Content-Type': 'multipart/form-data',
               //'Mj-Version': pkg.version
             }
