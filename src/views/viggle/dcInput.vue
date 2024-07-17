@@ -218,11 +218,7 @@ onMounted(() => {
             </div> 
         </div>
     </div>
-
-    <div  class="pt-2" v-if="isHK">
-        <n-select v-model:value="st.version" :options="mvOption" size="small" />
-    </div>
-    
+   
     <div class="pt-2 flex justify-center items-center w-full">
          <NButton block :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
     </div>

@@ -417,7 +417,7 @@ export default {
   }
    ,video: {
     menu: "Videos",
-    menuinfo: "Luma and other video generate",
+    menuinfo: "AI Videos Generate",
     descpls: "Video generate description",
     lumaabout: "About Luma",
     lumaserver: "Luma API endpoint",
@@ -438,7 +438,7 @@ export default {
   },
   dance:{
     menu: "Dance",
-    menuinfo: "Create dance videos with Viggle and others.",
+    menuinfo: "Create dance videos",
     character: "Character",
     viggleabout: "About Viggle",
     viggleserver: "Viggle API Endpoint",

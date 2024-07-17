@@ -57,5 +57,7 @@ jobs:
           build-args: |
                 VITE_LUMA_KEY=${{ secrets.VITE_LUMA_KEY }}
                 VITE_LUMA_SERVER=${{ secrets.VITE_LUMA_SERVER }}
+                VITE_VIGGLE_KEY=${{ secrets.VITE_VIGGLE_KEY }}
+                VITE_VIGGLE_SERVER=${{ secrets.VITE_VIGGLE_SERVER }}
           cache-from: ${{ inputs.use-cache == 'true' && 'type=gha' || 'type=local,src=/tmp' }}
           cache-to: ${{ inputs.use-cache == 'true' && 'type=gha, mode=max' || 'type=local,dest=/tmp' }}

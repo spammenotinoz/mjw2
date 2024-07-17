@@ -74,6 +74,6 @@ initLoad()
     </div>
 </div> 
 <div class="w-full h-full flex justify-center items-center" v-else>
-    <NEmpty description="请先创作才有跳舞视频列表"></NEmpty>
+    <NEmpty description="Empty please create a video first"></NEmpty>
 </div>
 </template>
