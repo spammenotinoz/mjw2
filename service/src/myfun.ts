@@ -25,7 +25,7 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   
 });
 
-export const viggleProxy=proxy(process.env.VITE.VIGGLE_SERVER??  API_BASE_URL, {
+export const viggleProxy=proxy(process.env.VITE_VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
