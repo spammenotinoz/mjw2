@@ -1,9 +1,9 @@
 {
-  "name": "chatgpt-web-midjourney-proxy",
+  "name": "UAI Design Stuido",
   "version": "2.19.7",
   "private": false,
-  "description": "ChatGPT Web Midjourney Proxy",
-  "author": "Dooy <ydlhero@gmail.com>",
+  "description": "UAI Design Stuido",
+  "author": "",
   "keywords": [
     "chatgpt-web",
     "chatgpt",
@@ -29,6 +29,7 @@
     "common:prepare": "husky install"
   },
   "dependencies": {
+	"@supabase/supabase-js": "^1.28.5",
     "@ffmpeg/ffmpeg": "^0.12.10",
     "@ffmpeg/util": "^0.12.1",
     "@traptitech/markdown-it-katex": "^3.6.0",
