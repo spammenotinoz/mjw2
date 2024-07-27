@@ -211,7 +211,7 @@ watch(()=>homeStore.myData.act, (n)=>{
                 <div  class="pt-5">
                     <div class="flex justify-between pb-3">
                         <div class="text-[12px]"> {{ $t('suno.extendAt') }} {{ cs.continue_at }}s</div>
-                        <NTag  type="success" size="small" round  ><span class="cursor-pointer" @click="cs.continue_clip_id=''" >清除</span></NTag>
+                        <NTag  type="success" size="small" round  ><span class="cursor-pointer" @click="cs.continue_clip_id=''" >Clear</span></NTag>
 
                     </div>
                     <n-slider v-model:value="cs.continue_at" :step="1" :max="Math.ceil( exSuno.metadata.duration)">
