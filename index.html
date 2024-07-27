@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 	<meta content="yes" name="apple-mobile-web-app-capable"/>
-	<link rel="apple-touch-icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
 	<title>Midjourney Web</title>
@@ -46,7 +48,6 @@
 			}
 
 			@keyframes left-swing {
-
 				50%,
 				100% {
 					transform: translateX(95%);
@@ -77,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="module" src="/src/main.ts"></script>
+	<script type="module" src="/src/main.ts?v=<%=Date.now()%>"></script>
 </body>
 
 </html>
