@@ -183,16 +183,4 @@ const mvOption= [
         </div>  
     </div>
 </div>
-
-<n-tabs type="line"  animated :default-value="gptServerStore.myData.TAB_VIDEO"  @update:value="handleUpdateValue">
-    <n-tab-pane name="" tab="">
-    </n-tab-pane>
-    <n-tab-pane name="luma" tab="Luma">
-        <LumaInput />
-    </n-tab-pane>
-    <n-tab-pane name="runway" tab="Runway">
-        <RunwayInput />
-    </n-tab-pane>
-</n-tabs>
-
 </template>
