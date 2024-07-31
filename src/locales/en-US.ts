@@ -361,6 +361,7 @@ export default {
 			moody: "Moody",
 		},
 		versionList: {
+		    mjV61: "MJ V6.1",
 			mjV6: "MJ V6",
 			mjV52: "MJ V5.2",
 			mjV51: "MJ V5.1",
