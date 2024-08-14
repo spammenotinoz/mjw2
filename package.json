@@ -1,9 +1,9 @@
 {
-  "name": "ai-design-studio",
-  "version": "2.19.8",
+  "name": "chatgpt-web-midjourney-proxy",
+  "version": "2.20.1",
   "private": false,
-  "description": "AI Design Studio",
-  "author": "",
+  "description": "ChatGPT Web Midjourney Proxy",
+  "author": "Dooy <ydlhero@gmail.com>",
   "keywords": [
     "chatgpt-web",
     "chatgpt",
@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
-	"@supabase/supabase-js": "^1.28.5",
     "@ffmpeg/util": "^0.12.1",
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@vueuse/core": "^9.13.0",
