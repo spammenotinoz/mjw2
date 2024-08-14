@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "ChatGPT-MJ",
+    "productName": "UltimateAI-Studio",
     "version": "2.20.1"
   },
   "tauri": {
