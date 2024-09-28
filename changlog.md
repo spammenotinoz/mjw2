@@ -1,6 +1,42 @@
 # 功能升级日志
 
 #  计划 
+# 2.21.1
+- 😄 优化：dall格式图片本地存储（flex,idemgram 不会图片链接过期而找不到 ）
+- 😄 优化：kling图片本地存储
+
+# 2.20.10
+- 😄 新增：模型 `o1-preview` `o1-mini`
+
+# 2.20.9
+- 🐞 修复：kling 图片提交
+- 😄 新增：可灵 kling 的镜头运用
+
+# 2.20.8
+- 😄 新增：可灵 kling 视频 绘图模块
+
+# 2.20.7
+- 😄 新增：runway 可以 extend
+- 🐞 修复：ideogram 清空
+
+# 2.20.6
+- 😄 新增： 画图 ideogram 相关模块
+
+# 2.20.5
+- 😄 新增： flux 相关模型的dall.e格式
+- 🐞 修复：claude-3-5，maxtoken问题 #495
+
+# 2.20.4
+- 🐞 修复：更新了背景图版本后。聊天窗口内容上下滚动有时候会失效，要重新刷新页面才能滚动 #490
+- 🐞 修复：docker部署能不用在编排的时候填写key
+
+# 2.20.3
+- 🤖 合并： 新增自定义背景图片 #488 @Yanyutin753
+- 💄 合并： 优化文件上传样式 #487 @Yanyutin753
+- 💄 合并： AUTH_SECRET_KEY 新增多密钥支持，使用,隔开 #484 @Yanyutin753 
+- 😄 新增： runway Gen3a Turbo
+- 😄 新增： UI服务端 同步 `runway` `viggle` 设置
+
 # 2.20.2
 - 😄 新增：gemini-1.5-pro-exp-0801
 - 😄 新增：chatgpt-4o-latest

@@ -60,6 +60,7 @@ export default {
     avatarLink: '头像链接',
     name: '名称',
     description: '描述',
+    backgroundImage: '背景图片',
     role: '角色设定',
     temperature: 'Temperature',
     top_p: 'Top_p',
@@ -297,6 +298,34 @@ export default {
     ,subtle:'高清2倍'
     ,creative:'高清2倍.创意'
     ,gpt_gx:'GPTs用g-*'
+
+    ,ideoabout:'Ideogram 相关'
+    ,ideoserver:'Ideogram 接口地址'
+    ,ideokeyPlaceholder:'Ideogram 的API Key 可不填'
+    ,ideopls:'图片描述 提示词'
+    ,nohead:'不含'
+
+    ,klingabout:'可灵 相关'
+    ,klingserver:'可灵 接口地址'
+    ,klingkeyPlaceholder:'可灵 的API Key 可不填'
+    ,klingkey:'可灵 Key'
+    ,mode:'模式'
+    ,duration:'时长'
+    ,negative_prompt:'不含物体的文字放这儿'
+    ,std:'高性能'
+    ,pro:'高表现'
+    ,needImg:'请传参考图才生效！'
+    ,seed:'种子数字 1~2147483647'
+    ,klingInfo:'说明： <li>1. 高表现是3.5倍的价格</li>  <li>2. 10s是2倍的价格</li> <li>3. 尾帧必须有参考图片才生效</li>'
+
+    ,camera_type:'镜头'
+    ,cnull:'智能匹配'
+    ,down_back: '下移拉远'
+    ,forward_up: '推进上移'
+    ,right_turn_forward: '右旋推进'
+    ,left_turn_forward: '左旋推进'
+
+    ,kling:'可灵'
   },
 
 	draw: {
@@ -450,13 +479,15 @@ export default {
     runwayserver:'Runway 接口地址',
     setOpenKeyPlaceholder2:'Runway API 的key, 可不填',
     endImg:'尾帧图',
-    runwayinfo:'说明：<ul><li>1. Runway 图片与视频都有有效期</li>  <li>2. 请在生成视频后30分钟内将mp4保存到本地</li>  <li>3. 过期重新获取，可能存在账号下线而获取失败</li></ul>',
+    runwayinfo:'说明：<ul><li>1. Runway 图片与视频都有有效期</li>  <li>2. 请在生成视频后30分钟内将mp4保存到本地</li>  <li>3. 过期重新获取，可能存在账号下线而获取失败</li><li>4. Gen3A Turbo 必须带图</li></ul>',
     nosup:'暂不支持',
     rwgen2:'版本: Gen-2, 价格实惠',
     rwgen3:'版本: Gen-3 Alpha',
     rwgen3fast:'版本: Gen-3 Alpha Fast',
-
     repeat2:'过期.重新获取',
+
+    rwgen3turbo:'版本: Gen-3 Alpha Turbo',
+    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图',
 
   }
   ,dance:{

@@ -194,8 +194,35 @@ export default {
 
   ,subtle: 'High definition 2x'
   ,creative: 'High definition 2x. Creative'
-  ,gpt_gx: 'GPTs use g-*'
+  ,gpt_gx: 'GPTs use g-*',
+
+  "ideoabout": "About Ideogram",
+  "ideoserver": "Ideogram Server",
+  "ideokeyPlaceholder": "API Key for Ideogram (optional)",
+  "ideopls": "Image description prompts",
+  "nohead": "Excludes",
+
+  klingabout: 'Kling About',
+  klingserver: 'Kling API Address',
+  klingkeyPlaceholder: 'Kling API Key (optional)',
+  klingkey: 'Kling Key',
+  mode: 'Mode',
+  duration: 'Duration',
+  negative_prompt: 'Place text without objects here',
+  std: 'High Performance',
+  pro: 'High Quality',
+  needImg: 'Please upload a reference image for it to take effect!',
+  seed: 'Seed number 1~2147483647',
+  klingInfo: 'Description: <li>1. High Quality is 3.5 times the price</li> <li>2. 10s is 2 times the price</li> <li>3. The last frame must have a reference image to take effect</li>'
   
+  ,"camera_type": "Lens",
+  "cnull": "Smart Matching",
+  "down_back": "Move Down and Zoom Out",
+  "forward_up": "Push Forward and Move Up",
+  "right_turn_forward": "Turn Right and Push Forward",
+  "left_turn_forward": "Turn Left and Push Forward"
+  ,kling:'Kling'
+
   },
   "mjset": {
     "server": "Server",
@@ -445,7 +472,10 @@ export default {
     "nosup": "Not supported temporarily",
     "rwgen2": "Version: Gen-2, cost-effective",
     "rwgen3": "Version: Gen-3 Alpha",
-    "repeat2":"Expired.Reget"
+    "repeat2":"Expired.Reget",
+
+    rwgen3turbo:'Version: Gen-3 Alpha Turbo',
+    gen3a_turbo_img:'Gen-3 Alpha Turbo must image',
 
   },
   dance:{
