@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "ChatGPT-MJ",
+    "productName": "ai-design-studio",
     "version": "2.21.1"
   },
   "tauri": {
