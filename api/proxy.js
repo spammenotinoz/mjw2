@@ -7,14 +7,14 @@ module.exports = (req, res) => {
     let headers= {}
     // 代理目标地址
     if (req.url.startsWith('/mjapi')) { //这里使用/api可能会与vercel serverless 的 api 路径冲突，根据接口进行调整
-        target = process.env.VITE_MJ_SERVER??'https://api.openai.com';
+        target = import.meta.env.VITE_MJ_SERVER??'https://api.openai.com';
         headers= {
-            'Mj-Api-Secret': process.env.VITE_MJ_API_SECRET // 添加自定义请求头
+            'Mj-Api-Secret': import.meta.env.VITE_MJ_API_SECRET // 添加自定义请求头
         }
     }else if(req.url.startsWith('/openapi')){
-        target = process.env.VITE_OPENAI_API_BASE_URL??'https://api.openai.com';
+        target = import.meta.env.VITE_OPENAI_API_BASE_URL??'https://api.openai.com';
         headers= {
-            'Authorization': 'Bearer ' +process.env.VITE_OPENAI_API_KEY // 添加自定义请求头
+            'Authorization': 'Bearer ' +import.meta.env.VITE_OPENAI_API_KEY // 添加自定义请求头
         }
     }
     // 创建代理对象并转发请求
