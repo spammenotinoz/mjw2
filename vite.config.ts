@@ -36,6 +36,21 @@ export default defineConfig(() => {
     VITE_APP_API_BASE_URL: process.env.VITE_APP_API_BASE_URL || 'http://localhost:3002',
     VITE_GLOB_OPEN_LONG_REPLY: process.env.VITE_GLOB_OPEN_LONG_REPLY || 'false',
     VITE_GLOB_APP_PWA: process.env.VITE_GLOB_APP_PWA || 'false',
+	VITE_SYS_THEME:  process.env.VITE_SYS_THEME,
+	VITE_HIDE_SERVER: process.env.VITE_HIDE_SERVER,
+	VITE_HIDE_MENUS: process.env.VITE_HIDE_MENUS,
+	VITE_MJ_SERVER:  process.env.VITE_MJ_SERVER,
+	VITE_MJ_KEY: process.env.VITE_MJ_KEY,
+	VITE_LUMA_SERVER: process.env.VITE_LUMA_SERVER,
+	VITE_LUMA_KEY: process.env.VITE_LUMA_KEY,
+	VITE_SUNO_SERVER: process.env.VITE_SUNO_SERVER,
+	VITE_SUNO_KEY: process.env.VITE_SUNO_KEY,
+	VITE_RUNWAY_SERVER: process.env.VITE_RUNWAY_SERVER,
+	VITE_RUNWAY_KEY: process.env.VITE_RUNWAY_KEY,
+	VITE_VIGGLE_SERVER: process.env.VITE_VIGGLE_SERVER,
+	VITE_VIGGLE_KEY: process.env.VITE_VIGGLE_KEY,
+	
+
   };
 
   return {
