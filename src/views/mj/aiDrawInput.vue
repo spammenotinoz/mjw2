@@ -52,14 +52,6 @@ watch(()=>st.value.drawType, (n:string)=> {
 
     </n-tab-pane>
     
-//    <n-tab-pane name="dall3" tab="Dall.E">
-//     <div class="p-4"><aiDall  /></div>
-//    </n-tab-pane>
-
-//    <n-tab-pane name="ideogram" tab="IdeoGram">
-//     <div class="p-2"> <aiIdeoInput/> </div>
-//    </n-tab-pane>
-
     <n-tab-pane name="Close" v-if="isMobile" >
       <template #tab>
       <div class=" text-center flex justify-center items-center"   @click="$emit('close')"  ><SvgIcon icon="ri:close-circle-line"></SvgIcon></div>
