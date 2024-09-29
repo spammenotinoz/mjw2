@@ -44,7 +44,7 @@ import { useUserStore } from "@/store";
 
 let controller = new AbortController();
 
-const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === "true";
+const openLongReply = import.meta.env.GLOB_OPEN_LONG_REPLY === "true";
 
 const route = useRoute();
 const dialog = useDialog();

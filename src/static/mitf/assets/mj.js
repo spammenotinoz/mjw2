@@ -15688,7 +15688,7 @@ var Xr = "DISPATCH", ge;
       c.ENCOURAGE_HW_ACCELERATION = "ENCOURAGE_HW_ACCELERATION",
       c.CAPTURE_LOG = "CAPTURE_LOG",
       c.SET_ORIENTATION_LOCK_STATE = "SET_ORIENTATION_LOCK_STATE",
-      c.OPEN_INVITE_DIALOG = "OPEN_INVITE_DIALOG",
+      c.OPEN_INDIALOG = "OPEN_INDIALOG",
       c.GET_PLATFORM_BEHAVIORS = "GET_PLATFORM_BEHAVIORS",
       c.GET_CHANNEL_PERMISSIONS = "GET_CHANNEL_PERMISSIONS",
       c.OPEN_SHARE_MOMENT_DIALOG = "OPEN_SHARE_MOMENT_DIALOG",
@@ -16382,7 +16382,7 @@ function Co({cmd: c, data: a}) {
     case ge.SET_ORIENTATION_LOCK_STATE:
     case ge.SET_CERTIFIED_DEVICES:
     case ge.SEND_ANALYTICS_EVENT:
-    case ge.OPEN_INVITE_DIALOG:
+    case ge.OPEN_INDIALOG:
     case ge.CAPTURE_LOG:
     case ge.OPEN_SHARE_MOMENT_DIALOG:
       return mn.parse(a);
@@ -16691,7 +16691,7 @@ var su = c=>ht(c, ge.AUTHENTICATE, Ls)
   , du = c=>ht(c, ge.GET_CHANNEL_PERMISSIONS, Gs)
   , pu = c=>ht(c, ge.GET_PLATFORM_BEHAVIORS, Hs)
   , _u = c=>ht(c, ge.OPEN_EXTERNAL_LINK, mn)
-  , gu = c=>ht(c, ge.OPEN_INVITE_DIALOG, mn)
+  , gu = c=>ht(c, ge.OPEN_INDIALOG, mn)
   , vu = c=>ht(c, ge.OPEN_SHARE_MOMENT_DIALOG, mn);
 xn.pick({
   state: !0,

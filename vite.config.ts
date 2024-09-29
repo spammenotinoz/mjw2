@@ -33,22 +33,22 @@ function setupPlugins(env: any): PluginOption[] {
 export default defineConfig(() => {
   // Access system environment variables
   const viteEnv = {
-    VITE_APP_API_BASE_URL: process.env.VITE_APP_API_BASE_URL || 'http://localhost:3002',
-    VITE_GLOB_OPEN_LONG_REPLY: process.env.VITE_GLOB_OPEN_LONG_REPLY || 'false',
-    VITE_GLOB_APP_PWA: process.env.VITE_GLOB_APP_PWA || 'false',
-	VITE_SYS_THEME:  process.env.VITE_SYS_THEME,
-	VITE_HIDE_SERVER: process.env.VITE_HIDE_SERVER,
-	VITE_HIDE_MENUS: process.env.VITE_HIDE_MENUS,
-	VITE_MJ_SERVER:  process.env.VITE_MJ_SERVER,
-	VITE_MJ_KEY: process.env.VITE_MJ_KEY,
-	VITE_LUMA_SERVER: process.env.VITE_LUMA_SERVER,
-	VITE_LUMA_KEY: process.env.VITE_LUMA_KEY,
-	VITE_SUNO_SERVER: process.env.VITE_SUNO_SERVER,
-	VITE_SUNO_KEY: process.env.VITE_SUNO_KEY,
-	VITE_RUNWAY_SERVER: process.env.VITE_RUNWAY_SERVER,
-	VITE_RUNWAY_KEY: process.env.VITE_RUNWAY_KEY,
-	VITE_VIGGLE_SERVER: process.env.VITE_VIGGLE_SERVER,
-	VITE_VIGGLE_KEY: process.env.VITE_VIGGLE_KEY,
+    APP_API_BASE_URL: process.env.APP_API_BASE_URL || 'http://localhost:3002',
+    GLOB_OPEN_LONG_REPLY: process.env.GLOB_OPEN_LONG_REPLY || 'false',
+    GLOB_APP_PWA: process.env.GLOB_APP_PWA || 'false',
+	SYS_THEME:  process.env.SYS_THEME,
+	HIDE_SERVER: process.env.HIDE_SERVER,
+	HIDE_MENUS: process.env.HIDE_MENUS,
+	MJ_SERVER:  process.env.MJ_SERVER,
+	MJ_KEY: process.env.MJ_KEY,
+	LUMA_SERVER: process.env.LUMA_SERVER,
+	LUMA_KEY: process.env.LUMA_KEY,
+	SUNO_SERVER: process.env.SUNO_SERVER,
+	SUNO_KEY: process.env.SUNO_KEY,
+	RUNWAY_SERVER: process.env.RUNWAY_SERVER,
+	RUNWAY_KEY: process.env.RUNWAY_KEY,
+	VIGGLE_SERVER: process.env.VIGGLE_SERVER,
+	VIGGLE_KEY: process.env.VIGGLE_KEY,
 	
 
   };
@@ -66,7 +66,7 @@ export default defineConfig(() => {
       open: false,
       proxy: {
         '/api': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
+          target: viteEnv.APP_API_BASE_URL,
           changeOrigin: true,
           rewrite: path => path.replace('/api/', '/'),
         },
