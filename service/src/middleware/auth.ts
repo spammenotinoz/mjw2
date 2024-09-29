@@ -11,9 +11,9 @@ const ipErrorCount = {};
 const bannedIPs = {};
 
 export const mlog =(...arg)=>{
-  //const M_DEBUG = import.meta.env.VITE_M_DEBUG
+  //const M_DEBUG = process.env.VITE_M_DEBUG
   // if(['error','log'].indexOf( arg[0] )>-1 ){ //必须显示的
-  // }else  if(! isNotEmptyString(import.meta.env.VITE_M_DEBUG) ) return ;
+  // }else  if(! isNotEmptyString(process.env.VITE_M_DEBUG) ) return ;
   
   const currentDate = new Date();
   const hours = currentDate.getHours().toString().padStart(2, '0');
@@ -30,7 +30,7 @@ export const verify=  async ( req :Request , res:Response ) => {
     if (!token)
       throw new Error('Secret key is empty')
     
-    const auth_secret_keys = import.meta.env.VITE_AUTH_SECRET_KEY? import.meta.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
+    const auth_secret_keys = process.env.VITE_AUTH_SECRET_KEY? process.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
     if (!auth_secret_keys.includes(token))
       throw new Error('密钥无效 | Secret key is invalid')
     clearLimit( req, res);
@@ -44,13 +44,13 @@ export const verify=  async ( req :Request , res:Response ) => {
 export const auth = async ( req :Request , res:Response , next:NextFunction ) => {
   
 
-  const AUTH_SECRET_KEY = import.meta.env.VITE_AUTH_SECRET_KEY
+  const AUTH_SECRET_KEY = process.env.VITE_AUTH_SECRET_KEY
   if (isNotEmptyString(AUTH_SECRET_KEY)) {
     try {
       checkLimit( req, res );
       const Authorization = req.header('Authorization')
-      //const auth_secret_keys = import.meta.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== '');
-      const auth_secret_keys = import.meta.env.VITE_AUTH_SECRET_KEY? import.meta.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
+      //const auth_secret_keys = process.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== '');
+      const auth_secret_keys = process.env.VITE_AUTH_SECRET_KEY? process.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
       if (!Authorization || !auth_secret_keys.includes(Authorization.replace('Bearer ', '').trim()))
         throw new Error('Error: 无访问权限 | No access rights')
       
@@ -71,13 +71,13 @@ const getIp= ( req :Request)=>{
   return  req.ip;
 }
 const checkLimit=  ( req :Request , res:Response )=>{
-  if ( !isNotEmptyString( import.meta.env.VITE_AUTH_SECRET_ERROR_COUNT )) {
+  if ( !isNotEmptyString( process.env.VITE_AUTH_SECRET_ERROR_COUNT )) {
     return ;
   }
   
-  const bTime = import.meta.env.VITE_AUTH_SECRET_ERROR_TIME??10;
+  const bTime = process.env.VITE_AUTH_SECRET_ERROR_TIME??10;
   // 允许的最大错误次数
-  const maxErrorCount =  +import.meta.env.VITE_AUTH_SECRET_ERROR_COUNT;
+  const maxErrorCount =  +process.env.VITE_AUTH_SECRET_ERROR_COUNT;
   // 禁止登录的时间（毫秒）
   let banTime = (+bTime) * 60*1000; // 10分钟
   if( banTime<=0 ) banTime= 10*60*1000;
@@ -104,9 +104,9 @@ const clearLimit=  ( req :Request , res:Response )=>{
 
 export const authV2 = async ( req :Request , res:Response , next:NextFunction ) => {
   
-  const AUTH_SECRET_KEY = import.meta.env.VITE_AUTH_SECRET_KEY
+  const AUTH_SECRET_KEY = process.env.VITE_AUTH_SECRET_KEY
   //const auth_secret_keys = AUTH_SECRET_KEY.trim().split(',').filter(item => item !== '');
-  const auth_secret_keys = import.meta.env.VITE_AUTH_SECRET_KEY? import.meta.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
+  const auth_secret_keys = process.env.VITE_AUTH_SECRET_KEY? process.env.VITE_AUTH_SECRET_KEY.trim().split(',').filter(item => item !== ''):[];
   if (isNotEmptyString(AUTH_SECRET_KEY)) {
     try {
 
@@ -130,13 +130,13 @@ export const authV2 = async ( req :Request , res:Response , next:NextFunction ) 
 
 export const turnstileCheck= async ( req :Request , res:Response , next:NextFunction ) => {
 
-   const TURNSTILE_SITE = import.meta.env.VITE_TURNSTILE_SITE
+   const TURNSTILE_SITE = process.env.VITE_TURNSTILE_SITE
     if (!isNotEmptyString(TURNSTILE_SITE)) {
       next();
       return ;
     }
     //TURNSTILE_NO_CHECK
-    if ( isNotEmptyString( import.meta.env.VITE_TURNSTILE_NO_CHECK)) { //前端显示当时后端不check
+    if ( isNotEmptyString( process.env.VITE_TURNSTILE_NO_CHECK)) { //前端显示当时后端不check
        next();
        return ;
     }
@@ -148,7 +148,7 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
       const Authorization = req.header('X-Vtoken')
         if ( !Authorization  )  throw new Error('无权限访问,请刷新重试 | No access rights by Turnstile')
 
-      const SECRET_KEY=  import.meta.env.VITE_TURNSTILE_SECRET_KEY
+      const SECRET_KEY=  process.env.VITE_TURNSTILE_SECRET_KEY
       let formData = new FormData();
       formData.append('secret', SECRET_KEY);
       formData.append('response', Authorization);
@@ -177,14 +177,14 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
 }
 
 const getCookie=( time:string )=>{
-  return time+'_'+(md5(time + import.meta.env.VITE_TURNSTILE_SECRET_KEY ).substring(0,10) );  
+  return time+'_'+(md5(time + process.env.VITE_TURNSTILE_SECRET_KEY ).substring(0,10) );  
 }
 export const regCookie= async( req :Request , res:Response , next:NextFunction )=>{
   try{
       const Authorization = req.header('X-Vtoken')
         if ( !Authorization ) throw new Error('Turnstile token 缺失')
 
-      const SECRET_KEY=  import.meta.env.VITE_TURNSTILE_SECRET_KEY
+      const SECRET_KEY=  process.env.VITE_TURNSTILE_SECRET_KEY
       let formData = new FormData();
       formData.append('secret', SECRET_KEY);
       formData.append('response', Authorization);

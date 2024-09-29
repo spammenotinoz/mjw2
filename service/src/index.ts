@@ -79,33 +79,33 @@ router.post('/config', auth, async (req, res) => {
 
 router.post('/session', async (req, res) => {
   try {
-    const AUTH_SECRET_KEY = import.meta.env.VITE_AUTH_SECRET_KEY
+    const AUTH_SECRET_KEY = process.env.VITE_AUTH_SECRET_KEY
     const hasAuth = isNotEmptyString(AUTH_SECRET_KEY)
-    const isUpload= isNotEmptyString(  import.meta.env.VITE_API_UPLOADER )
-    const isHideServer= isNotEmptyString(  import.meta.env.VITE_HIDE_SERVER );
-    const amodel=   import.meta.env.VITE_OPENAI_API_MODEL?? "gpt-3.5-turbo" ;
-    const isApiGallery=  isNotEmptyString(  import.meta.env.VITE_MJ_API_GALLERY );
-    const cmodels =   import.meta.env.VITE_CUSTOM_MODELS??'' ;
-    const baiduId=import.meta.env.VITE_TJ_BAIDU_ID?? "" ;
-    const googleId=import.meta.env.VITE_TJ_GOOGLE_ID?? "" ;
-    const notify = import.meta.env.VITE_SYS_NOTIFY?? "" ;
-    const disableGpt4 = import.meta.env.VITE_DISABLE_GPT4?? "" ;
-    const isUploadR2 = isNotEmptyString(import.meta.env.VITE_R2_DOMAIN);
-    const isWsrv =  import.meta.env.VITE_MJ_IMG_WSRV?? "" 
-    const uploadImgSize =  import.meta.env.VITE_UPLOAD_IMG_SIZE?? "1" 
-    const gptUrl = import.meta.env.VITE_GPT_URL?? ""; 
-    const theme = import.meta.env.VITE_SYS_THEME?? "dark"; 
-    const isCloseMdPreview = import.meta.env.VITE_CLOSE_MD_PREVIEW?true:false
-    const uploadType= import.meta.env.VITE_UPLOAD_TYPE
-    const turnstile= import.meta.env.VITE_TURNSTILE_SITE
-    const menuDisable= import.meta.env.VITE_MENU_DISABLE??""
-    const visionModel= import.meta.env.VITE_VISION_MODEL??""
-    const systemMessage= import.meta.env.VITE_SYSTEM_MESSAGE??""
-    const customVisionModel= import.meta.env.VITE_CUSTOM_VISION_MODELS??""
-    const backgroundImage = import.meta.env.VITE_BACKGROUND_IMAGE ?? ""
-    let  isHk= (import.meta.env.VITE_OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
-    if(!isHk)  isHk= (import.meta.env.VITE_LUMA_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
-    if(!isHk)  isHk= (import.meta.env.VITE_VIGGLE_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
+    const isUpload= isNotEmptyString(  process.env.VITE_API_UPLOADER )
+    const isHideServer= isNotEmptyString(  process.env.VITE_HIDE_SERVER );
+    const amodel=   process.env.VITE_OPENAI_API_MODEL?? "gpt-3.5-turbo" ;
+    const isApiGallery=  isNotEmptyString(  process.env.VITE_MJ_API_GALLERY );
+    const cmodels =   process.env.VITE_CUSTOM_MODELS??'' ;
+    const baiduId=process.env.VITE_TJ_BAIDU_ID?? "" ;
+    const googleId=process.env.VITE_TJ_GOOGLE_ID?? "" ;
+    const notify = process.env.VITE_SYS_NOTIFY?? "" ;
+    const disableGpt4 = process.env.VITE_DISABLE_GPT4?? "" ;
+    const isUploadR2 = isNotEmptyString(process.env.VITE_R2_DOMAIN);
+    const isWsrv =  process.env.VITE_MJ_IMG_WSRV?? "" 
+    const uploadImgSize =  process.env.VITE_UPLOAD_IMG_SIZE?? "1" 
+    const gptUrl = process.env.VITE_GPT_URL?? ""; 
+    const theme = process.env.VITE_SYS_THEME?? "dark"; 
+    const isCloseMdPreview = process.env.VITE_CLOSE_MD_PREVIEW?true:false
+    const uploadType= process.env.VITE_UPLOAD_TYPE
+    const turnstile= process.env.VITE_TURNSTILE_SITE
+    const menuDisable= process.env.VITE_MENU_DISABLE??""
+    const visionModel= process.env.VITE_VISION_MODEL??""
+    const systemMessage= process.env.VITE_SYSTEM_MESSAGE??""
+    const customVisionModel= process.env.VITE_CUSTOM_VISION_MODELS??""
+    const backgroundImage = process.env.VITE_BACKGROUND_IMAGE ?? ""
+    let  isHk= (process.env.VITE_OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
+    if(!isHk)  isHk= (process.env.VITE_LUMA_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
+    if(!isHk)  isHk= (process.env.VITE_VIGGLE_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
     
 
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
@@ -123,17 +123,17 @@ router.post('/session', async (req, res) => {
 router.post('/verify', verify)
 router.get('/reg', regCookie )
 
- const API_BASE_URL = isNotEmptyString(import.meta.env.VITE_OPENAI_API_BASE_URL)
-    ? import.meta.env.VITE_OPENAI_API_BASE_URL
+ const API_BASE_URL = isNotEmptyString(process.env.VITE_OPENAI_API_BASE_URL)
+    ? process.env.VITE_OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
-app.use('/mjapi',authV2 , proxy(import.meta.env.VITE_MJ_SERVER?import.meta.env.VITE_MJ_SERVER:'https://api.openai.com', {
+app.use('/mjapi',authV2 , proxy(process.env.VITE_MJ_SERVER?process.env.VITE_MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/mjapi', '') // 将URL中的 `/mjapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    if(  import.meta.env.VITE_MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = import.meta.env.VITE_MJ_API_SECRET;
+    if(  process.env.VITE_MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.VITE_MJ_API_SECRET;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
@@ -171,9 +171,9 @@ const storage2 = multer.memoryStorage();
 const upload2 = multer({ storage: storage2 });
 
 // 处理文件上传的路由
-const isUpload= isNotEmptyString(  import.meta.env.VITE_API_UPLOADER )
+const isUpload= isNotEmptyString(  process.env.VITE_API_UPLOADER )
 if(isUpload){
-  if( import.meta.env.VITE_FILE_SERVER){
+  if( process.env.VITE_FILE_SERVER){
     app.use('/openapi/v1/upload',
     upload2.single('file'),
       async (req, res, next) => {
@@ -184,10 +184,10 @@ if(isUpload){
           formData.append('file',  fileBuffer,  { filename:  req.file.originalname }  );
           //formData.append('model',  req.body.model );
         try{
-          let url = import.meta.env.VITE_FILE_SERVER ;
+          let url = process.env.VITE_FILE_SERVER ;
           let responseBody = await axios.post( url , formData, {
                   headers: {
-                  //Authorization: 'Bearer '+ import.meta.env.VITE_OPENAI_API_KEY ,
+                  //Authorization: 'Bearer '+ process.env.VITE_OPENAI_API_KEY ,
                   'Content-Type': 'multipart/form-data'
                 }
             })   ;
@@ -220,9 +220,9 @@ app.use('/uploads' , express.static('uploads'));
 
 // R2Client function
 const R2Client = () => {
-  const accountId = import.meta.env.VITE_R2_ACCOUNT_ID;
-  const accessKeyId = import.meta.env.VITE_R2_KEY_ID;
-  const accessKeySecret = import.meta.env.VITE_R2_KEY_SECRET;
+  const accountId = process.env.VITE_R2_ACCOUNT_ID;
+  const accessKeyId = process.env.VITE_R2_KEY_ID;
+  const accessKeySecret = process.env.VITE_R2_KEY_SECRET;
   const endpoint = new AWS.Endpoint(`https://${accountId}.r2.cloudflarestorage.com`);
   const s3 = new AWS.S3({
     endpoint: endpoint,
@@ -235,8 +235,8 @@ const R2Client = () => {
 
 // cloudflare R2 upload
 app.post('/openapi/pre_signed', (req, res) => {
-  const bucketName = import.meta.env.VITE_R2_BUCKET_NAME;
-  const domain = import.meta.env.VITE_R2_DOMAIN;
+  const bucketName = process.env.VITE_R2_BUCKET_NAME;
+  const domain = process.env.VITE_R2_DOMAIN;
   const s3 = R2Client();
   const fileName = uuidv4();
   const saveFile = `${new Date().toISOString().split('T')[0]}/${fileName}${req.body.file_name}`;
@@ -282,7 +282,7 @@ app.use(
        let url = `${API_BASE_URL}/v1/audio/transcriptions` ;
       let responseBody = await axios.post( url , formData, {
               headers: {
-              Authorization: 'Bearer '+ import.meta.env.VITE_OPENAI_API_KEY ,
+              Authorization: 'Bearer '+ process.env.VITE_OPENAI_API_KEY ,
               'Content-Type': 'multipart/form-data',
               'Mj-Version': pkg.version
             }
@@ -309,7 +309,7 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
     return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    proxyReqOpts.headers['Authorization'] ='Bearer '+ import.meta.env.VITE_OPENAI_API_KEY;
+    proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.VITE_OPENAI_API_KEY;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
@@ -318,15 +318,15 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
 }));
 
 //代理sunoApi 接口 
-app.use('/sunoapi' ,authV2, proxy(import.meta.env.VITE_SUNO_SERVER??  API_BASE_URL, {
+app.use('/sunoapi' ,authV2, proxy(process.env.VITE_SUNO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
-    if ( import.meta.env.VITE_SUNO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+import.meta.env.VITE_SUNO_KEY;
-    else   proxyReqOpts.headers['Authorization'] ='Bearer '+import.meta.env.VITE_OPENAI_API_KEY;  
+    if ( process.env.VITE_SUNO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VITE_SUNO_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VITE_OPENAI_API_KEY;  
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
