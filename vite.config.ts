@@ -1,22 +1,22 @@
-import path from 'path'
-import type { PluginOption } from 'vite'
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { VitePWA } from 'vite-plugin-pwa'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import path from 'path';
+import type { PluginOption } from 'vite';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { VitePWA } from 'vite-plugin-pwa';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-function setupPlugins(env: ImportMetaEnv): PluginOption[] {
+function setupPlugins(env: any): PluginOption[] {
   return [
     vue(),
     viteStaticCopy({
       targets: [
         {
-          src: path.resolve(__dirname, './src/static/mitf') + '/[!.]*', // 1️⃣
-          dest: './mitf/', // 2️⃣
+          src: path.resolve(__dirname, './src/static/mitf') + '/[!.]*',
+          dest: './mitf/',
         },
       ],
     }),
-    VitePWA({ // env.VITE_GLOB_APP_PWA === 'true' &&
+    VitePWA({
       injectRegister: 'auto',
       manifest: {
         name: 'chatGPT-MJ',
@@ -27,11 +27,16 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
         ],
       },
     }),
-  ]
+  ];
 }
 
-export default defineConfig((env) => {
-  const viteEnv = loadEnv(env.mode, process.cwd()) as unknown as ImportMetaEnv
+export default defineConfig(() => {
+  // Access system environment variables
+  const viteEnv = {
+    VITE_APP_API_BASE_URL: process.env.VITE_APP_API_BASE_URL || 'http://localhost:3002',
+    VITE_GLOB_OPEN_LONG_REPLY: process.env.VITE_GLOB_OPEN_LONG_REPLY || 'false',
+    VITE_GLOB_APP_PWA: process.env.VITE_GLOB_APP_PWA || 'false',
+  };
 
   return {
     resolve: {
@@ -47,39 +52,10 @@ export default defineConfig((env) => {
       proxy: {
         '/api': {
           target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
+          changeOrigin: true,
           rewrite: path => path.replace('/api/', '/'),
         },
-        '/mjapi': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
-          //rewrite: path => path.replace('/api/', '/'),
-        },
-         '/sunoapi': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域  
-        },
-         '/uploads': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
-          //rewrite: path => path.replace('/api/', '/'),
-        }, 
-        '/openapi': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
-          //rewrite: path => path.replace('/api/', '/'),
-        },
-        '/luma': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
-          //rewrite: path => path.replace('/api/', '/'),
-        }, 
-        '/viggle': {
-          target: viteEnv.VITE_APP_API_BASE_URL,
-          changeOrigin: true, // 允许跨域
-          //rewrite: path => path.replace('/api/', '/'),
-        },
-        
+        // Other proxies as needed
       },
     },
     build: {
@@ -89,5 +65,5 @@ export default defineConfig((env) => {
         ignoreTryCatch: false,
       },
     },
-  }
-})
+  };
+});
