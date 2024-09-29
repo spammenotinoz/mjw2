@@ -1,11 +1,11 @@
-import path from 'path';
-import type { PluginOption } from 'vite';
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import { VitePWA } from 'vite-plugin-pwa';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import path from 'path'
+import type { PluginOption } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
-function setupPlugins(env: any): PluginOption[] {
+function setupPlugins(env: ImportMetaEnv): PluginOption[] {
   return [
     vue(),
     viteStaticCopy({
@@ -26,32 +26,16 @@ function setupPlugins(env: any): PluginOption[] {
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
         ],
       },
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true
+      }
     }),
-  ];
+  ]
 }
 
-export default defineConfig(() => {
-  // Access system environment variables
-  const viteEnv = {
-    APP_API_BASE_URL: process.env.APP_API_BASE_URL || 'http://localhost:3002',
-    GLOB_OPEN_LONG_REPLY: process.env.GLOB_OPEN_LONG_REPLY || 'false',
-    GLOB_APP_PWA: process.env.GLOB_APP_PWA || 'false',
-	SYS_THEME:  process.env.SYS_THEME,
-	HIDE_SERVER: process.env.HIDE_SERVER,
-	HIDE_MENUS: process.env.HIDE_MENUS,
-	MJ_SERVER:  process.env.MJ_SERVER,
-	MJ_KEY: process.env.MJ_KEY,
-	LUMA_SERVER: process.env.LUMA_SERVER,
-	LUMA_KEY: process.env.LUMA_KEY,
-	SUNO_SERVER: process.env.SUNO_SERVER,
-	SUNO_KEY: process.env.SUNO_KEY,
-	RUNWAY_SERVER: process.env.RUNWAY_SERVER,
-	RUNWAY_KEY: process.env.RUNWAY_KEY,
-	VIGGLE_SERVER: process.env.VIGGLE_SERVER,
-	VIGGLE_KEY: process.env.VIGGLE_KEY,
-	
-
-  };
+export default defineConfig((env) => {
+  const viteEnv = loadEnv(env.mode, process.cwd()) as unknown as ImportMetaEnv
 
   return {
     resolve: {
@@ -66,11 +50,34 @@ export default defineConfig(() => {
       open: false,
       proxy: {
         '/api': {
-          target: viteEnv.APP_API_BASE_URL,
+          target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true,
           rewrite: path => path.replace('/api/', '/'),
         },
-        // Other proxies as needed
+        '/mjapi': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
+        '/sunoapi': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
+        '/uploads': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
+        '/openapi': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
+        '/luma': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
+        '/viggle': {
+          target: viteEnv.VITE_APP_API_BASE_URL,
+          changeOrigin: true,
+        },
       },
     },
     build: {
@@ -79,6 +86,13 @@ export default defineConfig(() => {
       commonjsOptions: {
         ignoreTryCatch: false,
       },
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/[name].[hash].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]'
+        }
+      }
     },
-  };
-});
+  }
+})
