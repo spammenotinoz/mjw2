@@ -1,7 +1,7 @@
 import { rateLimit } from 'express-rate-limit'
 import { isNotEmptyString } from '../utils/is'
 
-const MAX_REQUEST_PER_HOUR = process.env.MAX_REQUEST_PER_HOUR
+const MAX_REQUEST_PER_HOUR = process.env.VITE_MAX_REQUEST_PER_HOUR
 
 const maxCount = (isNotEmptyString(MAX_REQUEST_PER_HOUR) && !isNaN(Number(MAX_REQUEST_PER_HOUR)))
   ? parseInt(MAX_REQUEST_PER_HOUR)

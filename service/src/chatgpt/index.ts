@@ -23,15 +23,15 @@ const ErrorCodeMessage: Record<string, string> = {
   500: '[OpenAI] 服务器繁忙，请稍后再试 | Internal Server Error',
 }
 
-const timeoutMs: number = !isNaN(+process.env.TIMEOUT_MS) ? +process.env.TIMEOUT_MS : 100 * 1000
-const disableDebug: boolean = process.env.OPENAI_API_DISABLE_DEBUG === 'true'
+const timeoutMs: number = !isNaN(+process.env.VITE_TIMEOUT_MS) ? +process.env.VITE_TIMEOUT_MS : 100 * 1000
+const disableDebug: boolean = process.env.VITE_OPENAI_API_DISABLE_DEBUG === 'true'
 
 let apiModel: ApiModel
-const model = isNotEmptyString(process.env.OPENAI_API_MODEL) ? process.env.OPENAI_API_MODEL : 'gpt-3.5-turbo'
+const model = isNotEmptyString(process.env.VITE_OPENAI_API_MODEL) ? process.env.VITE_OPENAI_API_MODEL : 'gpt-3.5-turbo'
 
-if (!isNotEmptyString(process.env.OPENAI_API_KEY) && !isNotEmptyString(process.env.OPENAI_ACCESS_TOKEN)){
-  process.env.OPENAI_API_BASE_URL="https://api.openai.com"
-  process.env.OPENAI_API_KEY="sk-xxx"
+if (!isNotEmptyString(process.env.VITE_OPENAI_API_KEY) && !isNotEmptyString(process.env.VITE_OPENAI_ACCESS_TOKEN)){
+  process.env.VITE_OPENAI_API_BASE_URL="https://api.openai.com"
+  process.env.VITE_OPENAI_API_KEY="sk-xxx"
 }
   //throw new Error('Missing OPENAI_API_KEY or OPENAI_ACCESS_TOKEN environment variable')
 
@@ -40,11 +40,11 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
 (async () => {
   // More Info: https://github.com/transitive-bullshit/chatgpt-api
 
-  if (isNotEmptyString(process.env.OPENAI_API_KEY)) {
-    const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL
+  if (isNotEmptyString(process.env.VITE_OPENAI_API_KEY)) {
+    const OPENAI_API_BASE_URL = process.env.VITE_OPENAI_API_BASE_URL
 
     const options: ChatGPTAPIOptions = {
-      apiKey: process.env.OPENAI_API_KEY,
+      apiKey: process.env.VITE_OPENAI_API_KEY,
       completionParams: { model },
       debug: !disableDebug,
     }
@@ -78,8 +78,8 @@ let api: ChatGPTAPI | ChatGPTUnofficialProxyAPI
   }
   else {
     const options: ChatGPTUnofficialProxyAPIOptions = {
-      accessToken: process.env.OPENAI_ACCESS_TOKEN,
-      apiReverseProxyUrl: isNotEmptyString(process.env.API_REVERSE_PROXY) ? process.env.API_REVERSE_PROXY : 'https://ai.fakeopen.com/api/conversation',
+      accessToken: process.env.VITE_OPENAI_ACCESS_TOKEN,
+      apiReverseProxyUrl: isNotEmptyString(process.env.VITE_API_REVERSE_PROXY) ? process.env.VITE_API_REVERSE_PROXY : 'https://ai.fakeopen.com/api/conversation',
       model,
       debug: !disableDebug,
     }
@@ -128,8 +128,8 @@ async function chatReplyProcess(options: RequestOptions) {
 }
 
 async function fetchUsage() {
-  const OPENAI_API_KEY = process.env.OPENAI_API_KEY
-  const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL
+  const OPENAI_API_KEY = process.env.VITE_OPENAI_API_KEY
+  const OPENAI_API_BASE_URL = process.env.VITE_OPENAI_API_BASE_URL
 
   if (!isNotEmptyString(OPENAI_API_KEY))
     return Promise.resolve('-')
@@ -179,10 +179,10 @@ function formatDate(): string[] {
 
 async function chatConfig() {
   const usage = await fetchUsage()
-  const reverseProxy = process.env.API_REVERSE_PROXY ?? '-'
-  const httpsProxy = (process.env.HTTPS_PROXY || process.env.ALL_PROXY) ?? '-'
-  const socksProxy = (process.env.SOCKS_PROXY_HOST && process.env.SOCKS_PROXY_PORT)
-    ? (`${process.env.SOCKS_PROXY_HOST}:${process.env.SOCKS_PROXY_PORT}`)
+  const reverseProxy = process.env.VITE_API_REVERSE_PROXY ?? '-'
+  const httpsProxy = (process.env.VITE_HTTPS_PROXY || process.env.VITE_ALL_PROXY) ?? '-'
+  const socksProxy = (process.env.VITE_SOCKS_PROXY_HOST && process.env.VITE_SOCKS_PROXY_PORT)
+    ? (`${process.env.VITE_SOCKS_PROXY_HOST}:${process.env.VITE_SOCKS_PROXY_PORT}`)
     : '-'
   return sendResponse<ModelConfig>({
     type: 'Success',
@@ -191,19 +191,19 @@ async function chatConfig() {
 }
 
 function setupProxy(options: SetProxyOptions) {
-  if (isNotEmptyString(process.env.SOCKS_PROXY_HOST) && isNotEmptyString(process.env.SOCKS_PROXY_PORT)) {
+  if (isNotEmptyString(process.env.VITE_SOCKS_PROXY_HOST) && isNotEmptyString(process.env.VITE_SOCKS_PROXY_PORT)) {
     const agent = new SocksProxyAgent({
-      hostname: process.env.SOCKS_PROXY_HOST,
-      port: process.env.SOCKS_PROXY_PORT,
-      userId: isNotEmptyString(process.env.SOCKS_PROXY_USERNAME) ? process.env.SOCKS_PROXY_USERNAME : undefined,
-      password: isNotEmptyString(process.env.SOCKS_PROXY_PASSWORD) ? process.env.SOCKS_PROXY_PASSWORD : undefined,
+      hostname: process.env.VITE_SOCKS_PROXY_HOST,
+      port: process.env.VITE_SOCKS_PROXY_PORT,
+      userId: isNotEmptyString(process.env.VITE_SOCKS_PROXY_USERNAME) ? process.env.VITE_SOCKS_PROXY_USERNAME : undefined,
+      password: isNotEmptyString(process.env.VITE_SOCKS_PROXY_PASSWORD) ? process.env.VITE_SOCKS_PROXY_PASSWORD : undefined,
     })
     options.fetch = (url, options) => {
       return fetch(url, { agent, ...options })
     }
   }
-  else if (isNotEmptyString(process.env.HTTPS_PROXY) || isNotEmptyString(process.env.ALL_PROXY)) {
-    const httpsProxy = process.env.HTTPS_PROXY || process.env.ALL_PROXY
+  else if (isNotEmptyString(process.env.VITE_HTTPS_PROXY) || isNotEmptyString(process.env.VITE_ALL_PROXY)) {
+    const httpsProxy = process.env.VITE_HTTPS_PROXY || process.env.VITE_ALL_PROXY
     if (httpsProxy) {
       const agent = new HttpsProxyAgent(httpsProxy)
       options.fetch = (url, options) => {
