@@ -1,4 +1,4 @@
-name: Publish Docker image (works0
+name: Publish Docker image (works)
 
 on:
   push:
@@ -57,3 +57,4 @@ jobs:
           build-args: |
           cache-from: ${{ inputs.use-cache == 'true' && 'type=gha' || 'type=local,src=/tmp' }}
           cache-to: ${{ inputs.use-cache == 'true' && 'type=gha, mode=max' || 'type=local,dest=/tmp' }}
+          no-cache: true
