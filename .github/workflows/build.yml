@@ -55,6 +55,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-          cache-from: ${{ inputs.use-cache == 'true' && 'type=gha' || 'type=local,src=/tmp' }}
-          cache-to: ${{ inputs.use-cache == 'true' && 'type=gha, mode=max' || 'type=local,dest=/tmp' }}
-          no-cache: true
+            CACHEBUST=${{ github.sha }}        
