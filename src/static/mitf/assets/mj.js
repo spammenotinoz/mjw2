@@ -18629,9 +18629,9 @@ var ur = class {
       }),
       a == 0) {
         hn({
-          header: "请进行选择",
-          content: "要使用修复功能，请开始拖动以选择您想要替换的图像区域。",
-          footer: this.createDefaultCloseButton("好的")
+          header: "Please select the area to redraw",
+          content: "Select the area of ​​the image you want to replace",
+          footer: this.createDefaultCloseButton("OK")
         });
         return
       }
@@ -18642,9 +18642,9 @@ var ur = class {
       }
       if (p < 1e4) {
         hn({
-          header: "选择的区域太小了",
-          content: "为了获得最佳效果，您需要选择更多的图像来替换。",
-          footer: this.createDefaultCloseButton("好的")
+          header: "The selected area is too small",
+          content: "For best results, you'll want to select more images to replace.",
+          footer: this.createDefaultCloseButton("OK")
         });
         return
       }
