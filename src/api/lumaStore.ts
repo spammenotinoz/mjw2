@@ -5,7 +5,7 @@ import { ss } from '@/utils/storage'
     width: number;
     height: number;
     thumbnail: string | null;
-	download_url?: string;
+    download_url?: string;
 };
 
  
@@ -40,9 +40,6 @@ export class lumaStore{
      if(!obj) return [];
      return obj;
   }
-<<<<<<< HEAD
-  }
-=======
   public delete( obj:LumaMedia ){
     if(!obj.id ) throw "id must";
     let arr=  this.getObjs();
@@ -53,7 +50,6 @@ export class lumaStore{
     return true;
   }
 }
->>>>>>> upstream/main
 
 export type LumaHk={
   id: string
