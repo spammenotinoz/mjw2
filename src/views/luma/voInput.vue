@@ -23,6 +23,9 @@ const handleUpdateValue=(v:string)=>{
     <n-tab-pane name="runway" tab="Runway">
         <RunwayInput />
     </n-tab-pane>
+    <n-tab-pane name="pika" tab="Pika">
+        <PikaInput />
+    </n-tab-pane>
 
 </n-tabs>
 </template>
