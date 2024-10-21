@@ -8,5 +8,5 @@ import realtimeLayout from "@/views/wav/realtimeLayout.vue"
 <aiGpts/>
 <aiGallery/>
 <!-- <aiOther/> -->
-<realtimeLayout/>
+<!-- <realtimeLayout/> -->
 </template>
