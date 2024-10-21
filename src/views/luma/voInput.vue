@@ -3,6 +3,7 @@ import { NTabs, NTabPane } from 'naive-ui';
 import LumaInput from './lumaInput.vue'
 import RunwayInput from './runwayInput.vue'
 import KlingInput from '../kling/kgInput.vue'
+import PikaInput from './pikaInput.vue'
 import { mlog } from '@/api';
 import { gptServerStore } from '@/store';
 
