@@ -203,8 +203,22 @@ watch(()=>homeStore.myData.act,(n)=>{
    // n=='copy' && copy2();
     n=='same2' && same2();
 });
+watch(()=>f.value,(n)=>{
+    mlog("变化", n )
+    localStorage.setItem("mjinput",  JSON.stringify(n))
+},{deep:true} );
 onMounted(()=>{
     homeStore.myData.act=='same2' && same2();
+
+    let minput=  localStorage.getItem('mjinput')
+    if(minput ){
+      try {
+        const a=JSON.parse(minput)
+        f.value=a
+      } catch (error) {
+        mlog("错误", error )
+      }
+    }
 });
 
 
