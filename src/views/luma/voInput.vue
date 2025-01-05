@@ -8,6 +8,7 @@ import { mlog } from '@/api';
 import { gptServerStore } from '@/store';
 import {  ref } from 'vue';
 import { useRoute } from 'vue-router';
+import PixInput from './pixInput.vue';
 
 const route = useRoute(); // 获取当前路由对象
 
@@ -22,7 +23,7 @@ const initLoad=()=>{
         //st.value.tab=route.query.tab as string;
         st.value.tab= 'luma' 
         let tt= (route.query.tab as string).toLocaleLowerCase();
-        if( ['luma','runway','pika','kling'].indexOf(tt)>-1 ){
+        if( ['luma','runway','pika','kling','runwayml','pixverse'].indexOf(tt)>-1 ){
            st.value.tab=tt;
         }
         handleUpdateValue(  st.value.tab )
@@ -46,6 +47,8 @@ initLoad();
     <n-tab-pane name="pika" tab="Pika">
         <PikaInput />
     </n-tab-pane>
-
+    <n-tab-pane name="pixverse" tab="Pixverse">
+        <PixInput />
+    </n-tab-pane>
 </n-tabs>
 </template>
