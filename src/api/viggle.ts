@@ -4,22 +4,6 @@ import { sleep } from "./suno";
 import { ViggleTask, viggleStore } from "./viggleStore";
 import { lumaHkStore } from "./lumaStore";
 
-function initializeLumaConfig() {
-  const viggleKey = import.meta.env.VITE_VIGGLE_KEY;
-  const viggleServer = import.meta.env.VITE_VIGGLE_SERVER;
-  
-  //if (lumaKey && lumaServer) {
-    gptServerStore.myData.VIGGLE_KEY = viggleKey;
-    gptServerStore.myData.VIGGLE_SERVER = viggleServer;
-//    console.log("Luma configuration initialized from environment variables");
-//  } else {
-//    console.warn("LUMA_KEY or LUMA_SERVER environment variables are not set");
-//  }
-}
-
-// Call this function when your application starts
-initializeLumaConfig();
-
 function getHeaderAuthorization(){
     let headers={}
     if( homeStore.myData.vtoken ){
