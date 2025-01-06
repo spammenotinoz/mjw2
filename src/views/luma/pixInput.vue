@@ -25,7 +25,6 @@ const qualityOption= [
 {label:'Quality:  360p Turbo',value: '360p'}
 ,{label:'Quality: 540p 1.5X',value: '540p'}
 ,{label:'Quality: 720p 2X',value: '720p'}
-,{label:'Quality: 1080p 4X',value: '1080p'}
  ]
 
  const modeOption= [
