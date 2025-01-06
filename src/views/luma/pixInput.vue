@@ -29,7 +29,6 @@ const qualityOption= [
 
  const modeOption= [
 {label:t('mj.mode')+': Normal',value: 'normal'}
-,{label:t('mj.mode')+': Performance',value: 'performance'} 
  ]
  
 const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':10s',value:10}]
