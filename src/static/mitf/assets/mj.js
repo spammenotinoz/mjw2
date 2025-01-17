@@ -18217,16 +18217,16 @@ var Ci = class {
       this.omniTool.addEventListener("newStroke", ()=>{
           this.promptBarAvailable ? (this.createPopover("When you're ready, edit the prompt to describe the new image"),
             document.getElementById("Prompt").addEventListener("input", ()=>{
-                this.createPopover("按右下角箭头提交")
+                this.createPopover("Press arror to submit")
               }
               , {
                 once: !0
-              })) : this.createPopover("按右下角箭头提交")
+              })) : this.createPopover("Press arror to submit")
         }
         , {
           once: !0
         }),
-        this.createPopover("请拖动选择要更改的区域")
+        this.createPopover("Select area to change")
     }
     setPromptBarAvailable(a) {
       this.promptBarAvailable = a
