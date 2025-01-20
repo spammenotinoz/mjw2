@@ -11,11 +11,11 @@ model:[
   {  "label": "Flux (Fastest)", "value": "flux" }
  ,{  "label": "Flux-Dev (Fast)", "value": "flux-dev" }
  ,{  "label": "Flux-Pro" (Slow), "value": "flux-pro" }
- ,{  "label": "Flux.1.1-Pro (Slowest)", "value": "flux.1.1-pro" }sd=
+ ,{  "label": "Flux.1.1-Pro (Slowest)", "value": "flux.1.1-pro" }
 ]
 });
 const st =ref({isGo:false });     
-const f = ref({size:'1024x1024', prompt:'',"model": "dall-e-3","n": 1});
+const f = ref({size:'1024x1024', prompt:'',"model": "flux","n": 1});
 const isDisabled= computed(()=>{
     if(st.value.isGo) return true;
     if(f.value.prompt.trim()=='') return true;
@@ -32,7 +32,7 @@ const create= async ()=>{
         action:'gpt.dall-e-3',
         data:f.value
     }
-    homeStore.setMyData({act:'draw', actData:obj});st
+    homeStore.setMyData({act:'draw', actData:obj});
     st.value.isGo=true;
 }
 watch(()=>homeStore.myData.act,(n)=>{
@@ -91,4 +91,7 @@ watch(()=>f.value.model,(n)=>{
     </div>
 </div>
 
+<ul class="pt-4" v-html="$t('mjchat.dalleInfo')">
+   
+</ul>
 </template>
