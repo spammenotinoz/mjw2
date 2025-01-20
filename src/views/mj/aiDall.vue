@@ -15,7 +15,7 @@ model:[
 ]
 });
 const st =ref({isGo:false });     
-const f = ref({size:'1024x1024', prompt:'',"model": "dall-e-3","n": 1});
+const f = ref({size:'1024x1024', prompt:'',"model": "flux","n": 1});
 const isDisabled= computed(()=>{
     if(st.value.isGo) return true;
     if(f.value.prompt.trim()=='') return true;
