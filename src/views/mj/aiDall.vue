@@ -8,9 +8,7 @@ import { SvgIcon } from '@/components/common';
 const ms = useMessage();
 const config = ref( {
 model:[
-{  "label": "DALL·E 3", "value": "dall-e-3" }
- ,{  "label": "DALL·E 2", "value": "dall-e-2" }
- ,{  "label": "Flux", "value": "flux" }
+  {  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
  ,{  "label": "Flux-Pro", "value": "flux-pro" }
  ,{  "label": "Flux.1.1-Pro", "value": "flux.1.1-pro" }
@@ -62,12 +60,6 @@ const dimensionsList= computed(()=>{
     return [{ 
                 "label": "1024px*1024px",
                 "value": "1024x1024"
-            }, {
-                "label": "1792px*1024px",
-                "value": "1792x1024"
-            }, {
-                "label": "1024px*1792px",
-                "value": "1024x1792"
             }
      ]
      
