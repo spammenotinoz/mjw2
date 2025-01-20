@@ -10,7 +10,7 @@ const config = ref( {
 model:[
   {  "label": "Flux (Fastest)", "value": "flux" }
  ,{  "label": "Flux-Dev (Fast)", "value": "flux-dev" }
- ,{  "label": "Flux-Pro" (Slow)", "value": "flux-pro" }
+ ,{  "label": "Flux-Pro (Slow)", "value": "flux-pro" }
  ,{  "label": "Flux.1.1-Pro (Slowest)", "value": "flux.1.1-pro" }
 ]
 });
