@@ -8,10 +8,10 @@ import { SvgIcon } from '@/components/common';
 const ms = useMessage();
 const config = ref( {
 model:[
-  {  "label": "Flux", "value": "flux" }
- ,{  "label": "Flux-Dev", "value": "flux-dev" }
- ,{  "label": "Flux-Pro", "value": "flux-pro" }
- ,{  "label": "Flux.1.1-Pro", "value": "flux.1.1-pro" }
+  {  "label": "Flux (Fastest)", "value": "flux" }
+ ,{  "label": "Flux-Dev (Fast)", "value": "flux-dev" }
+ ,{  "label": "Flux-Pro" (Slow), "value": "flux-pro" }
+ ,{  "label": "Flux.1.1-Pro (Slowest)", "value": "flux.1.1-pro" }
 ]
 });
 const st =ref({isGo:false });     
