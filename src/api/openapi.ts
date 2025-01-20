@@ -230,7 +230,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
             let d= await ideoSubmit(data.data );
             mlog("ddlog 数据返回 ", d  )
              const rz = d[0];
-            chat.text= rz.prompt//rz.p??`图片已完成`;
+            chat.text= rz.prompt//rz.p??`The picture is finished`;
             chat.opt={imageUrl:rz.url } ;
             chat.loading = false;
             homeStore.setMyData({act:'updateChat', actData:chat });
@@ -248,7 +248,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
        let d= await gptFetch('/v1/images/generations', data.data);
        try{
             const rz : any= d.data[0];
-            chat.text= rz.revised_prompt??`图片已完成`;
+            chat.text= rz.revised_prompt??`The picture is finished`;
             chat.opt={imageUrl:rz.url } ;
             chat.loading = false;
             homeStore.setMyData({act:'updateChat', actData:chat });
