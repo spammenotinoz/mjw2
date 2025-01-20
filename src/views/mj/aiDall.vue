@@ -10,7 +10,7 @@ const config = ref( {
 model:[
   {  "label": "Flux (Fastest)", "value": "flux" }
  ,{  "label": "Flux-Dev (Fast)", "value": "flux-dev" }
- ,{  "label": "Flux-Pro" (Slow), "value": "flux-pro" }
+ ,{  "label": "Flux-Pro" (Slow)", "value": "flux-pro" }
  ,{  "label": "Flux.1.1-Pro (Slowest)", "value": "flux.1.1-pro" }
 ]
 });
@@ -91,7 +91,4 @@ watch(()=>f.value.model,(n)=>{
     </div>
 </div>
 
-<ul class="pt-4" v-html="$t('mjchat.dalleInfo')">
-   
-</ul>
 </template>
