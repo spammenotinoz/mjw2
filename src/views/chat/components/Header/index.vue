@@ -78,7 +78,7 @@ watch(()=>homeStore.myData.act,debounce( (n)=> n=='saveChat' && (nGptStore.value
         class="flex-1 px-4 pr-6 overflow-hidden cursor-pointer select-none text-ellipsis whitespace-nowrap"
         @dblclick="onScrollToTop"
       >
-      Midjourney Web
+      UltimateAI Studio
       </h1>
       <div class="flex items-center space-x-2">
         
