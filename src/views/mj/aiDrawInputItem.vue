@@ -142,13 +142,16 @@ function createPrompt(rz:string){
         else if( f.value[v.k] ) rzk +=`${f.value[v.k]},`;
     }
 
-    mlog('createPrompt ', rz,  f.value  );
-    if( f.value.sref.trim() != '' ) rzp += ` --sref ${f.value.sref}`
-    if( f.value.cref.trim() != '' ) rzp += ` --cref ${f.value.cref}`
-    if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
-    if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
-    rz = rzk + rz +rzp;
-    return rz ;
+	mlog('createPrompt', rz, f.value);
+	if (f.value.sref.trim() != '') rzp += `--sref ${f.value.sref}`;
+	if (f.value.cref.trim() != '') rzp += `--cref ${f.value.cref}`;
+	if (f.value.cw && f.value.cw != '') rzp += `--cw ${f.value.cw}`;
+	if (f.value.bili > -1 && vf[f.value.bili].label !== '1:1') {
+		rzp += `--ar ${vf[f.value.bili].label}`;
+	}
+	rz = rzk + rz + rzp;
+	return rz;
+    
 }
 
 // const copy=()=>{
