@@ -47,25 +47,6 @@ const initLoad=()=>{
 }
 initLoad();
 
-const vf = [
-  { s: 'width: 100%; height: 100%;', label: '1:1' },
-  { s: 'width: 100%; height: 75%;', label: '4:3' },
-  { s: 'width: 75%; height: 100%;', label: '3:4' },
-  { s: 'width: 100%; height: 50%;', label: '16:9' },
-  { s: 'width: 50%; height: 100%;', label: '9:16' }
-];
-
-const createPrompt = (rz: string, f: any) => {
-  let rzp = '';
-  mlog('createPrompt ', rz, f.value);
-  if (f.value.sref.trim() != '') rzp += ` --sref ${f.value.sref}`;
-  if (f.value.cref.trim() != '') rzp += ` --cref ${f.value.cref}`;
-  if (f.value.cw && f.value.cw != '') rzp += ` --cw ${f.value.cw}`;
-  if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}`;
-  rz = rzk + rz + rzp;
-  return rz;
-};
-
 </script>
 <template>
 <div class="overflow-y-auto bg-[#fafbfc] pt-2 dark:bg-[#18181c] h-full ">
@@ -114,20 +95,5 @@ const createPrompt = (rz: string, f: any) => {
     </n-tab-pane>
 
 </n-tabs> 
-</div>
-
-<div class="flex items-center justify-between space-x-1">
-  <template v-for="(item, index) in vf">
-    <section
-      class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"
-      :class="{ 'active': index == f.bili }"
-      @click="f.bili = index == f.bili ? -1 : index"
-    >
-      <div class="aspect-box-wrapper mx-auto my-2 flex h-5 w-5 items-center justify-center">
-        <div class="aspect-box rounded border-2 dark:border-neutral-700" :style="item.s"></div>
-      </div>
-      <p class="mb-1 text-center text-sm">{{ item.label }}</p>
-    </section>
-  </template>
 </div>
 </template>
