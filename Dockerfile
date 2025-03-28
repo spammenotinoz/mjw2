@@ -22,12 +22,16 @@ ENV VITE_VIGGLE_KEY=$VITE_VIGGLE_KEY
 ENV VITE_VIGGLE_SERVER=$VITE_VIGGLE_SERVER
 
 RUN npm install pnpm -g
+# 安装 Git
+RUN apk add --no-cache git
 
 WORKDIR /app
 
 COPY ./package.json /app
 
 COPY ./pnpm-lock.yaml /app
+
+#RUN git --version
 
 RUN pnpm install
 
