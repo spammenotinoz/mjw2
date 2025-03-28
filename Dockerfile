@@ -1,5 +1,5 @@
 # build front-end
-FROM node:lts AS frontend
+FROM node:lts-alpine AS frontend
 
 # Define build-time variables
 ARG NEXT_PUBLIC_SUPABASE_URL
@@ -40,7 +40,7 @@ COPY . /app
 RUN pnpm run build
 
 # build backend
-FROM node:lts as backend
+FROM node:lts-alpine as backend
 
 RUN npm install pnpm -g
 
@@ -57,7 +57,7 @@ COPY /service /app
 RUN pnpm build
 
 # service
-FROM node:lts
+FROM node:lts-alpine
 
 RUN npm install pnpm -g
 

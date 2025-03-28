@@ -1,6 +1,6 @@
 {
   "name": "ai-design-studio",
-  "version": "2.21.1",
+  "version": "2.23.6",
   "private": false,
   "description": "AI Design Studio",
   "author": "",
@@ -52,6 +52,7 @@
     "vue-waterfall-plugin-next": "^2.3.1"
   },
   "devDependencies": {
+	"@antfu/eslint-config": "^0.35.3",
     "@openai/realtime-api-beta": "github:dooy/openai-realtime-api-beta",
     "@openai/realtime-wavtools": "github:dooy/openai-realtime-wavtools",	
     "@commitlint/cli": "^17.4.4",
