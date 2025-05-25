@@ -316,8 +316,7 @@ const selectFile3=  (input:any)=>{
 
 <div class="overflow-y-auto bg-[#fafbfc] px-4 dark:bg-[#18181c] h-full ">
 
-    <section class="mb-4">
-	    <section class="mb-4">
+    <section class="mb-4">	    
         <div class="mr-1  mb-2 flex justify-between items-center">
             <div class="text-sm">{{ $t('mjchat.imgBili') }}</div>
             <div>
