@@ -12,6 +12,7 @@ model:[
   {  "label": "Flux (Fastest)", "value": "flux" }
  ,{  "label": "Flux-Dev (Fast)", "value": "flux-dev" }
  ,{  "label": "Flux-Pro (Slow)", "value": "flux-pro" }
+ ,{ "label": "GPT-Image-1", "value": "gpt-image-1" }
 ]
 });
 interface myFile{
@@ -76,13 +77,16 @@ const dimensionsList= computed(()=>{
     return [{ 
                 "label": "1024px*1024px",
                 "value": "1024x1024"
+				            }
+    ];
+    }
+	    return [{ 
+                "label": "1024px*1024px",
+                "value": "1024x1024"
             }
      ]
-     
-})
-watch(()=>f.value.model,(n)=>{
-    f.value.size='1024x1024';
-})
+	
+	
 const isCanImageEdit= computed(()=>{
     if(f.value.model=='dall-e-2') return true;
     if(f.value.model=='gpt-image-1') return true;
