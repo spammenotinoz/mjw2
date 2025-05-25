@@ -35,20 +35,22 @@ initLoad();
 </script>
 
 <template>
-<n-tabs type="line"  animated :default-value="st.tab"  @update:value="handleUpdateValue">
-    <n-tab-pane name="" tab="">
-    </n-tab-pane>
-    <n-tab-pane name="luma" tab="Luma">
-        <LumaInput />
-    </n-tab-pane>
-    <n-tab-pane name="runway" tab="Runway">
-        <RunwayInput />
-    </n-tab-pane>
-    <n-tab-pane name="pika" tab="Pika">
-        <PikaInput />
-    </n-tab-pane>
-    <n-tab-pane name="pixverse" tab="Pixverse">
-        <PixInput />
-    </n-tab-pane>
-</n-tabs>
+<div  >
+    <n-tabs type="line"  :tabs-padding="1" class="abc1234" animated :default-value="st.tab"  @update:value="handleUpdateValue">
+        <!-- <n-tab-pane name="" tab="">
+        </n-tab-pane> -->
+        <n-tab-pane name="luma" tab="Luma">
+            <LumaInput />
+        </n-tab-pane>
+        <n-tab-pane name="runway" tab="Runway" style="--n-tab-gap:10px">
+            <RunwayInput />
+        </n-tab-pane>
+        <n-tab-pane name="pika" tab="Pika">
+            <PikaInput />
+        </n-tab-pane>
+        <n-tab-pane name="pixverse" tab="Pixverse">
+            <PixInput />
+        </n-tab-pane>
+    </n-tabs>
+</div>
 </template>

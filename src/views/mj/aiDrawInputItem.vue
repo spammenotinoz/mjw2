@@ -21,7 +21,8 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
-const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 6.1',sref:'',cref:'',cw:'',});
+const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 7.0const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 7.0'
+,sref:'',cref:'',cw:'',oref:'' });
 const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false,upType:''
 });
@@ -142,15 +143,15 @@ function createPrompt(rz:string){
         else if( f.value[v.k] ) rzk +=`${f.value[v.k]},`;
     }
 
-	mlog('createPrompt', rz, f.value);
-	if (f.value.sref.trim() != '') rzp += `--sref ${f.value.sref}`;
-	if (f.value.cref.trim() != '') rzp += `--cref ${f.value.cref}`;
-	if (f.value.cw && f.value.cw != '') rzp += `--cw ${f.value.cw}`;
-	if (f.value.bili > -1 && vf[f.value.bili].label !== '1:1') {
-		rzp += `--ar ${vf[f.value.bili].label}`;
-	}
-	rz = rzk + rz + rzp;
-	return rz;
+	    mlog('createPrompt ', rz,  f.value  );
+    if( f.value.sref.trim() != '' ) rzp += ` --sref ${f.value.sref}`
+    if( f.value.cref.trim() != '' ) rzp += ` --cref ${f.value.cref}`
+    if(  f.value.oref &&  f.value.oref.trim() != '' ) rzp += ` --oref ${f.value.oref}`
+    if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
+    if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
+    rz = rzk + rz +rzp;
+    // mlog('createPrompt over ', rz  );
+    return rz ;
     
 }
 
@@ -267,6 +268,7 @@ const clearAll=()=>{
   f.value.cref='';
   f.value.cw='';
   f.value.sref='';
+  f.value.oref='';
 }
 
 const uploader=(type:string)=>{
@@ -292,6 +294,8 @@ const selectFile3=  (input:any)=>{
             if(d.code== 1){
                 if( st.value.upType=='cref'){
                     f.value.cref= d.result[0];
+				}else if(st.value.upType=='oref' ){
+                    f.value.oref= d.result[0];
                 }else{
                     f.value.sref= d.result[0];
                 }
@@ -314,6 +318,18 @@ const selectFile3=  (input:any)=>{
 <div class="overflow-y-auto bg-[#fafbfc] px-4 dark:bg-[#18181c] h-full ">
 
     <section class="mb-4">
+	    <section class="mb-4">
+        <div class="mr-1  mb-2 flex justify-between items-center">
+            <div class="text-sm">{{ $t('mjchat.imgBili') }}</div>
+            <div>
+            <NPopover trigger="hover">
+                <template #trigger>
+                 <SvgIcon icon="iconoir:database-export" class="text-lg cursor-pointer" @click="exportToTxt"></SvgIcon>
+                </template>
+                <div>{{ $t('mjchat.imagEx') }}</div>
+            </NPopover>
+            </div>
+        </div>
         <div class=" flex items-center justify-between space-x-1">
             <template  v-for="(item,index) in vf" >
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':index==f.bili}"  @click="f.bili=index">
@@ -338,7 +354,15 @@ const selectFile3=  (input:any)=>{
     
         <section class="mb-4 flex justify-between items-center"  >
         <div class="w-[45px]">sref</div>
+            <NInput v-model:value="f.sref" size="small" placeholder="Image url generates images with the same style" clearable >
+                 <template #suffix>
+                    <SvgIcon icon="ri:upload-line"  class="cursor-pointer" @click="uploader('sref')"></SvgIcon>
+                </template>
+            </NInput>
+        </section>
 
+        <section class="mb-4 flex justify-between items-center"  >
+        <div class="w-[45px]">cref</div>
 
             <NInput  v-model:value="f.cref" size="small" placeholder="Character Reference" clearable>
                 <template #suffix>
