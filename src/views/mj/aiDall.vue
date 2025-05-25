@@ -64,12 +64,6 @@ const dimensionsList= computed(()=>{
         return [{ 
                 "label": "1024px*1024px",
                 "value": "1024x1024"
-            }, {
-                "label": "512px*512px",
-                "value": "512x512"
-            }, {
-                "label": "256px*256px",
-                "value": "256x256"
             }
     ];
     } 
@@ -80,11 +74,12 @@ const dimensionsList= computed(()=>{
 				            }
     ];
     }
-	    return [{ 
-                "label": "1024px*1024px",
-                "value": "1024x1024"
-            }
-     ]
+      return [{ 
+              "label": "1024px*1024px",
+              "value": "1024x1024"
+          }
+-     ]
++     ]});
 	
 	
 const isCanImageEdit= computed(()=>{
