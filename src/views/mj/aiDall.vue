@@ -59,28 +59,23 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='updateChat')  st.value.isGo=false;  
 })
 
-const dimensionsList= computed(()=>{
-    if(f.value.model=='dall-e-2'){
-        return [{ 
-                "label": "1024px*1024px",
-                "value": "1024x1024"
-            }
+const dimensionsList = computed(() => {
+  if (f.value.model == 'dall-e-2') {
+    return [
+      { "label": "1024px*1024px", "value": "1024x1024" },
+      { "label": "512px*512px", "value": "512x512" },
+      { "label": "256px*256px", "value": "256x256" }
     ];
-    } 
-	if(f.value.model=='gpt-image-1'){
-    return [{ 
-                "label": "1024px*1024px",
-                "value": "1024x1024"
-				            }
+  }
+  if (f.value.model == 'gpt-image-1') {
+    return [
+      { "label": "1024px*1024px", "value": "1024x1024" }
     ];
-    }
-      return [{ 
-              "label": "1024px*1024px",
-              "value": "1024x1024"
-          }
--     ]
-+     ]});
-	
+  }
+  return [
+    { "label": "1024px*1024px", "value": "1024x1024" }
+  ];
+});	
 	
 const isCanImageEdit= computed(()=>{
     if(f.value.model=='dall-e-2') return true;
