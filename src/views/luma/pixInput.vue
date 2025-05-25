@@ -247,7 +247,7 @@ const pixCamera = computed(()=>{
                             <img :src="pixCamera.image[f.camera_movement]"  />
                             <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ pixCamera.name[f.camera_movement]??f.camera_movement }}</div>
                         </template>
-                        <div class="text-center" v-else>运镜</div> 
+                        <div class="text-center" v-else>Perspective</div> 
                     </div>
                 </template>
                 <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
