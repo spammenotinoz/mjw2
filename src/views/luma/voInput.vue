@@ -44,10 +44,7 @@ initLoad();
         </n-tab-pane>
         <n-tab-pane name="runway" tab="Runway" style="--n-tab-gap:10px">
             <RunwayInput />
-        </n-tab-pane>
-        <n-tab-pane name="pika" tab="Pika">
-            <PikaInput />
-        </n-tab-pane>
+        </n-tab-pane>        
         <n-tab-pane name="pixverse" tab="Pixverse">
             <PixInput />
         </n-tab-pane>
