@@ -28,7 +28,6 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'1:1'}
 const qualityOption= [
 {label:'Quality:  360p Turbo',value: '360p'}
 ,{label:'Quality: 540p 1.5X',value: '540p'}
-,{label:'Quality: 720p 2X',value: '720p'}
  ]
 
  const modeOption= [
