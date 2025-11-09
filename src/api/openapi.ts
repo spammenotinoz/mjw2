@@ -50,6 +50,9 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4.5-preview": "2024-10",
   "deepseek-v3": "2023-12",
   "deepseek-r1": "2023-12",
+  "gpt-5": "2024-10",
+  "gpt-5-mini": "2024-06",
+  "gpt-5-nano": "2024-06",
   "gemini-pro-1.5": "2024-04"
 };
 
@@ -240,7 +243,10 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let action= data.action;
    // mlog("gp-image-1 base64Array ",   data.base64Array   )
    //chat.myid=  `${Date.now()}`;
-   if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
+   const isDall=  action=='gpt.dall-e-3' || isDallImageModel( data.data?.model) ||  data.data?.model?.indexOf('banana')
+   
+   //if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
+   if( isDall && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
          mlog("ddlog 数据 ", data.data  )
          try{
             let d= await ideoSubmit(data.data );
@@ -257,7 +263,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
             chat.loading=false;
             homeStore.setMyData({act:'updateChat', actData:chat });
          }
-   }else if(  action=='gpt.dall-e-3'  && data.data.base64Array!=undefined ){ //执行变化
+   }else if( isDall  && data.data.base64Array!=undefined ){ //执行变化
         mlog("gp-image-1 base64Array ",data.data ,  data.data.base64Array   )
      //let d= await gptFetch('/v1/images/edits', data.data);
      const formData = new FormData( ); 
@@ -301,7 +307,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
     }
     
 
-   }else if(  action=='gpt.dall-e-3' ){ //执行变化
+   }else if( isDall ){ //执行变化
        // chat.model= 'dall-e-3';
        
 
@@ -333,7 +339,8 @@ export const isDallImageModel =(model:string|undefined)=>{
     if(!model) return false;
     if( model.indexOf('flux')>-1 ) return true; 
     if( model.indexOf('ideogram')>-1 ) return true; 
-    if( model.indexOf('gpt-image')>-1 ) return true; 
+    if( model.indexOf('gpt-image')>-1 ) return true;  
+   
     return ['dall-e-2' ,'dall-e-3','ideogram' ].indexOf(model)>-1
       
 }
@@ -399,7 +406,7 @@ return DEFAULT_SYSTEM_TEMPLATE;
 }
 
 export const isNewModel=(model:string)=>{
-    return model.startsWith('o1-')
+    return model.startsWith('o1-') ||   model.includes('gpt-5')
 }
 export const subModel= async (opt: subModelType)=>{
     //

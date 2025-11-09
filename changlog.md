@@ -1,8 +1,36 @@
 # 功能升级日志
 
 #  计划 
+# 2.25.9
+- 🐞 修复：mj显示双图
+- 🐞 修复：gpt-5-all gpts 读取不了pdf的问题
+- 🐞 修复：nona-banana 请求返回正确，但是页面不显示，原因是确实一个判断逻辑。下面代码即可解决bug #667
+- 🐞 修复：MP4格式自动调用whisper-1模型可以去除吗？ #666
+
+# 2.25.8
+- 😄 新增视频：veo3.1 veo3.1-pro openai/sora-2 openai/sora-2-pro
+- 😄 修改：sora-2参数
+
+# 2.25.7
+- 😄 新增视频：sora-2-pro
+- 😄 修改：修改 sora-2参数
+# 2.25.6
+- 😄 新增视频：sora-2
+# 2.25.5
+- 😄 新增：suno-v5
+
+# 2.25.4
+- 😄 新增：nano-banana支持 比例
+- 😄 新增：google veo类视频、fal-ai视频类
+- 😄 新增：支持直达视频模型 https://vercel.ddaiai.com/#/video/index?tab=all&model=veo3
+# 2.25.3
+- 😄 新增：dalle格式的 谷歌 nano-banana
+
 # 2.25.2
 - 🐞 修复：gpt-image-1 无法同时传多个图片 #634
+- 🐞 修复：【bug】绘画 gpt-image-1 采用服务端配置生成图片报错 #646
+- 🐞 修复： gpt5报错 #650
+- 😄 新增：支持 mj 视频组合 `--video` `--bs 2`  生成视频  
 
 # 2.25.1
 - 😄 新增：支持 suno 模型 `v4.5+` , 将 mv 修改为`chirp-bluejay`
