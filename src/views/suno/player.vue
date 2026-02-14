@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { mlog } from '@/api';
+import { riffTask } from '@/api/riffStore';
 import { SunoMedia } from '@/api/sunoStore';
+import { udioTask } from '@/api/udioStore';
 import { homeStore } from '@/store';
 import { watch,ref  } from 'vue';
 
 const st= ref({isLoad:0, url:''});
-const pObj= ref<SunoMedia>()
+const pObj= ref({audio_url:''})
 const player = new window.Audio(); 
 const loadPay=()=>{
     if(  !pObj.value ) return 
@@ -55,9 +57,28 @@ watch(()=>homeStore.myData.act, (n)=>{
     if(n=='goPlay'){
         let data = homeStore.myData.actData
         mlog('goPlay' , data );
-        pObj.value = data as SunoMedia
+        let abc = data as SunoMedia
+        pObj.value.audio_url=abc.audio_url
         goPlay();
 
+    }
+    if( n=="goPlayUdio"){
+         let data = homeStore.myData.actData
+        mlog('goPlayUdio' , data );
+        let abc = data as udioTask
+        pObj.value.audio_url=abc.song_path
+        goPlay();
+    }
+    if( n=="goPlayRiff"){
+         let data = homeStore.myData.actData
+        mlog('goPlayUdio' , data );
+        let abc = data as riffTask
+        if(!abc.riff?.audio_url){
+            //ms.info(t('mj.ud_doing'))
+            return
+        }
+        pObj.value.audio_url=abc.riff?.audio_url??''
+        goPlay();
     }
     if(n=='playUpdate'){
          let data:any  = homeStore.myData.actData

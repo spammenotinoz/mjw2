@@ -1,6 +1,187 @@
 # 功能升级日志
 
 #  计划 
+# 2.25.10
+- 😄 新增画图：nano-banana-2
+- 😄 新增对话：`gpt-5.1`、`gemini-3-pro-preview`,`grok-4.1`
+
+# 2.25.9
+- 🐞 修复：mj显示双图
+- 🐞 修复：gpt-5-all gpts 读取不了pdf的问题
+- 🐞 修复：nona-banana 请求返回正确，但是页面不显示，原因是确实一个判断逻辑。下面代码即可解决bug #667
+- 🐞 修复：MP4格式自动调用whisper-1模型可以去除吗？ #666
+
+# 2.25.8
+- 😄 新增视频：veo3.1 veo3.1-pro openai/sora-2 openai/sora-2-pro
+- 😄 修改：sora-2参数
+
+# 2.25.7
+- 😄 新增视频：sora-2-pro
+- 😄 修改：修改 sora-2参数
+# 2.25.6
+- 😄 新增视频：sora-2
+# 2.25.5
+- 😄 新增：suno-v5
+
+# 2.25.4
+- 😄 新增：nano-banana支持 比例
+- 😄 新增：google veo类视频、fal-ai视频类
+- 😄 新增：支持直达视频模型 https://vercel.ddaiai.com/#/video/index?tab=all&model=veo3
+# 2.25.3
+- 😄 新增：dalle格式的 谷歌 nano-banana
+
+# 2.25.2
+- 🐞 修复：gpt-image-1 无法同时传多个图片 #634
+- 🐞 修复：【bug】绘画 gpt-image-1 采用服务端配置生成图片报错 #646
+- 🐞 修复： gpt5报错 #650
+- 😄 新增：支持 mj 视频组合 `--video` `--bs 2`  生成视频  
+
+# 2.25.1
+- 😄 新增：支持 suno 模型 `v4.5+` , 将 mv 修改为`chirp-bluejay`
+# 2.24.10
+- 😄 新增：支持 `reasoning_content`
+
+# 2.24.9
+- 😄 新增：mj `图生视频` `图片编辑`
+
+# 2.24.8
+- 😄 新增：`flux-kontext-pro` `flux-kontext-max` 模型
+
+# 2.24.7
+- 😄 新增：riffusion 音乐模块
+- 😄 改进：mj 按钮如果没有预先设置 则直接显示
+
+# 2.24.6
+- 😄 新增：mj v6.1 v7的放大   关于MJ V6.1 和 V7 没有放大按钮 #635
+- 😄 新增：kling-v2-master 模型
+# 2.24.5
+- 😄 新增：pix 运镜
+
+# 2.24.4
+- 🐞 修复：oref 空 导致 trim错误
+
+# 2.24.3
+- 🐞 改进：mj 默认为 v7
+- 🐞 改进：mj 支持 oref 全面参考 
+
+# 2.24.2
+- 😄 新增： suno `v4.5`  model 为 `chirp-auk`
+# 2.24.1
+- 😄 新增：gpt-image-1 dall.e-2 支持 v1/image/edit 支持多图
+- 🐞 改进：默认上传改为5M
+
+# 2.23.10
+
+- 😄 新增：gpt-image-1 这个是dall-e格式
+- 😄 新增：pixverse 的 `v4`版本
+
+# 2.23.9
+- 😄 新增：rumwayml 支持 gen4_turbo
+
+# 2.23.8
+- 🐞 改进：识图默认放开都支持 只有gpt-3.5 已知不支持
+- 🐞 改进：服务端模型 支持搜索
+
+# 2.23.7
+- 😄 新增：模型 mj 7.0
+
+# 2.23.6
+- 🐞 修复：2.23.4依旧出现ds-R1不展示思考过程的问题 #611
+- 😄 新增：模型 从服务端的 /v1/models 拉起
+
+
+# 2.23.5
+- 😄 新增：`grok-3`,`grok-3-reasoner`,`grok-3-deepsearch` 模型
+- 😄 新增：`gpt-4.5-preview-2025-02-27`,`gpt-4.5-preview` 模型
+
+# 2.23.4
+- 🐞 修复：`deepseek-v3` `deepseek-r1` 识图处理，需要中转支持
+- 🐞 修复：`deepseek-r1` think 思考过程显示优化
+
+
+
+# 2.23.3
+- 😄 新增：`deepseek-v3` `deepseek-r1` 模型
+
+# 2.23.2
+- 😄 支持：Pixverse 模版特效
+- 😄 支持：kling 支持 model 选型 `v1` `v1.5` `v1.6`
+
+# 2.23.1
+- 🐞 修复：Pixverse 时长支持8s 而非10s
+- 😄 支持：Pixverse style风格
+- 🐞 修复：suno 后端转发目录使用 `/suno`
+
+# 2.22.10
+- 😄 支持：视频模型 Pixverse
+- 😄 支持：Pixverse 图片、前后帧、扩展
+
+# 2.22.9
+- 😄 新增：realtime 可设置模型 `gpt-4o-mini-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-10-01`
+# 2.22.8
+- 😄 新增：o1  o1-2024-12-17
+
+# 2.22.7
+- 😄 修改：suno upload 二次创作方式
+
+# 2.22.6
+- 😄 支持：viggle V3-Beta
+- 😄 支持：pika 2.0
+- 😄 新增：pika 3个效果
+
+# 2.22.5
+- 🐞 修改：suno默认版本为V4
+
+
+# 2.22.4
+- 🐞 修复：mj shorten
+- 🐞 修复：mj 图转文
+
+# 2.22.3
+- 😄 新增音乐：suno-v4
+- 😄 新增gpt模型：gpt-4o-2024-11-20
+# 2.22.2
+- 😄 新增：支持ruanway 官方api
+- 🐞 修复：模型识图表示
+
+# 2.22.1
+- 😄 新增：超链定位tab 定位到可灵 https://vercel.ddaiai.com//#/video/index?tab=kling
+- 😄 新增：手机可使用 音乐
+
+# 2.21.10
+- 😄 新增：claude-3-5-sonnet-all 模型
+- 😄 新增：pika 3个视频效果
+- 😄 新增：支持 udio
+
+
+# 2.21.9
+- 😄 新增：mj 默认版本为6.1，填写的有保存下次打开 可以重新载入
+- 🐞 修复：默认语言(第一次载入的时候)会根据浏览器语言对应，目前支持 中文简体、英语、中文繁体、法语、俄语、韩语、土耳其语、越南语 如果没在这个列表内则为英语
+
+# 2.21.8
+- 😄 新增：flux.1.1-pro 画图模型
+- 😄 新增：runway3 支持 参考视频
+
+# 2.21.7
+- 😄 新增：claude-3-5-sonnet-20241022 
+
+# 2.21.6
+- 😄 新增：pika 文生视频 图生视频
+- 🐞 修复：luma 支持长宽比例
+
+# 2.21.5
+- 🐞 修复：luam、runway视频删除、viggle删除、kling删除、suno删除？ #510
+
+# 2.21.4
+- 😄 新增：runway图片增加首尾帧选择
+
+# 2.21.3
+- 🐞 修复：回复数最多只有4096太少导致有时无法正常输出 #516
+- 😄 优化：支持实时语音对话服务中的设置
+
+# 2.21.2
+- 😄 新增：支持实时语音对话服务 realtime `gpt-4o-realtime-preview`
+
 # 2.21.1
 - 😄 优化：dall格式图片本地存储（flex,idemgram 不会图片链接过期而找不到 ）
 - 😄 优化：kling图片本地存储

@@ -32,6 +32,10 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.RUNWAY_SERVER=n;
     gptServerStore.myData.IDEO_SERVER=n;
     gptServerStore.myData.KLING_SERVER=n;
+    gptServerStore.myData.PIKA_SERVER=n;
+    gptServerStore.myData.PIXVERSE_SERVER=n;
+    gptServerStore.myData.UDIO_SERVER=n;
+    gptServerStore.myData.RIFF_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -42,6 +46,10 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.RUNWAY_KEY=n;
     gptServerStore.myData.IDEO_KEY=n;
     gptServerStore.myData.KLING_KEY=n;
+    gptServerStore.myData.PIKA_KEY=n;
+    gptServerStore.myData.PIXVERSE_KEY=n;
+    gptServerStore.myData.UDIO_KEY=n;
+    gptServerStore.myData.RIFF_KEY=n;
 });
 </script>
 <template>
@@ -218,6 +226,72 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
+      <div class="text-right">{{ $t('mj.pikaabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.PIKA_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.pikaserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.pikakeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.PIKA_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Pika Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <div class="text-right">{{ $t('mj.udioabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.UDIO_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.udioserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.udiokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.UDIO_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Udio Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+      <div class="text-right">{{ $t('mj.pixabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.PIXVERSE_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.pixserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.pixkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.PIXVERSE_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Pixverse Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+
+      <div class="text-right">{{ $t('mj.riffabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.RIFF_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.riffserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.riffkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.RIFF_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Riffusion Key:</span>
+            </template>
+          </n-input>
+      </section>
 
 
 

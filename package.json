@@ -1,9 +1,9 @@
 {
-  "name": "ai-design-studio",
-  "version": "2.21.1",
+  "name": "chatgpt-web-midjourney-proxy",
+  "version": "2.25.9",
   "private": false,
-  "description": "AI Design Studio",
-  "author": "",
+  "description": "ChatGPT Web Midjourney Proxy",
+  "author": "Dooy <ydlhero@gmail.com>",
   "keywords": [
     "chatgpt-web",
     "chatgpt",
@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
-	"@supabase/supabase-js": "^1.28.5",
     "@ffmpeg/util": "^0.12.1",
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@vueuse/core": "^9.13.0",
@@ -56,6 +55,8 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@iconify/vue": "^4.1.0",
+    "@openai/realtime-api-beta": "github:dooy/openai-realtime-api-beta",
+    "@openai/realtime-wavtools": "github:dooy/openai-realtime-wavtools",
     "@tauri-apps/cli": "^1.5.11",
     "@types/crypto-js": "^4.1.1",
     "@types/katex": "^0.16.0",
