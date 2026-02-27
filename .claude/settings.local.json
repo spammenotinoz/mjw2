@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(git fetch:*)",
-      "Bash(git show:*)"
+      "Bash(git show:*)",
+      "Bash(gh api:*)",
+      "Bash(xxd:*)",
+      "Bash(npm install:*)",
+      "Bash(pnpm run:*)"
     ]
   }
 }

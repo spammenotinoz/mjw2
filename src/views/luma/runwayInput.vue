@@ -247,20 +247,10 @@ watch(()=>homeStore.myData.act, (n)=>{
                 <n-popover trigger="hover">
                     <template #trigger>
                     <div class="line-clamp-1">
-                    {{ $t('video.extend') }}:
-                    <span v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</span>
-                    <span v-else>{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</span>
+                    {{ $t('video.extend') }}: {{ exRunway.options.text_prompt || exRunway.name }}
                     </div>
                     </template>
-                    <div class=" max-w-[300px]">{{exRunway.id}}</div>
-
-                    <div v-if="exRunway.taskType=='gen3a'" >Version: Gen-3</div>
-                    <div v-if="exRunway.taskType=='gen3a_turbo'" >Version: Gen-3-turbo</div>
-                    <div v-if="exRunway.taskType=='gen2'" >Version: Gen-2</div>
-                    <div v-if="exRunway.createdAt" >createdAt: {{ new Date( exRunway.createdAt).toLocaleString() }}</div>
-                    <div class=" max-w-[300px]" v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</div>
-                    <div class=" max-w-[300px]">{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</div>
-                
+                    <div>{{exRunway.id}}</div>
                 </n-popover>
             </div>
         </div>
