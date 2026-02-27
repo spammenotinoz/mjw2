@@ -252,7 +252,6 @@ watch(()=>homeStore.myData.act, (n)=>{
                      <template v-else  >{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</template>
                     </div>
                     </template>
-                    <template #content>
                     <div class=" max-w-[300px]">{{exRunway.id}}</div>
 
                     <div v-if="exRunway.taskType=='gen3a'" >Version: Gen-3</div>
@@ -261,7 +260,6 @@ watch(()=>homeStore.myData.act, (n)=>{
                     <div v-if="exRunway.createdAt" >createdAt: {{ new Date( exRunway.createdAt).toLocaleString() }}</div>
                     <div class=" max-w-[300px]" v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</div>
                     <div class=" max-w-[300px]">{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</div>
-                    </template>
                 
                 </n-popover>
             </div>
