@@ -107,9 +107,8 @@ initLoad();
                 <n-popover trigger="hover">
                     <template #trigger>
                     <div class="line-clamp-1">
-                     <template   v-if="item.options.text_prompt">{{ item.options.text_prompt }}</template>
-                     <template v-else  >{{ item.options.gen2Options?.text_prompt?item.options.gen2Options.text_prompt: item.name }}</template>
-               
+                    <span v-if="item.options.text_prompt">{{ item.options.text_prompt }}</span>
+                    <span v-else>{{ item.options.gen2Options?.text_prompt?item.options.gen2Options.text_prompt: item.name }}</span>
                     </div>
                     </template>
                     <div v-if="item.id" >ID: {{ item.id }}</div>

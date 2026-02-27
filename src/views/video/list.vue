@@ -91,9 +91,9 @@ const deleteGo=(item:any)=>{
             <section  class="absolute w-full bottom-0   backdrop-blur-sm text-white/70  " :class="item.src?['invisible', 'group-hover/item:visible']:[]">
                     <div class="p-3  flex justify-between items-baseline">
                          <n-popover trigger="hover">
-                            <template #trigger> 
-                                <div class="line-clamp-1 text-[13px]"> 
-                                    <template v-if="item.task.title">{{ item.task.title }}</template>
+                            <template #trigger>
+                                <div class="line-clamp-1 text-[13px]">
+                                    <span v-if="item.task.title">{{ item.task.title }}</span>
                                 </div>
                             </template>
                              <div>
