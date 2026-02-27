@@ -242,19 +242,8 @@ watch(()=>homeStore.myData.act, (n)=>{
     </div>
 
     <div v-if="exRunway" class="pt-1">
-        <div class="flex justify-between items-center">
-            <div  >
-                <n-popover trigger="hover">
-                    <template #trigger>
-                    <div class="line-clamp-1">
-                    {{ $t('video.extend') }}: {{ exRunway.options.text_prompt || exRunway.name }}
-                    </div>
-                    </template>
-                    <div>{{exRunway.id}}</div>
-                </n-popover>
-            </div>
-        </div>
-        <div class="relative flex items-center justify-center bg-white bg-opacity-10 rounded-[5px] overflow-hidden aspect-[16/8.85] ">
+        <!-- removed for debug -->
+    </div>
             <video   loop  playsinline  controls v-if="exRunway.artifacts && exRunway.artifacts[0].url"
                 referrerpolicy="no-referrer" :poster="exRunway.artifacts[0].previewUrls[0]" 
                 class="w-full h-full object-cover"  >
