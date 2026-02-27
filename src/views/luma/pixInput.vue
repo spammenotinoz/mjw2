@@ -216,11 +216,11 @@ const pixCamera = computed(()=>{
             <NPopover trigger="hover">
                 <template #trigger>
                     <div   class="h-[70px] w-[120px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
-                        <template v-if="f.pe_index>-1">
+                        <span v-if="f.pe_index>-1">
                             <img :src="pixEffact[f.pe_index].thumbnail_path"  />
                             <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{pixEffact[f.pe_index].display_name }}</div>
-                        </template>
-                        <div class="text-center" v-else>{{ $t('mj.selecteff') }}</div> 
+                        </span>
+                        <div class="text-center" v-else>{{ $t('mj.selecteff') }}</div>
                     </div>
                 </template>
                 <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
@@ -242,11 +242,11 @@ const pixCamera = computed(()=>{
             <NPopover trigger="hover">
                 <template #trigger>
                     <div   class="h-[70px] w-[120px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
-                        <template v-if="f.camera_movement!='' ">
+                        <span v-if="f.camera_movement!='' ">
                             <img :src="pixCamera.image[f.camera_movement]"  />
                             <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ pixCamera.name[f.camera_movement]??f.camera_movement }}</div>
-                        </template>
-                        <div class="text-center" v-else>Perspective</div> 
+                        </span>
+                        <div class="text-center" v-else>Perspective</div>
                     </div>
                 </template>
                 <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
@@ -271,9 +271,9 @@ const pixCamera = computed(()=>{
                 <n-popover trigger="hover">
                     <template #trigger>
                     <div class="line-clamp-1">
-                    {{ $t('video.extend') }}: 
-                     <template   v-if="exItem.data.prompt">{{ exItem.data.prompt?exItem.data.prompt:exItem.video_id }}</template>
-                     
+                    {{ $t('video.extend') }}:
+                    <span v-if="exItem.data.prompt">{{ exItem.data.prompt?exItem.data.prompt:exItem.video_id }}</span>
+
                     </div>
                     </template>
                     <div v-if="exItem.video_id" >ID: {{ exItem.video_id }}</div>
