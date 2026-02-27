@@ -196,11 +196,11 @@ const selecteffect = (i:number)=>{
             <NPopover trigger="hover">
                 <template #trigger>
                     <div   class="h-[80px] w-[150px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
-                        <template v-if="pika.pe_index>-1">
+                        <span v-if="pika.pe_index>-1">
                             <img :src="ezOption[pika.pe_index].poster"  />
                             <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ ezOption[pika.pe_index].title }}</div>
-                        </template>
-                        <div class="text-center" v-else>{{ $t('mj.selecteff') }}</div> 
+                        </span>
+                        <div class="text-center" v-else>{{ $t('mj.selecteff') }}</div>
                     </div>
                 </template>
                 <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
