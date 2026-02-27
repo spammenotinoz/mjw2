@@ -231,6 +231,7 @@ watch(()=>homeStore.myData.act, (n)=>{
      }
 });
 </script>
+<template>
 <div > 
     <div  class="pt-1"  >
         <n-select v-model:value="st.version" :options="mvOption" size="small" />
