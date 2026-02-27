@@ -6,7 +6,8 @@
       "Bash(gh api:*)",
       "Bash(xxd:*)",
       "Bash(npm install:*)",
-      "Bash(pnpm run:*)"
+      "Bash(pnpm run:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
