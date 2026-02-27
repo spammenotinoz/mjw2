@@ -248,8 +248,8 @@ watch(()=>homeStore.myData.act, (n)=>{
                     <template #trigger>
                     <div class="line-clamp-1">
                     {{ $t('video.extend') }}:
-                     <template   v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</template>
-                     <template v-else  >{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</template>
+                    <span v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</span>
+                    <span v-else>{{ exRunway.options.gen2Options?.text_prompt?exRunway.options.gen2Options.text_prompt: exRunway.name }}</span>
                     </div>
                     </template>
                     <div class=" max-w-[300px]">{{exRunway.id}}</div>
