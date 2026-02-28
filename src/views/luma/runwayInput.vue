@@ -128,19 +128,15 @@ const generate= async ()=>{
         }
         if( gen3.options.init_image=='' ){
             delete gen3.options.init_image;
-            delete gen3_trubo.options.init_image;
         }
         if( !gen3.options.init_video  ){
             delete gen3.options.init_video;
-            delete gen3_trubo.options.init_video;
         }
         if( !gen3.options.extended_from_task_id  ){
             delete gen3.options.extended_from_task_id;
-            delete gen3_trubo.options.extended_from_task_id;
         }
         gen3.options.image_as_end_frame=st.value.image_as_end_frame
-        gen3_trubo.options.image_as_end_frame=st.value.image_as_end_frame
-        
+
         gen3.options.exploreMode= st.value.version=='europa'
         v_gen3.options.exploreMode= st.value.version=='europa'
         let sobj:any = gen3;
