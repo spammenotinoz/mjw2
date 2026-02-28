@@ -83,7 +83,7 @@ const create= async ()=>{
     //mlog('create', f.value  )
     try {
          let d:any= await runwayMlFetch('/v1/image_to_video', f.value)
-         runwayMlFeed(d.id ,{model:'gen3a_turbo',promptText:f.value.promptText })
+         runwayMlFeed(d.id ,{model:f.value.model,promptText:f.value.promptText })
     } catch (error) {
         
     }
@@ -91,9 +91,6 @@ const create= async ()=>{
 }
 const mvOption= [
 {label: 'Model : gen4_turbo',value: 'gen4_turbo'}
-// ,{label:t('video.rwgen3'),value: 'europa'}
-// ,{label:t('video.rwgen3fast'),value: 'europa-fast'}
-,{label:'Model : gen3a_turbo',value: 'gen3a_turbo'}
  ]
 </script>
 <template> 
