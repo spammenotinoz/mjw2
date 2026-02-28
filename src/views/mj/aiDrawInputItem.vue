@@ -23,7 +23,13 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
-const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 7.0',sref:'',cref:'',cw:'',oref:'' });
+const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 7.0',sref:'',cref:'',cw:'',oref:'',vidoeImage:'',videoBs:0 });
+const bsOption=[
+    {value:0,key:0,label:'Not Used'}
+    ,{value:4,key:4,'label':'4x'}
+    ,{value:2,key:2,'label':'2x'}
+    ,{value:1,key:1,'label':'1x'}
+];
 const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false,upType:''
 });
@@ -111,6 +117,7 @@ function createPrompt(rz:string){
         msgRef.value.showError(t('mjchat.placeInput') );
         return '';
     }
+    const oloadRz=rz
 
 
     // for(let v of farr){
@@ -149,7 +156,12 @@ function createPrompt(rz:string){
     if( f.value.cref.trim() != '' ) rzp += ` --cref ${f.value.cref}`
     if(  f.value.oref &&  f.value.oref.trim() != '' ) rzp += ` --oref ${f.value.oref}`
     if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
-    if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
+    if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}`
+    if(f.value.videoBs>0){
+        if (f.value.vidoeImage) rzk += ` ${f.value.vidoeImage} `
+        rz = ` ${oloadRz} --bs ${f.value.videoBs} `
+        rzp=` --video `
+    }
     rz = rzk + rz +rzp;
     // mlog('createPrompt over ', rz  );
     return rz ;
@@ -270,6 +282,8 @@ const clearAll=()=>{
   f.value.cw='';
   f.value.sref='';
   f.value.oref='';
+  f.value.vidoeImage='';
+  f.value.videoBs=0;
 }
 
 const uploader=(type:string)=>{
@@ -306,7 +320,9 @@ const selectFile3=  (input:any)=>{
             if(d.code== 1){
                 if( st.value.upType=='cref'){
                     f.value.cref= d.result[0];
-				}else if(st.value.upType=='oref' ){
+				}else if(st.value.upType=='vidoeImage' ){
+                   f.value.vidoeImage= d.result[0];
+                }else if(st.value.upType=='oref' ){
                     f.value.oref= d.result[0];
                 }else{
                     f.value.sref= d.result[0];
@@ -365,7 +381,20 @@ const selectFile3=  (input:any)=>{
         <div  >cw(0-100)</div>
         <NInputNumber :min="0" :max="100" v-model:value="f.cw" class="!w-[60%]" size="small" clearable placeholder="0-100 Character Weight" />
         </section >
-    
+
+        <section class="mb-4 flex justify-between items-center"  >
+          <div >Video</div>
+          <n-select v-model:value="f.videoBs" :options="bsOption" size="small"  class="!w-[60%]" :clearable="true" />
+        </section>
+        <section class="mb-4 flex justify-between items-center" v-if="f.videoBs>0" >
+        <div class="w-[45px]">Video</div>
+            <NInput  v-model:value="f.vidoeImage" size="small" placeholder="Video reference url" clearable>
+                <template #suffix>
+                    <SvgIcon icon="ri:upload-line" class="cursor-pointer"  @click="uploader('vidoeImage')"></SvgIcon>
+                </template>
+            </NInput>
+        </section>
+
         <section class="mb-4 flex justify-between items-center"  >
         <div class="w-[45px]">sref</div>
             <NInput v-model:value="f.sref" size="small" placeholder="Image url generates images with the same style" clearable >
