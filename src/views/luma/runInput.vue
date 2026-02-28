@@ -26,12 +26,9 @@ initLoad();
 <template>
 <div class="px-2">
     <n-tabs type="segment"  animated :default-value="st.tab"  @update:value="handleUpdateValue">
-        <n-tab-pane name="runway" tab="Website">
-            <RunwayInput/>
-        </n-tab-pane>
         <n-tab-pane name="runwayml" tab="API">
             <RunmlInput/>
         </n-tab-pane>
-    </n-tabs> 
+    </n-tabs>
 </div>
 </template>

@@ -102,25 +102,6 @@ const generate= async ()=>{
                 },
             //    "asTeamId": 17511575
         }
-        let gen3_trubo=    {
-                "taskType": "gen3a_turbo",
-                "internal": false,
-                "options": {
-                    "name": `Gen-3 Alpha Turbo ${seed}`,
-                    "seconds":st.value.time,
-                    "text_prompt": runway.value.text_prompt ,
-                    "seed": seed,
-                    "exploreMode": false,
-                    "watermark": false,
-                    "enhance_prompt": true,
-                    "init_image":  runway.value.image_prompt,
-                    "resolution": "720p",
-                    "image_as_end_frame": false,
-                    "assetGroupName": "Generative Video"
-                   ,"extended_from_task_id":(exRunway.value&&exRunway.value.id)?exRunway.value.id:undefined
-                    ,"init_video": ( exRunway.value && exRunway.value.artifacts && exRunway.value.artifacts[0].url)?exRunway.value.artifacts[0].url:undefined
-                }
-        }
         let v_gen3={
             "taskType": "europa",
             "internal": false,
@@ -202,7 +183,6 @@ const mvOption= [
 {label: t('video.rwgen2'),value: 'gen2'}
 ,{label:t('video.rwgen3'),value: 'europa'}
 ,{label:t('video.rwgen3fast'),value: 'europa-fast'}
-,{label:t('video.rwgen3turbo'),value: 'gen3a_turbo'}
  ]
  const timeOption= [
 {label: 'Duration: 5s',value: 5}
