@@ -143,22 +143,12 @@ const generate= async ()=>{
         if(  st.value.version=='gen2' ){
             sobj= obj
         }
-        if(  st.value.version=='gen3a_turbo' ){
-            sobj= gen3_trubo
-            if(gen3_trubo.options.init_image=='') {
-                ms.error( t('video.gen3a_turbo_img') )
-                return 
-            }
-        }
         if(runway.value.image_prompt && isMp4(runway.value.image_prompt)){
             if( st.value.version=='gen2'){
                 ms.error( 'gen2 不支持视频' )
-                return 
+                return
             }
             v_gen3.taskType='europa'
-            if( st.value.version=='gen3a_turbo' ){
-                v_gen3.taskType='gen3a_turbo'
-            }
             sobj= v_gen3
         }
        // const d=  await runwayFetch('/tasks', st.value.version=='gen2'?obj: gen3 ) 
@@ -232,7 +222,6 @@ watch(()=>homeStore.myData.act, (n)=>{
                     <div class=" max-w-[300px]">{{exRunway.id}}</div>
                     
                     <div v-if="exRunway.taskType=='gen3a'" >Version: Gen-3</div>
-                    <div v-if="exRunway.taskType=='gen3a_turbo'" >Version: Gen-3-turbo</div>
                     <div v-if="exRunway.taskType=='gen2'" >Version: Gen-2</div>
                     <div v-if="exRunway.createdAt" >createdAt: {{ new Date( exRunway.createdAt).toLocaleString() }}</div>
                     <div class=" max-w-[300px]" v-if="exRunway.options.text_prompt">{{ exRunway.options.text_prompt }}</div>
