@@ -84,53 +84,66 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
     // Log all data being sent
     mlog('openaiVideo all data keys:', Object.keys(data));
 
-    //var d:any
-    //d = await gptFetch('/v1/videos',data)
-    const formData = new FormData( );
     let baseUrl = '';
     // Use SORA_SERVER if configured, otherwise use default
     if(gptServerStore.myData.SORA_SERVER){
         baseUrl = gptServerStore.myData.SORA_SERVER;
         mlog('openaiVideo using SORA_SERVER:', baseUrl);
     } else {
-        mlog('openaiVideo SORA_SERVER is NOT configured!');
+        mlog('openaiVideo SORA_SERVER is NOT configured, using default!');
+        // Try using OPENAI_API_BASE_URL as fallback for Sora
+        if(gptServerStore.myData.OPENAI_API_BASE_URL){
+            baseUrl = gptServerStore.myData.OPENAI_API_BASE_URL;
+            mlog('openaiVideo using OPENAI_API_BASE_URL as fallback:', baseUrl);
+        }
     }
 
-     for(let o in data ){
-        mlog('openaiVideo appending to FormData:', o, '=', data[o]);
-        if(o=='input_reference'&&   data[o]?.file ){
-            // for(let f of data.data.base64Array){
-            //      formData.append('image[]', f.file )
-            // }
-            formData.append('input_reference',  data[o]?.file )
-        }else{
-            formData.append(o, data[o])
+    // Check if there's a file to upload
+    const hasFile = data.input_reference && data.input_reference.file;
+
+    if(hasFile){
+        // Use FormData for file upload
+        const formData = new FormData();
+        for(let o in data ){
+            if(o=='input_reference' && data[o]?.file ){
+                formData.append('input_reference', data[o]?.file)
+            }else{
+                formData.append(o, data[o])
+            }
         }
-
-
-
-     }
-    //mlog("formData  ",  formData   )
-
-    //const jda=    upd.data
-    //try {
         const ds = await gptUploadFile('/v1/videos', formData, baseUrl)
         const d=ds.data;
         if(ds.status!=200) throw "Fail with status:"+ ds.status
-        mlog("rz  ",  d   )
-    // }catch(e){
-    //     mlog("error  ",  e   )
-    // }
-    let  rz:DtoItem={
-       mid: d.id,
-       id: d.id,
-       type: "video",
-       plat: nowModel.plat,
-       status: "submitted",
-       last_feed:  Math.floor(Date.now() / 1000),
-       title:data.prompt??'no prompt'
-   }
-   return rz
+        let rz:DtoItem={
+           mid: d.id,
+           id: d.id,
+           type: "video",
+           plat: nowModel.plat,
+           status: "submitted",
+           last_feed:  Math.floor(Date.now() / 1000),
+           title:data.prompt??'no prompt'
+       }
+       return rz
+    } else {
+        // Use JSON for text-only requests
+        mlog('openaiVideo sending as JSON:', JSON.stringify(data));
+        const opt2:any = {};
+        if(baseUrl){
+            opt2.baseUrl = baseUrl;
+        }
+        const d = await gptFetch('/v1/videos', data, opt2);
+        mlog('openaiVideo JSON response:', d);
+        let rz:DtoItem={
+           mid: d.id,
+           id: d.id,
+           type: "video",
+           plat: nowModel.plat,
+           status: "submitted",
+           last_feed:  Math.floor(Date.now() / 1000),
+           title:data.prompt??'no prompt'
+       }
+       return rz
+    }
 }
 
 const googleVeo= async(nowModel:DtoTpl, data:any)=>{
