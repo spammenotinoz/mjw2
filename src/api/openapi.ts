@@ -70,6 +70,12 @@ export const gptFetch=(url:string,data?:any,opt2?:any )=>{
     if(opt2 && opt2.headers ) headers= opt2.headers;
 
     headers={...headers,...getHeaderAuthorization()}
+    let fetchUrl = url;
+    if(opt2?.baseUrl){
+        fetchUrl = opt2.baseUrl + url;
+    }else{
+        fetchUrl = getUrl(url);
+    }
     return new Promise<any>((resolve, reject) => {
         let opt:RequestInit ={method:'GET'};
         opt.headers= headers ;
@@ -81,7 +87,7 @@ export const gptFetch=(url:string,data?:any,opt2?:any )=>{
             opt.body= JSON.stringify(data) ;
             opt.method='POST';
         }
-        fetch(getUrl(url),  opt )
+        fetch(fetchUrl,  opt )
         .then(d=>d.json().then(d=> resolve(d))
         .catch(e=>reject(e)))
         .catch(e=>reject(e))
@@ -229,8 +235,12 @@ export const whisperUpload = ( FormData:FormData )=>{
 }
 
 //gpt 文件上传 /v1/image/edits
-export const gptUploadFile=   (url :string, FormData:FormData)=>{
-    url=  gptGetUrl( url);
+export const gptUploadFile=   (url :string, FormData:FormData, baseUrl?:string)=>{
+    if(baseUrl){
+        url = baseUrl + url;
+    }else{
+        url=  gptGetUrl( url);
+    }
     let headers=   {'Content-Type': 'multipart/form-data' }
     headers={...headers,...getHeaderAuthorization()}
 

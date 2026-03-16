@@ -1,7 +1,7 @@
 import { gptFetch, gptUploadFile, mlog } from "@/api"
 import { DtoItem, DtoStore } from "@/api/dtoStore"
 import { sleep } from "@/api/suno"
-import { homeStore } from "@/store"
+import { homeStore, gptServerStore } from "@/store"
 
 export interface DtoTpl{
     model:string
@@ -74,10 +74,16 @@ const falAI= async(nowModel:DtoTpl, data:any)=>{
 }
 
 const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
-    data['model']= nowModel.key?? nowModel.model 
+    data['model']= nowModel.key?? nowModel.model
     //var d:any
     //d = await gptFetch('/v1/videos',data)
-    const formData = new FormData( ); 
+    const formData = new FormData( );
+    let baseUrl = '';
+    // Use SORA_SERVER if configured, otherwise use default
+    if(gptServerStore.myData.SORA_SERVER){
+        baseUrl = gptServerStore.myData.SORA_SERVER;
+    }
+
      for(let o in data ){
         if(o=='input_reference'&&   data[o]?.file ){
             // for(let f of data.data.base64Array){
@@ -87,14 +93,15 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
         }else{
             formData.append(o, data[o])
         }
-       
+
+
 
      }
     //mlog("formData  ",  formData   )
-    
+
     //const jda=    upd.data
     //try {
-        const ds = await gptUploadFile('/v1/videos', formData)
+        const ds = await gptUploadFile('/v1/videos', formData, baseUrl)
         const d=ds.data;
         if(ds.status!=200) throw "Fail with status:"+ ds.status
         mlog("rz  ",  d   )
@@ -172,15 +179,21 @@ export const openaiVideoFeed=async( id:string)=>{
 for(let i=0;i<60;i++){
         let  rz= csuno.getOneById(id)
         if(!rz){
-            return 
+            return
         }
-        if(rz?.status=='completed'||  rz?.status=='failed'){    
-            return 
+        if(rz?.status=='completed'||  rz?.status=='failed'){
+            return
         }
-         
-        const url= '/v1/videos/'+ rz.mid; 
+
+        const url= '/v1/videos/'+ rz.mid;
+        // Use SORA_SERVER if configured, otherwise use default
+        let opt2:any = {};
+        if(gptServerStore.myData.SORA_SERVER){
+            opt2.baseUrl = gptServerStore.myData.SORA_SERVER;
+        }
+
         try {
-            const d:any = await gptFetch(url)
+            const d:any = await gptFetch(url, null, opt2)
             if(d.status=='failed'){
                  rz.status='failed'
                  rz.data=d
@@ -196,7 +209,7 @@ for(let i=0;i<60;i++){
         } catch (error) {
             rz.status= 'pending'
         }
-        
+
 
         rz.last_feed=Math.floor(Date.now() / 1000)
         console.log('ddd',  rz );
