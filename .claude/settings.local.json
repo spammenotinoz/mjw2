@@ -9,7 +9,9 @@
       "Bash(pnpm run:*)",
       "Bash(git checkout:*)",
       "Bash(git:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pnpm outdated:*)",
+      "Bash(pnpm update:*)"
     ]
   }
 }
