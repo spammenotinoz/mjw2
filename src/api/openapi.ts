@@ -248,8 +248,7 @@ export const gptUploadFile=   (url :string, FormData:FormData, baseUrl?:string)=
     for (let [key, value] of FormData.entries()) {
         console.log('gptUploadFile FormData:', key, '=', value);
     }
-    // Don't set Content-Type manually - let browser set it with boundary for FormData
-    let headers=   {}
+    let headers=   {'Content-Type': 'multipart/form-data' }
     headers={...headers,...getHeaderAuthorization()}
     console.log('gptUploadFile headers:', headers);
 
