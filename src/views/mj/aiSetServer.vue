@@ -36,6 +36,7 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.PIXVERSE_SERVER=n;
     gptServerStore.myData.UDIO_SERVER=n;
     gptServerStore.myData.RIFF_SERVER=n;
+    gptServerStore.myData.SORA_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -50,6 +51,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.PIXVERSE_KEY=n;
     gptServerStore.myData.UDIO_KEY=n;
     gptServerStore.myData.RIFF_KEY=n;
+    gptServerStore.myData.SORA_KEY=n;
 });
 </script>
 <template>
@@ -293,6 +295,22 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
+
+      <div class="text-right">Sora Server</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.SORA_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Sora Server:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.SORA_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Sora Key:</span>
+            </template>
+          </n-input>
+      </section>
 
 
 

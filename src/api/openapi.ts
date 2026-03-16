@@ -642,8 +642,8 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
             const key = obj.key ?? undefined;
             //let setQ= { }
             gptServerStore.setMyData(  {
-                OPENAI_API_BASE_URL:url, 
-                MJ_SERVER:url, 
+                OPENAI_API_BASE_URL:url,
+                MJ_SERVER:url,
                 SUNO_SERVER:url,
                 LUMA_SERVER:url,
                 RUNWAY_SERVER:url,
@@ -654,11 +654,12 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 UDIO_SERVER:url,
                 PIXVERSE_SERVER:url,
                 RIFF_SERVER:url,
-                
-                
-                
+                SORA_SERVER:url,
+
+
+
                 OPENAI_API_KEY:key,
-                MJ_API_SECRET:key, 
+                MJ_API_SECRET:key,
                 SUNO_KEY:key,
                 LUMA_KEY:key,
                 RUNWAY_KEY:key,
@@ -669,6 +670,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 UDIO_KEY:key,
                 PIXVERSE_KEY:key,
                 RIFF_KEY:key,
+                SORA_KEY:key,
              } )
             blurClean();
             gptServerStore.setMyData( gptServerStore.myData );
