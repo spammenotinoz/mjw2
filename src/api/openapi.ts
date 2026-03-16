@@ -237,15 +237,22 @@ export const whisperUpload = ( FormData:FormData )=>{
 
 //gpt 文件上传 /v1/image/edits
 export const gptUploadFile=   (url :string, FormData:FormData, baseUrl?:string)=>{
+    let finalUrl = '';
     if(baseUrl){
-        url = baseUrl + url;
+        finalUrl = baseUrl + url;
     }else{
-        url=  gptGetUrl( url);
+        finalUrl = gptGetUrl( url);
+    }
+    console.log('gptUploadFile URL:', finalUrl);
+    // Log FormData contents
+    for (let [key, value] of FormData.entries()) {
+        console.log('gptUploadFile FormData:', key, '=', value);
     }
     let headers=   {'Content-Type': 'multipart/form-data' }
     headers={...headers,...getHeaderAuthorization()}
+    console.log('gptUploadFile headers:', headers);
 
-    return axios.post( url , FormData, {  headers  })
+    return axios.post( finalUrl , FormData, {  headers  })
 
 }
 

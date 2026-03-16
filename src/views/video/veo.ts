@@ -74,10 +74,16 @@ const falAI= async(nowModel:DtoTpl, data:any)=>{
 }
 
 const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
+    mlog('openaiVideo ENTRY - nowModel:', JSON.stringify(nowModel), 'data:', JSON.stringify(data));
+
     // Explicitly set the model - use key if available, otherwise use model
     const modelName = nowModel.key ? nowModel.key : nowModel.model;
     data['model'] = modelName;
-    mlog('openaiVideo model set to:', data['model'], 'nowModel:', nowModel);
+    mlog('openaiVideo model set to:', data['model'], 'nowModel.key:', nowModel.key, 'nowModel.model:', nowModel.model);
+
+    // Log all data being sent
+    mlog('openaiVideo all data keys:', Object.keys(data));
+
     //var d:any
     //d = await gptFetch('/v1/videos',data)
     const formData = new FormData( );
@@ -85,9 +91,13 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
     // Use SORA_SERVER if configured, otherwise use default
     if(gptServerStore.myData.SORA_SERVER){
         baseUrl = gptServerStore.myData.SORA_SERVER;
+        mlog('openaiVideo using SORA_SERVER:', baseUrl);
+    } else {
+        mlog('openaiVideo SORA_SERVER is NOT configured!');
     }
 
      for(let o in data ){
+        mlog('openaiVideo appending to FormData:', o, '=', data[o]);
         if(o=='input_reference'&&   data[o]?.file ){
             // for(let f of data.data.base64Array){
             //      formData.append('image[]', f.file )
