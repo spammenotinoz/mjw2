@@ -13,7 +13,7 @@ const route = useRoute(); // 获取当前路由对象
 
 //"fal-ai/ltxv-13b-098-distilled/image-to-video"
 //const st= ref({"model":"veo3-fast-frames",isLoading:false});
-const st= ref({"model":"sora-2",isLoading:false});
+const st= ref({"model":"openai/sora-2",isLoading:false});
 const stArr= ref<any[]>([])
 const modelsOption= ref<{label:string,value:string}[]>([])
 const tplArr= ref<DtoTpl[]>([])

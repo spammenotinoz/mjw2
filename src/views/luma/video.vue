@@ -23,7 +23,7 @@ import { gptServerStore } from '@/store';
         <PikaList v-else-if="gptServerStore.myData.TAB_VIDEO=='pika'"/>
         <RunmlList v-else-if="gptServerStore.myData.TAB_VIDEO=='runwayml'"/>
         <PixList v-else-if="gptServerStore.myData.TAB_VIDEO=='pixverse'"/>
-        <VideoList v-else-if="gptServerStore.myData.TAB_VIDEO=='all'"/>
+        <VideoList v-else-if="gptServerStore.myData.TAB_VIDEO=='sora'"/>
         <VoList v-else/>
     </div>
      

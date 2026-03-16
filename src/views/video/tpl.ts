@@ -1,85 +1,44 @@
 export const mytpl={
 "tpl":[
     {
-        "model":"sora-2",
-        "field":[
-           {
-            "key":"prompt",
-                "type":"textarea",
-                "placeholder":"Video Description",
-                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
-               
-            }
-            
-             ,{
-                "key":"orientation",
-                "type":"select",
-                "value":"portrait",
-                "options":[
-                    { "label":"模式: 竖屏", "value":"portrait"}
-                    ,{ "label":"模式: 横屏", "value":"landscape"}
-                ]
-            } 
-             ,{
-                "key":"duration",
-                "type":"select",
-                "value":15,
-                "options":[
-                    { "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
-                ]
-            }
-            ,
-            
-            {   
-                "key":"images",
-                "type":"image_base64_url_array",
-                "max":2
-            }     
-        ]
-        ,"plat":"sora"
-    },
-    
-    {
-
         "model":"openai/sora-2",
         "key":"sora-2",
         "field":[
            {
             "key":"prompt",
                 "type":"textarea",
-                "placeholder":"Video Description",
-                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
-               
+                "placeholder":"Enter your video description",
+                "value":"A casual street interview on a busy sidewalk in Beijing. The interviewer holds a plain, unbranded microphone and asks: Do you know about OpenAI's new Sora 2 model? It's a great video model. The interviewee responds: Yes, I know about it, it's available on the openai-hk platform, it's awesome!"
             }
-            
+
              ,{
                 "key":"size",
                 "type":"select",
                 "value":"720x1280",
                 "options":[
-                    { "label":"size: 720x1280", "value":"720x1280"}
-                    ,{ "label":"size: 1280x720", "value":"1280x720"}
+                    { "label": "Vertical: 720x1280", "value":"720x1280"}
+                    ,{ "label": "Horizontal: 1280x720", "value":"1280x720"}
                 ]
-            } 
+            }
              ,{
                 "key":"seconds",
                 "type":"select",
                 "value":4,
                 "options":[
-                    { "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
-                    ,{ "label":"Duration: 8s", "value":8}
-                    ,{ "label":"Duration: 4s", "value":4}
+                    { "label": "Duration: 15s", "value":15}
+                    ,{ "label": "Duration: 10s", "value":10}
+                    ,{ "label": "Duration: 8s", "value":8}
+                    ,{ "label": "Duration: 4s", "value":4}
                 ]
             }
             ,
-            
-            {   
+
+
+            {
                 "key":"input_reference",
                 "type":"image_base64_file",
                 "max":1
-            }     
+            }
         ]
         ,"plat":"openai"
     },

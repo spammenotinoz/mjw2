@@ -22,14 +22,14 @@ const handleUpdateValue=(v:string)=>{
 const initLoad=()=>{
     if(route.query.tab){
         //st.value.tab=route.query.tab as string;
-        st.value.tab= 'pixverse'
+        st.value.tab= 'sora'
         let tt= (route.query.tab as string).toLocaleLowerCase();
-        if( ['luma','runway','pika','kling','runwayml','pixverse','all'].indexOf(tt)>-1 ){
+        if( ['luma','runway','pika','kling','runwayml','pixverse','sora'].indexOf(tt)>-1 ){
            st.value.tab=tt;
         }
         handleUpdateValue(  st.value.tab )
     }
-    else st.value.tab=( gptServerStore.myData.TAB_VIDEO?gptServerStore.myData.TAB_VIDEO:'pixverse')
+    else st.value.tab=( gptServerStore.myData.TAB_VIDEO?gptServerStore.myData.TAB_VIDEO:'sora')
     if( st.value.tab=='runwayml') st.value.tab='runway'
 }
 initLoad();
@@ -41,7 +41,7 @@ initLoad();
         <!-- <n-tab-pane name="" tab="">
         </n-tab-pane> -->
 
-        <n-tab-pane name="all" tab="All">
+        <n-tab-pane name="sora" tab="Sora">
             <VideoInput />
         </n-tab-pane>
         <n-tab-pane name="pixverse" tab="Pixverse">
