@@ -23,3 +23,11 @@ supabase.auth.onAuthStateChange((event, session) => {
     user.data = null
   }
 })
+
+// Get user email for cost tracking
+export function getUserEmail() {
+  if (user.data && user.data.email) {
+    return user.data.email
+  }
+  return null
+}

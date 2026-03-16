@@ -2,6 +2,7 @@ import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
 import { LumaMedia, lumaHkStore, lumaStore } from "./lumaStore";
 import { sleep } from "./suno";
+import { getUserEmail } from "@/utils/supabaseClient";
 
 
 
@@ -12,6 +13,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.LUMA_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {

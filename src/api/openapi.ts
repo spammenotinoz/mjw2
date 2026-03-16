@@ -11,6 +11,7 @@ import { chatSetting } from "./chat";
 import { MessageApiInjection } from "naive-ui/es/message/src/MessageProvider";
 import { ideoSubmit } from "./ideo";
 import { error } from "console";
+import { getUserEmail } from "@/utils/supabaseClient";
 //import {encode,  encodeChat}  from "gpt-tokenizer"
 //import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
 //import { get_encoding } from '@dqbd/tiktoken'
@@ -372,6 +373,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.OPENAI_API_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {

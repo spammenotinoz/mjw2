@@ -1,6 +1,7 @@
 import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
 import { sleep } from "./suno";
+import { getUserEmail } from "@/utils/supabaseClient";
 
 
 export interface IdeoImageData {
@@ -16,6 +17,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.IDEO_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {

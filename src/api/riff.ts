@@ -3,6 +3,7 @@ import { mlog } from "./mjapi";
 import { pixverseRep, pixverseStore, pixverseTask } from "./pixverseStore";
 import { sleep } from "./suno";
 import { riffAudio, riffStore, riffTask } from "./riffStore";
+import { getUserEmail } from "@/utils/supabaseClient";
 // import { KlingTask, klingStore } from "./klingStore";
 // import { sleep } from "./suno";
 
@@ -14,6 +15,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.RIFF_KEY){ 
         const authStore = useAuthStore()
         if( authStore.token ) {

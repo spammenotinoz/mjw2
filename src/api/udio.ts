@@ -3,6 +3,7 @@ import { mlog } from "./mjapi";
 //import { KlingTask, klingStore } from "./klingStore";
 import { sleep } from "./suno";
 import { udioStore, udioTask } from "./udioStore";
+import { getUserEmail } from "@/utils/supabaseClient";
 
 
 
@@ -12,6 +13,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.UDIO_KEY){ 
         const authStore = useAuthStore()
         if( authStore.token ) {

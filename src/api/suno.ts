@@ -1,6 +1,7 @@
 import { gptServerStore,homeStore,useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
-import { sunoStore,SunoMedia } from "./sunoStore";  
+import { sunoStore,SunoMedia } from "./sunoStore";
+import { getUserEmail } from "@/utils/supabaseClient";
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
@@ -17,6 +18,13 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail()
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail
+    }
+
     if(!gptServerStore.myData.SUNO_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {
