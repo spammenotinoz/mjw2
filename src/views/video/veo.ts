@@ -21,10 +21,10 @@ export interface DtoField{
 const csuno= new DtoStore()
 
 export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
-    mlog('PostVideo',nowModel);
+    mlog('PostVideo called with nowModel:', nowModel, 'plat:', nowModel?.plat, 'key:', nowModel?.key, 'model:', nowModel?.model);
     mlog('data ',data);
     let rz:DtoItem
-     
+
     const plat= nowModel.plat
     if( plat=="google-veo" ||  plat=="sora" ){
         rz= await googleVeo(nowModel,data)
@@ -74,7 +74,10 @@ const falAI= async(nowModel:DtoTpl, data:any)=>{
 }
 
 const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
-    data['model']= nowModel.key?? nowModel.model
+    // Explicitly set the model - use key if available, otherwise use model
+    const modelName = nowModel.key ? nowModel.key : nowModel.model;
+    data['model'] = modelName;
+    mlog('openaiVideo model set to:', data['model'], 'nowModel:', nowModel);
     //var d:any
     //d = await gptFetch('/v1/videos',data)
     const formData = new FormData( );
