@@ -92,8 +92,6 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
     console.log('[DEBUG viggleProxy] originalUrl:', req.originalUrl);
     return req.originalUrl;
   },
-    return url.replace('/viggle', '');
-  },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
     if ( process.env.VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VIGGLE_KEY;
@@ -252,8 +250,6 @@ export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
     // Always return the original URL - don't strip anything
     console.log('[DEBUG sunoProxy] originalUrl:', req.originalUrl);
     return req.originalUrl;
-  },
-    return url.replace('/suno', '');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
