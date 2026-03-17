@@ -148,11 +148,15 @@ function getHeaderApiSecret(){
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    if(gptServerStore.myData.MJ_SERVER){
-        // Use the base URL and add /mj prefix
-        return `${ gptServerStore.myData.MJ_SERVER}/mj${url}`;
-    }
-    return `/mjapi${url}`;
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.MJ_SERVER || defaultServer;
+
+    // If server URL already contains /mj, use as-is
+    if(server.indexOf('/mj')>0)
+        return `${server}${url}`;
+    // Otherwise add /mj prefix
+    return `${server}/mj${url}`;
 }
 
 export const mjFetch=(url:string,data?:any)=>{

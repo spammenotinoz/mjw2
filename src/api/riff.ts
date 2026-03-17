@@ -40,14 +40,16 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.RIFF_SERVER || defaultServer;
+
     const pro_prefix= '';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.RIFF_SERVER  ){
-      
-        return `${ gptServerStore.myData.RIFF_SERVER}${pro_prefix}/riffusion${url}`;
-    }
-    return `${pro_prefix}/riffusion${url}`;
+    // If server URL already contains /riffusion, use as-is
+    if(server.indexOf('/riffusion')>0)
+        return `${server}${pro_prefix}/riffusion${url}`;
+    return `${server}${pro_prefix}/riffusion${url}`;
 }
 
 

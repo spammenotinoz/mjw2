@@ -38,16 +38,17 @@ function getHeaderAuthorization(){
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.LUMA_SERVER || defaultServer;
+
     const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.LUMA_SERVER){
-        if(gptServerStore.myData.LUMA_SERVER.indexOf('/pro')>0){
-            return `${ gptServerStore.myData.LUMA_SERVER}/luma${url}`;
-        }
-        return `${ gptServerStore.myData.LUMA_SERVER}${pro_prefix}/luma${url}`;
+    // If server URL already contains /luma or /pro, use as-is
+    if(server.indexOf('/luma')>0 || server.indexOf('/pro')>0){
+        return `${server}/luma${url}`;
     }
-    return `${pro_prefix}/luma${url}`;
+    return `${server}${pro_prefix}/luma${url}`;
 }
 
 export const lumaFetch=(url:string,data?:any,opt2?:any )=>{

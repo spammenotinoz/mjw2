@@ -36,16 +36,17 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.PIKA_SERVER || defaultServer;
+
     const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.PIKA_SERVER  ){
-        if(gptServerStore.myData.PIKA_SERVER.indexOf('/pro')>0){
-            return `${ gptServerStore.myData.PIKA_SERVER}/pika${url}`;
-        }
-        return `${ gptServerStore.myData.PIKA_SERVER}${pro_prefix}/pika${url}`;
+    // If server URL already contains /pika or /pro, use as-is
+    if(server.indexOf('/pika')>0 || server.indexOf('/pro')>0){
+        return `${server}/pika${url}`;
     }
-    return `${pro_prefix}/pika${url}`;
+    return `${server}${pro_prefix}/pika${url}`;
 }
 
 

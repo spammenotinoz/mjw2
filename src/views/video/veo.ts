@@ -87,13 +87,14 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
     //var d:any
     //d = await gptFetch('/v1/videos',data)
     const formData = new FormData( );
-    let baseUrl = '';
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    let baseUrl = gptServerStore.myData.SORA_SERVER || defaultServer;
     // Use SORA_SERVER if configured, otherwise use default
     if(gptServerStore.myData.SORA_SERVER){
-        baseUrl = gptServerStore.myData.SORA_SERVER;
         mlog('openaiVideo using SORA_SERVER:', baseUrl);
     } else {
-        mlog('openaiVideo SORA_SERVER is NOT configured!');
+        mlog('openaiVideo using default server:', baseUrl);
     }
 
      for(let o in data ){
@@ -201,9 +202,8 @@ for(let i=0;i<60;i++){
         const url= '/v1/videos/'+ rz.mid;
         // Use SORA_SERVER if configured, otherwise use default
         let opt2:any = {};
-        if(gptServerStore.myData.SORA_SERVER){
-            opt2.baseUrl = gptServerStore.myData.SORA_SERVER;
-        }
+        const defaultServer = 'https://api.ultimateai.org';
+        opt2.baseUrl = gptServerStore.myData.SORA_SERVER || defaultServer;
 
         try {
             const d:any = await gptFetch(url, null, opt2)

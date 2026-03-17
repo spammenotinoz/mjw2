@@ -36,16 +36,17 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.VIGGLE_SERVER || defaultServer;
+
     const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.VIGGLE_SERVER){
-        if(gptServerStore.myData.VIGGLE_SERVER.indexOf('/pro')>0){
-            return `${ gptServerStore.myData.VIGGLE_SERVER}/viggle${url}`;
-        }
-        return `${ gptServerStore.myData.VIGGLE_SERVER}${pro_prefix}/viggle${url}`;
+    // If server URL already contains /viggle or /pro, use as-is
+    if(server.indexOf('/viggle')>0 || server.indexOf('/pro')>0){
+        return `${server}/viggle${url}`;
     }
-    return `${pro_prefix}/viggle${url}`;
+    return `${server}${pro_prefix}/viggle${url}`;
 }
 
 export interface tagInfo {

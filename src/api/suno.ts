@@ -5,11 +5,15 @@ import { getUserEmail } from "@/utils/supabaseClient";
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    if(gptServerStore.myData.SUNO_SERVER){
-        // Use the base URL and add /sunoapi prefix
-        return `${ gptServerStore.myData.SUNO_SERVER}/sunoapi${url}`;
-    }
-    return `/sunoapi${url}`;
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.SUNO_SERVER || defaultServer;
+
+    // If server URL already contains 'suno', use as-is
+    if(server.indexOf('suno')>0)
+        return `${server}${url}`;
+    // Otherwise add /sunoapi prefix
+    return `${server}/sunoapi${url}`;
 }
 function getHeaderAuthorization(){
     let headers={}

@@ -35,13 +35,16 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.RUNWAY_SERVER || defaultServer;
+
     const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.RUNWAY_SERVER  ){
-        return `${ gptServerStore.myData.RUNWAY_SERVER}${pro_prefix}/runwayml${url}`;
-    }
-    return `${pro_prefix}/runwayml${url}`;
+    // If server URL already contains /runwayml or /pro, use as-is
+    if(server.indexOf('/runwayml')>0 || server.indexOf('/pro')>0)
+        return `${server}${pro_prefix}/runwayml${url}`;
+    return `${server}${pro_prefix}/runwayml${url}`;
 }
 
 

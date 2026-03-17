@@ -42,14 +42,16 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    
+    // Default to api.ultimateai.org if no custom server is configured
+    const defaultServer = 'https://api.ultimateai.org';
+    const server = gptServerStore.myData.IDEO_SERVER || defaultServer;
+
     const pro_prefix= '';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.IDEO_SERVER){
-        
-        return `${ gptServerStore.myData.IDEO_SERVER}${pro_prefix}/ideogram${url}`;
-    }
-    return `${pro_prefix}/ideogram${url}`;
+    // If server URL already contains /ideogram, use as-is
+    if(server.indexOf('/ideogram')>0)
+        return `${server}${pro_prefix}/ideogram${url}`;
+    return `${server}${pro_prefix}/ideogram${url}`;
 }
  
 
