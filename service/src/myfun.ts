@@ -9,10 +9,27 @@ import pkg from '../package.json'
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
+// Helper function to get the route prefix to strip
+function getRoutePrefix(serverUrl: string | undefined, defaultPrefix: string): string | null {
+  if (!serverUrl) return defaultPrefix;
+  // If server URL already contains the prefix, don't strip anything
+  if (serverUrl.includes(defaultPrefix)) return null;
+  // If server URL contains a custom prefix (e.g., /luma for litellm), extract it
+  const match = serverUrl.match(/\/([^/]+)$/);
+  if (match) return '/' + match[1];
+  return defaultPrefix;
+}
+
 export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     let url = req.originalUrl;
+    const serverUrl = process.env.LUMA_SERVER;
+    // Check if server already has /luma in it
+    if (serverUrl && serverUrl.includes('/luma')) {
+      // Server URL already has the path, don't strip
+      return url;
+    }
     // Strip /luma or /pro/luma route prefix
     if (url.startsWith('/pro/luma')) {
       return url.replace('/pro/luma', '');
@@ -33,7 +50,13 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
 export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/runway', ''); // Strip /runway route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.RUNWAY_SERVER;
+    // Check if server already has /runway in it
+    if (serverUrl && serverUrl.includes('/runway')) {
+      return url;
+    }
+    return url.replace('/runway', ''); // Strip /runway route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -51,7 +74,13 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
 export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/runwayml', ''); // Strip /runwayml route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.RUNWAYML_SERVER;
+    // Check if server already has /runwayml in it
+    if (serverUrl && serverUrl.includes('/runwayml')) {
+      return url;
+    }
+    return url.replace('/runwayml', ''); // Strip /runwayml route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -68,7 +97,13 @@ export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
 export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/kling', ''); // Strip /kling route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.KLING_SERVER;
+    // Check if server already has /kling in it
+    if (serverUrl && serverUrl.includes('/kling')) {
+      return url;
+    }
+    return url.replace('/kling', ''); // Strip /kling route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -85,6 +120,11 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     let url = req.originalUrl;
+    const serverUrl = process.env.VIGGLE_SERVER;
+    // Check if server already has /viggle in it
+    if (serverUrl && serverUrl.includes('/viggle')) {
+      return url;
+    }
     // Strip /viggle or /pro/viggle route prefix
     if (url.startsWith('/pro/viggle')) {
       return url.replace('/pro/viggle', '');
@@ -106,7 +146,13 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
 export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/ideogram', ''); // Strip /ideogram route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.IDEO_SERVER;
+    // Check if server already has /ideogram in it
+    if (serverUrl && serverUrl.includes('/ideogram')) {
+      return url;
+    }
+    return url.replace('/ideogram', ''); // Strip /ideogram route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.IDEO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.IDEO_KEY;
@@ -121,7 +167,13 @@ export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
 export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/pika', ''); // Strip /pika route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.PIKA_SERVER;
+    // Check if server already has /pika in it
+    if (serverUrl && serverUrl.includes('/pika')) {
+      return url;
+    }
+    return url.replace('/pika', ''); // Strip /pika route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIKA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIKA_KEY;
@@ -136,7 +188,13 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
 export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/pixverse', ''); // Strip /pixverse route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.PIXVERSE_SERVER;
+    // Check if server already has /pixverse in it
+    if (serverUrl && serverUrl.includes('/pixverse')) {
+      return url;
+    }
+    return url.replace('/pixverse', ''); // Strip /pixverse route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIXVERSE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIXVERSE_KEY;
@@ -154,7 +212,13 @@ export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
 export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/udio', ''); // Strip /udio route prefix
+    let url = req.originalUrl;
+    const serverUrl = process.env.UDIO_SERVER;
+    // Check if server already has /udio in it
+    if (serverUrl && serverUrl.includes('/udio')) {
+      return url;
+    }
+    return url.replace('/udio', ''); // Strip /udio route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.UDIO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.UDIO_KEY;
@@ -237,6 +301,11 @@ export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     let url = req.originalUrl;
+    const serverUrl = process.env.SUNO_SERVER;
+    // Check if server already has /sunoapi or /suno in it
+    if (serverUrl && (serverUrl.includes('/sunoapi') || serverUrl.includes('/suno'))) {
+      return url;
+    }
     // Strip /sunoapi or /suno route prefix
     if (url.startsWith('/sunoapi')) {
       return url.replace('/sunoapi', '');
