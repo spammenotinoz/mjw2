@@ -149,7 +149,8 @@ function getHeaderApiSecret(){
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     if(gptServerStore.myData.MJ_SERVER){
-        return `${ gptServerStore.myData.MJ_SERVER}${url}`;
+        // Use the base URL and add /mj prefix
+        return `${ gptServerStore.myData.MJ_SERVER}/mj${url}`;
     }
     return `/mjapi${url}`;
 }
