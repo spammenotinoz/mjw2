@@ -310,7 +310,9 @@ app.use('/openapi/v1/images/edits',authV2,upload2.any() , GptImageEdit )
 app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    // Don't strip /openapi - preserve full path for litellm routing
+    console.log('[DEBUG openapi] originalUrl:', req.originalUrl, '| API_BASE_URL:', API_BASE_URL);
+    return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
@@ -321,7 +323,23 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   //limit: '10mb'
 }));
 
-//代理sunoApi 接口 
+//代理sora 接口 (same as openapi but with /sora prefix for litellm routing)
+app.use('/sora' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    // Don't strip /sora - preserve full path for litellm routing
+    console.log('[DEBUG sora] originalUrl:', req.originalUrl, '| API_BASE_URL:', API_BASE_URL);
+    return req.originalUrl;
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+}));
+
+//代理sunoApi 接口
 app.use('/sunoapi' ,authV2,sunoProxy );
 app.use('/suno' ,authV2,sunoProxy );
 
