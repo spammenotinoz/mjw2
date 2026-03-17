@@ -87,12 +87,13 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
     //var d:any
     //d = await gptFetch('/v1/videos',data)
     const formData = new FormData( );
-    // Use SORA_SERVER if configured, otherwise let gptFetch use local proxy (/openapi)
+    // Use SORA_SERVER if configured, otherwise use local proxy (/sora)
     let baseUrl = gptServerStore.myData.SORA_SERVER;
     if(baseUrl){
         mlog('openaiVideo using SORA_SERVER:', baseUrl);
     } else {
-        mlog('openaiVideo using local proxy');
+        baseUrl = ''; // Will use /sora prefix
+        mlog('openaiVideo using local proxy /sora');
     }
 
      for(let o in data ){
@@ -113,7 +114,9 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
 
     //const jda=    upd.data
     //try {
-        const ds = await gptUploadFile('/v1/videos', formData, baseUrl)
+        // Use /sora prefix when no custom server is configured
+        const videoUrl = baseUrl ? '/v1/videos' : '/sora/v1/videos';
+        const ds = await gptUploadFile(videoUrl, formData, baseUrl)
         const d=ds.data;
         if(ds.status!=200) throw "Fail with status:"+ ds.status
         mlog("rz  ",  d   )
@@ -197,13 +200,18 @@ for(let i=0;i<60;i++){
             return
         }
 
-        const url= '/v1/videos/'+ rz.mid;
-        // Use SORA_SERVER if configured, otherwise let gptFetch use local proxy (/openapi)
+        // Use SORA_SERVER if configured, otherwise use /sora prefix
         let opt2:any = {};
-        opt2.baseUrl = gptServerStore.myData.SORA_SERVER;
+        let videoUrl = '/v1/videos/'+ rz.mid;
+        if (gptServerStore.myData.SORA_SERVER) {
+            opt2.baseUrl = gptServerStore.myData.SORA_SERVER;
+        } else {
+            // Use /sora prefix directly
+            videoUrl = '/sora' + videoUrl;
+        }
 
         try {
-            const d:any = await gptFetch(url, null, opt2)
+            const d:any = await gptFetch(videoUrl, null, opt2)
             if(d.status=='failed'){
                  rz.status='failed'
                  rz.data=d

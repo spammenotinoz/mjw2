@@ -145,6 +145,22 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
 
 }));
 
+//代理mj 接口 (same as mjapi but with /mj prefix for litellm routing)
+app.use('/mj',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    // Don't strip /mj - preserve full path for litellm routing
+    console.log('[DEBUG mj] originalUrl:', req.originalUrl, '| MJ_SERVER:', process.env.MJ_SERVER);
+    return req.originalUrl;
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    if(  process.env.MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+}));
+
 
 
 // 设置存储引擎和文件保存路径

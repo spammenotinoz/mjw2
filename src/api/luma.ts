@@ -128,7 +128,7 @@ export const FeedLumaTask= async(id:string)=>{
 }
 
 export const isHkServer=()=>{
-    const url= gptServerStore.myData.LUMA_SERVER.toLocaleLowerCase();
+    const url= gptServerStore.myData.LUMA_SERVER?.toLocaleLowerCase() || '';
     if(url!=''){
      return (url.indexOf('hk')>-1 &&  url.indexOf('pro')==-1 ) ;
     }

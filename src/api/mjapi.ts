@@ -156,8 +156,8 @@ const getUrl=(url:string)=>{
     // If server URL is provided without /mj, add /mj prefix
     if(server)
         return `${server}/mj${url}`;
-    // Otherwise use local backend proxy with /mjapi prefix
-    return `/mjapi${url}`;
+    // Otherwise use local backend proxy with /mj prefix
+    return `/mj${url}`;
 }
 
 export const mjFetch=(url:string,data?:any)=>{
