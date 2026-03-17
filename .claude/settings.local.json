@@ -14,7 +14,8 @@
       "Bash(pnpm update:*)",
       "Bash(cd:*)",
       "Bash(npx tsc:*)",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Bash(pnpm build:*)"
     ]
   }
 }
