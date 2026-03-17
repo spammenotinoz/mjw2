@@ -39,15 +39,16 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    // Default to api.ultimateai.org if no custom server is configured
-    const defaultServer = 'https://api.ultimateai.org';
-    const server = gptServerStore.myData.UDIO_SERVER || defaultServer;
-
-    // If server URL already contains /udio, use as-is
-    if(server.indexOf('/udio')>0)
+    // Use custom server if configured, otherwise use local backend proxy
+    const server = gptServerStore.myData.UDIO_SERVER;
+    // If server URL is provided and contains /udio, use as-is
+    if(server && server.indexOf('/udio')>0)
         return `${server}${url}`;
-    // Otherwise add /udio prefix
-    return `${server}/udio${url}`;
+    // If server URL is provided, add /udio prefix
+    if(server)
+        return `${server}/udio${url}`;
+    // Otherwise use local backend proxy with /udio prefix
+    return `/udio${url}`;
 }
 
 

@@ -37,16 +37,19 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    // Default to api.ultimateai.org if no custom server is configured
-    const defaultServer = 'https://api.ultimateai.org';
-    const server = gptServerStore.myData.KLING_SERVER || defaultServer;
+    // Use custom server if configured, otherwise use local backend proxy
+    const server = gptServerStore.myData.KLING_SERVER;
 
     const pro_prefix= '';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    // If server URL already contains /kling, use as-is
-    if(server.indexOf('/kling')>0)
+    // If server URL is provided and contains /kling, use as-is
+    if(server && server.indexOf('/kling')>0)
         return `${server}${pro_prefix}/kling${url}`;
-    return `${server}${pro_prefix}/kling${url}`;
+    // If server URL is provided, add /kling prefix
+    if(server)
+        return `${server}${pro_prefix}/kling${url}`;
+    // Otherwise use local backend proxy with /kling prefix
+    return `${pro_prefix}/kling${url}`;
 }
 
 

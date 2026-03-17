@@ -12,7 +12,12 @@ import pkg from '../package.json'
 export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    let url = req.originalUrl;
+    // Strip /luma or /pro/luma route prefix
+    if (url.startsWith('/pro/luma')) {
+      return url.replace('/pro/luma', '');
+    }
+    return url.replace('/luma', '');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -28,7 +33,7 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
 export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/runway', ''); // Strip /runway route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -46,12 +51,7 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
 export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    let url =  req.originalUrl;
-    let server= process.env.RUNWAYML_SERVER??  API_BASE_URL
-    if( server.indexOf('runwayml.com')>-1 ){
-        url= req.originalUrl.replace('/runwayml', '')
-    }
-    return url  //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/runwayml', ''); // Strip /runwayml route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -68,7 +68,7 @@ export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
 export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/kling', ''); // Strip /kling route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -84,7 +84,12 @@ export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
 export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    let url = req.originalUrl;
+    // Strip /viggle or /pro/viggle route prefix
+    if (url.startsWith('/pro/viggle')) {
+      return url.replace('/pro/viggle', '');
+    }
+    return url.replace('/viggle', '');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -101,7 +106,7 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
 export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/ideogram', ''); // Strip /ideogram route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.IDEO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.IDEO_KEY;
@@ -116,7 +121,7 @@ export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
 export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/pika', ''); // Strip /pika route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIKA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIKA_KEY;
@@ -131,7 +136,7 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
 export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/pixverse', ''); // Strip /pixverse route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIXVERSE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIXVERSE_KEY;
@@ -149,7 +154,7 @@ export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
 export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+    return req.originalUrl.replace('/udio', ''); // Strip /udio route prefix
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.UDIO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.UDIO_KEY;
@@ -231,7 +236,12 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
 export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/sunoapi', '') // Strip /sunoapi route prefix
+    let url = req.originalUrl;
+    // Strip /sunoapi or /suno route prefix
+    if (url.startsWith('/sunoapi')) {
+      return url.replace('/sunoapi', '');
+    }
+    return url.replace('/suno', '');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")

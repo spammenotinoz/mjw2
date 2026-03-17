@@ -39,16 +39,19 @@ function getHeaderAuthorization(){
 
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    // Default to api.ultimateai.org if no custom server is configured
-    const defaultServer = 'https://api.ultimateai.org';
-    const server = gptServerStore.myData.PIXVERSE_SERVER || defaultServer;
+    // Use custom server if configured, otherwise use local backend proxy
+    const server = gptServerStore.myData.PIXVERSE_SERVER;
 
     const pro_prefix= '';//homeStore.myData.is_luma_pro?'/pro':''
     url= url.replaceAll('/pro','')
-    // If server URL already contains /pixverse, use as-is
-    if(server.indexOf('/pixverse')>0)
+    // If server URL is provided and contains /pixverse, use as-is
+    if(server && server.indexOf('/pixverse')>0)
         return `${server}${pro_prefix}/pixverse${url}`;
-    return `${server}${pro_prefix}/pixverse${url}`;
+    // If server URL is provided, add /pixverse prefix
+    if(server)
+        return `${server}${pro_prefix}/pixverse${url}`;
+    // Otherwise use local backend proxy with /pixverse prefix
+    return `${pro_prefix}/pixverse${url}`;
 }
 
 
