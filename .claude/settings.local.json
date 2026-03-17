@@ -11,7 +11,9 @@
       "Bash(git:*)",
       "Bash(ls:*)",
       "Bash(pnpm outdated:*)",
-      "Bash(pnpm update:*)"
+      "Bash(pnpm update:*)",
+      "Bash(cd:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

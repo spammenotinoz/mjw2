@@ -145,7 +145,6 @@ export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
     console.log('[DEBUG pixverseProxy] originalUrl:', req.originalUrl);
     return req.originalUrl;
   },
-  },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIXVERSE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIXVERSE_KEY;
     else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
@@ -165,7 +164,6 @@ export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
     // Always return the original URL - don't strip anything
     console.log('[DEBUG udioProxy] originalUrl:', req.originalUrl);
     return req.originalUrl;
-  },
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.UDIO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.UDIO_KEY;
