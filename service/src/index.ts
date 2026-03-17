@@ -130,13 +130,10 @@ router.get('/reg', regCookie )
 app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    let url = req.originalUrl;
-    const serverUrl = process.env.MJ_SERVER;
-    // Check if server already has /mj in it - if so, strip it from request URL to avoid duplication
-    if (serverUrl && serverUrl.includes('/mj')) {
-      return url.replace('/mjapi', '');
-    }
-    return req.originalUrl.replace('/mjapi', '') // Strip /mjapi route prefix
+    // Always return the original URL - don't strip anything
+    // This ensures the full path (including /mjapi suffix) reaches the target server
+    console.log('[DEBUG mjapi] originalUrl:', req.originalUrl, '| MJ_SERVER:', process.env.MJ_SERVER);
+    return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     if(  process.env.MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
