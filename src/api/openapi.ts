@@ -59,6 +59,8 @@ export const KnowledgeCutOffDate: Record<string, string> = {
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
+    // If URL already starts with /sora, don't add /openapi prefix (it goes through /sora route)
+    if(url.startsWith('/sora')) return url;
     if(gptServerStore.myData.OPENAI_API_BASE_URL){
         return `${ gptServerStore.myData.OPENAI_API_BASE_URL}${url}`;
     }

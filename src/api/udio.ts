@@ -44,11 +44,11 @@ export const  getUrl=(url:string)=>{
     // If server URL is provided and contains /udio, use as-is
     if(server && server.indexOf('/udio')>0)
         return `${server}${url}`;
-    // If server URL is provided, add /udio prefix
+    // If server URL is provided, add /udio prefix (only if url doesn't already start with /udio)
     if(server)
-        return `${server}/udio${url}`;
-    // Otherwise use local backend proxy with /udio prefix
-    return `/udio${url}`;
+        return url.startsWith('/udio') ? `${server}${url}` : `${server}/udio${url}`;
+    // Otherwise use local backend proxy with /udio prefix (only if url doesn't already start with /udio)
+    return url.startsWith('/udio') ? url : `/udio${url}`;
 }
 
 

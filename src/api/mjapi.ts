@@ -153,11 +153,11 @@ const getUrl=(url:string)=>{
     // If server URL is provided and contains /mj, use as-is
     if(server && server.indexOf('/mj')>0)
         return `${server}${url}`;
-    // If server URL is provided without /mj, add /mj prefix
+    // If server URL is provided without /mj, add /mj prefix (only if url doesn't already start with /mj)
     if(server)
-        return `${server}/mj${url}`;
-    // Otherwise use local backend proxy with /mj prefix
-    return `/mj${url}`;
+        return url.startsWith('/mj') ? `${server}${url}` : `${server}/mj${url}`;
+    // Otherwise use local backend proxy with /mj prefix (only if url doesn't already start with /mj)
+    return url.startsWith('/mj') ? url : `/mj${url}`;
 }
 
 export const mjFetch=(url:string,data?:any)=>{
