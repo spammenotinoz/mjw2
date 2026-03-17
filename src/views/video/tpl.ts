@@ -1,7 +1,7 @@
 export const mytpl={
 "tpl":[
     {
-        "model":"openai/sora-2",
+        "model":"sora2-landscape-10s",
         "key":"sora-2",
         "field":[
            {

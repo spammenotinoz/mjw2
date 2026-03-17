@@ -4,11 +4,7 @@ import McInput from './mcInput.vue';
 import mcList from './mcList.vue';
 import mcplayer from './mcplayer.vue';
 import { NTabs,NTabPane} from "naive-ui"
-
-import RiffInput from './riffInput.vue';
-import RiffList from './riffList.vue';
-import udioInput from './udioInput.vue';
-import udioList from './udioList.vue';
+// Riffusion and Udio imports removed
 import { gptServerStore } from '@/store';
 import { useRoute } from 'vue-router'; 
 
@@ -45,23 +41,15 @@ initLoad();
             <McInput /> 
          </n-tab-pane>
 
-         <n-tab-pane name="suno" tab="Suno"> 
-            <McInput /> 
+         <n-tab-pane name="suno" tab="Suno">
+            <McInput />
          </n-tab-pane>
-         <n-tab-pane name="riff" tab="Riffusion"> 
-            <RiffInput/>
-         </n-tab-pane>
-         <n-tab-pane name="udio" tab="Udio"> 
-            <udioInput/>
-         </n-tab-pane>
-           
+         <!-- Riffusion and Udio tabs removed -->
+
         </n-tabs>
     </div>
     <div class=" flex-1  h-full bg-[#fafbfc] pt-2 dark:bg-[#18181c] overflow-y-auto " >
-        <udioList  v-if="gptServerStore.myData.TAB_MUSIC=='udio'"/>
-        <RiffList  v-else-if="gptServerStore.myData.TAB_MUSIC=='riff'" />
-        <mcList  v-else />
-       
+        <mcList />
     </div>
     <div class="w-[300px]  h-full overflow-y-auto ">
         <mcplayer/>

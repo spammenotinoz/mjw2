@@ -3,8 +3,7 @@ import { NTabs,NTabPane } from 'naive-ui';
 import aiDrawInputItem from './aiDrawInputItem.vue'
 import aiFace from './aiFace.vue'
 import aiBlend from './aiBlend.vue'
-import aiDall from './aiDall.vue'
-import aiIdeoInput from './aiIdeoInput.vue'
+// aiDall and aiIdeoInput removed
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { SvgIcon } from '@/components/common'
 import { onMounted, ref, watch } from 'vue';
@@ -72,16 +71,8 @@ initLoad();
     </n-tabs>
 
     </n-tab-pane>
-    
-    <n-tab-pane name="dall.e" tab="Flux">
-     <div class="p-4"><aiDall  /></div>
-    </n-tab-pane>
 
-    <n-tab-pane name="ideogram" tab="IdeoGram">
-     <div class="p-2"> <aiIdeoInput/> </div>
-    </n-tab-pane>  
-    
-
+    <!-- Flux and IdeoGram tabs removed -->
 
     <n-tab-pane name="Close" v-if="isMobile" >
       <template #tab>
