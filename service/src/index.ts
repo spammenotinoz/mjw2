@@ -132,9 +132,9 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
   proxyReqPathResolver: function (req) {
     let url = req.originalUrl;
     const serverUrl = process.env.MJ_SERVER;
-    // Check if server already has /mj in it
+    // Check if server already has /mj in it - if so, strip it from request URL to avoid duplication
     if (serverUrl && serverUrl.includes('/mj')) {
-      return url;
+      return url.replace('/mjapi', '');
     }
     return req.originalUrl.replace('/mjapi', '') // Strip /mjapi route prefix
   },
