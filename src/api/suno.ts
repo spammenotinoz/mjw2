@@ -6,9 +6,8 @@ import { getUserEmail } from "@/utils/supabaseClient";
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     if(gptServerStore.myData.SUNO_SERVER){
-        if( gptServerStore.myData.SUNO_SERVER.indexOf('suno')>0 ) return `${ gptServerStore.myData.SUNO_SERVER}${url}`;
-
-        return `${ gptServerStore.myData.SUNO_SERVER}/suno${url}`;
+        // Use the base URL and add /sunoapi prefix
+        return `${ gptServerStore.myData.SUNO_SERVER}/sunoapi${url}`;
     }
     return `/sunoapi${url}`;
 }
