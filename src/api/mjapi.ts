@@ -6,6 +6,7 @@ import { copyToClip } from "@/utils/copy";
 import { isNumber } from "@/utils/is";
 import { localGet, localSaveAny } from "./mjsave";
 import { t } from "@/locales";
+import { getUserEmail } from "@/utils/supabaseClient";
 //import { useMessage } from "naive-ui";
 export interface gptsType{
     gid:string
@@ -136,14 +137,21 @@ export const myTrim = (str: string, delimiter: string)=>{
 }
 
 function getHeaderApiSecret(){
+    let headers: any = {};
     if(!gptServerStore.myData.MJ_API_SECRET){
         const authStore = useAuthStore()
-        if( authStore.token ) return { 'x-ptoken':  authStore.token };
-        return {}
+        if( authStore.token ) headers['x-ptoken'] = authStore.token;
+    } else {
+        headers['mj-api-secret'] = gptServerStore.myData.MJ_API_SECRET;
     }
-    return {
-        'mj-api-secret':  gptServerStore.myData.MJ_API_SECRET
+
+    // Add user email header for cost tracking
+    const userEmail = getUserEmail();
+    if(userEmail){
+        headers['X-OpenWebUI-User-Email'] = userEmail;
     }
+
+    return headers;
 }
 
 const getUrl=(url:string)=>{
