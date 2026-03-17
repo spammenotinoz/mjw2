@@ -123,17 +123,29 @@ router.post('/session', async (req, res) => {
 router.post('/verify', verify)
 router.get('/reg', regCookie )
 
- const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
+const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
+
+// Helper function to resolve proxy path - strips route prefix if baseUrl already has it
+function resolveProxyPath(baseUrl: string, originalUrl: string, prefix: string): string {
+  // If baseUrl already contains the prefix (e.g., /mj), strip it from the path
+  if (baseUrl.includes(prefix)) {
+    const path = originalUrl.replace(new RegExp(`^${prefix}`), '') || '/';
+    const finalUrl = baseUrl + path;
+    console.log(`[DEBUG${prefix}] originalUrl: ${originalUrl} | baseUrl: ${baseUrl} | finalUrl: ${finalUrl}`);
+    return path;
+  }
+  // Otherwise use the full path
+  const finalUrl = baseUrl + originalUrl;
+  console.log(`[DEBUG${prefix}] originalUrl: ${originalUrl} | baseUrl: ${baseUrl} | finalUrl: ${finalUrl}`);
+  return originalUrl;
+}
 
 app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.MJ_SERVER || 'https://api.openai.com';
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG mjapi] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.MJ_SERVER || 'https://api.openai.com', req.originalUrl, '/mjapi');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     if(  process.env.MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
@@ -149,10 +161,7 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
 app.use('/mj',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.MJ_SERVER || 'https://api.openai.com';
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG mj] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.MJ_SERVER || 'https://api.openai.com', req.originalUrl, '/mj');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     if(  process.env.MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
@@ -327,9 +336,7 @@ app.use('/openapi/v1/images/edits',authV2,upload2.any() , GptImageEdit )
 app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const finalUrl = API_BASE_URL + req.originalUrl;
-    console.log('[DEBUG openapi] originalUrl:', req.originalUrl, '| baseUrl:', API_BASE_URL, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(API_BASE_URL, req.originalUrl, '/openapi');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
@@ -344,9 +351,7 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
 app.use('/sora' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const finalUrl = API_BASE_URL + req.originalUrl;
-    console.log('[DEBUG sora] originalUrl:', req.originalUrl, '| baseUrl:', API_BASE_URL, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(API_BASE_URL, req.originalUrl, '/sora');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;

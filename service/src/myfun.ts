@@ -9,13 +9,25 @@ import pkg from '../package.json'
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
+// Helper function to resolve proxy path - strips route prefix if baseUrl already has it
+function resolveProxyPath(baseUrl: string, originalUrl: string, prefix: string): string {
+  // If baseUrl already contains the prefix (e.g., /luma), strip it from the path
+  if (baseUrl.includes(prefix)) {
+    const path = originalUrl.replace(new RegExp(`^${prefix}`), '') || '/';
+    const finalUrl = baseUrl + path;
+    console.log(`[DEBUG${prefix}Proxy] originalUrl: ${originalUrl} | baseUrl: ${baseUrl} | finalUrl: ${finalUrl}`);
+    return path;
+  }
+  // Otherwise use the full path
+  const finalUrl = baseUrl + originalUrl;
+  console.log(`[DEBUG${prefix}Proxy] originalUrl: ${originalUrl} | baseUrl: ${baseUrl} | finalUrl: ${finalUrl}`);
+  return originalUrl;
+}
+
 export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.LUMA_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG lumaProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.LUMA_SERVER || API_BASE_URL, req.originalUrl, '/luma');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -31,10 +43,7 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
 export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.RUNWAY_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG runwayProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.RUNWAY_SERVER || API_BASE_URL, req.originalUrl, '/runway');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -52,10 +61,7 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
 export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.RUNWAYML_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG runwaymlProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.RUNWAYML_SERVER || API_BASE_URL, req.originalUrl, '/runwayml');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -72,10 +78,7 @@ export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
 export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.KLING_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG klingProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.KLING_SERVER || API_BASE_URL, req.originalUrl, '/kling');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -91,10 +94,7 @@ export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
 export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.VIGGLE_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG viggleProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.VIGGLE_SERVER || API_BASE_URL, req.originalUrl, '/viggle');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
@@ -111,10 +111,7 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
 export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.IDEO_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG ideoProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.IDEO_SERVER || API_BASE_URL, req.originalUrl, '/ideogram');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.IDEO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.IDEO_KEY;
@@ -129,10 +126,7 @@ export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
 export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.PIKA_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG pikaProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.PIKA_SERVER || API_BASE_URL, req.originalUrl, '/pika');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIKA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIKA_KEY;
@@ -147,10 +141,7 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
 export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    const baseUrl = process.env.PIXVERSE_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG pixverseProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.PIXVERSE_SERVER || API_BASE_URL, req.originalUrl, '/pixverse');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.PIXVERSE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIXVERSE_KEY;
@@ -168,11 +159,7 @@ export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
 export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    const baseUrl = process.env.UDIO_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG udioProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.UDIO_SERVER || API_BASE_URL, req.originalUrl, '/udio');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
     if ( process.env.UDIO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.UDIO_KEY;
@@ -254,11 +241,7 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
 export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    const baseUrl = process.env.SUNO_SERVER || API_BASE_URL;
-    const finalUrl = baseUrl + req.originalUrl;
-    console.log('[DEBUG sunoProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
-    return req.originalUrl;
+    return resolveProxyPath(process.env.SUNO_SERVER || API_BASE_URL, req.originalUrl, '/suno');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
