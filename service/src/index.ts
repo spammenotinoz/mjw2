@@ -130,9 +130,9 @@ router.get('/reg', regCookie )
 app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    // This ensures the full path (including /mjapi suffix) reaches the target server
-    console.log('[DEBUG mjapi] originalUrl:', req.originalUrl, '| MJ_SERVER:', process.env.MJ_SERVER);
+    const baseUrl = process.env.MJ_SERVER || 'https://api.openai.com';
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG mjapi] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -149,8 +149,9 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
 app.use('/mj',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Don't strip /mj - preserve full path for litellm routing
-    console.log('[DEBUG mj] originalUrl:', req.originalUrl, '| MJ_SERVER:', process.env.MJ_SERVER);
+    const baseUrl = process.env.MJ_SERVER || 'https://api.openai.com';
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG mj] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -326,8 +327,8 @@ app.use('/openapi/v1/images/edits',authV2,upload2.any() , GptImageEdit )
 app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Don't strip /openapi - preserve full path for litellm routing
-    console.log('[DEBUG openapi] originalUrl:', req.originalUrl, '| API_BASE_URL:', API_BASE_URL);
+    const finalUrl = API_BASE_URL + req.originalUrl;
+    console.log('[DEBUG openapi] originalUrl:', req.originalUrl, '| baseUrl:', API_BASE_URL, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -343,8 +344,8 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
 app.use('/sora' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Don't strip /sora - preserve full path for litellm routing
-    console.log('[DEBUG sora] originalUrl:', req.originalUrl, '| API_BASE_URL:', API_BASE_URL);
+    const finalUrl = API_BASE_URL + req.originalUrl;
+    console.log('[DEBUG sora] originalUrl:', req.originalUrl, '| baseUrl:', API_BASE_URL, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {

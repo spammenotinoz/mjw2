@@ -12,9 +12,9 @@ import pkg from '../package.json'
 export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    // This ensures the full path (including /luma suffix) reaches litellm
-    console.log('[DEBUG lumaProxy] originalUrl:', req.originalUrl, '| LUMA_SERVER:', process.env.LUMA_SERVER);
+    const baseUrl = process.env.LUMA_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG lumaProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -31,8 +31,9 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
 export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG runwayProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.RUNWAY_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG runwayProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -51,8 +52,9 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
 export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG runwaymlProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.RUNWAYML_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG runwaymlProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -70,8 +72,9 @@ export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
 export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG klingProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.KLING_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG klingProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -88,8 +91,9 @@ export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
 export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG viggleProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.VIGGLE_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG viggleProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
@@ -107,8 +111,9 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
 export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG ideoProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.IDEO_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG ideoProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
@@ -124,8 +129,9 @@ export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
 export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG pikaProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.PIKA_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG pikaProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
@@ -141,8 +147,9 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
 export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    // Always return the original URL - don't strip anything
-    console.log('[DEBUG pixverseProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.PIXVERSE_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG pixverseProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
@@ -162,7 +169,9 @@ export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     // Always return the original URL - don't strip anything
-    console.log('[DEBUG udioProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.UDIO_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG udioProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
@@ -246,7 +255,9 @@ export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     // Always return the original URL - don't strip anything
-    console.log('[DEBUG sunoProxy] originalUrl:', req.originalUrl);
+    const baseUrl = process.env.SUNO_SERVER || API_BASE_URL;
+    const finalUrl = baseUrl + req.originalUrl;
+    console.log('[DEBUG sunoProxy] originalUrl:', req.originalUrl, '| baseUrl:', baseUrl, '| finalUrl:', finalUrl);
     return req.originalUrl;
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
