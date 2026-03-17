@@ -261,6 +261,21 @@ export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   
 })
 
+export const riffusionProxy=proxy(process.env.RIFF_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return resolveProxyPath(process.env.RIFF_SERVER || API_BASE_URL, req.originalUrl, '/riffusion');
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    if ( process.env.RIFF_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.RIFF_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+
+})
+
 
 //主要转发接口
 export const GptImageEdit = async (

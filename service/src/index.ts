@@ -17,7 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy, sunoProxy, GptImageEdit } from './myfun'
+import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy, sunoProxy, riffusionProxy, GptImageEdit } from './myfun'
 
 
 const app = express()
@@ -395,6 +395,7 @@ app.use('/pika' ,authV2, pikaProxy  );
 app.use('/udio' ,authV2, udioProxy  );
 
 app.use('/pixverse' ,authV2, pixverseProxy  );
+app.use('/riffusion' ,authV2, riffusionProxy  );
 
 // WebDAV 代理接口
 router.post('/webdav-proxy', authV2, async (req, res) => {

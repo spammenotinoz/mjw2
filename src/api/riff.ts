@@ -47,12 +47,12 @@ export const  getUrl=(url:string)=>{
     url= url.replaceAll('/pro','')
     // If server URL is provided and contains /riffusion, use as-is
     if(server && server.indexOf('/riffusion')>0)
-        return `${server}${pro_prefix}/riffusion${url}`;
-    // If server URL is provided, add /riffusion prefix
+        return `${server}${url}`;
+    // If server URL is provided, add /riffusion prefix (only if url doesn't already start with /riffusion)
     if(server)
-        return `${server}${pro_prefix}/riffusion${url}`;
-    // Otherwise use local backend proxy with /riffusion prefix
-    return `${pro_prefix}/riffusion${url}`;
+        return url.startsWith('/riffusion') ? `${server}${url}` : `${server}/riffusion${url}`;
+    // Otherwise use local backend proxy with /riffusion prefix (only if url doesn't already start with /riffusion)
+    return url.startsWith('/riffusion') ? url : `/riffusion${url}`;
 }
 
 
