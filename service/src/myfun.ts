@@ -11,9 +11,16 @@ import pkg from '../package.json'
 
 // Helper function to resolve proxy path - strips route prefix if baseUrl already has it
 function resolveProxyPath(baseUrl: string, originalUrl: string, prefix: string): string {
-  // If baseUrl already contains the prefix (e.g., /luma), strip it from the path
-  if (baseUrl.includes(prefix)) {
-    const path = originalUrl.replace(new RegExp(`^${prefix}`), '') || '/';
+  // Normalize prefix to always start with /
+  const normalizedPrefix = prefix.startsWith('/') ? prefix : '/' + prefix;
+
+  // Check if baseUrl ends with the prefix (with optional trailing slash)
+  const baseEndsWithPrefix = baseUrl.endsWith(normalizedPrefix) ||
+                              baseUrl.endsWith(normalizedPrefix + '/');
+
+  if (baseEndsWithPrefix) {
+    // Strip the prefix from the path
+    const path = originalUrl.replace(new RegExp(`^${normalizedPrefix}`), '') || '/';
     const finalUrl = baseUrl + path;
     console.log(`[DEBUG${prefix}Proxy] originalUrl: ${originalUrl} | baseUrl: ${baseUrl} | finalUrl: ${finalUrl}`);
     return path;
