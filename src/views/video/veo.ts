@@ -115,7 +115,7 @@ const openaiVideo= async(nowModel:DtoTpl, data:any)=>{
     //const jda=    upd.data
     //try {
         // Use /sora prefix when no custom server is configured
-        const videoUrl = baseUrl ? '/v1/videos' : '/sora/v1/videos';
+        const videoUrl = baseUrl ? '/v1/chat/completions' : '/sora/v1/chat/completions';
         const ds = await gptUploadFile(videoUrl, formData, baseUrl)
         const d=ds.data;
         if(ds.status!=200) throw "Fail with status:"+ ds.status
@@ -202,7 +202,7 @@ for(let i=0;i<60;i++){
 
         // Use SORA_SERVER if configured, otherwise use /sora prefix
         let opt2:any = {};
-        let videoUrl = '/v1/videos/'+ rz.mid;
+        let videoUrl = '/v1/chat/completions/'+ rz.mid;
         if (gptServerStore.myData.SORA_SERVER) {
             opt2.baseUrl = gptServerStore.myData.SORA_SERVER;
         } else {

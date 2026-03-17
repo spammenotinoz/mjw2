@@ -354,14 +354,17 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
   //limit: '10mb'
 }));
 
-//代理sora 接口 (same as openapi but with /sora prefix for litellm routing)
-app.use('/sora' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
+//代理sora 接口 (use SORA_SERVER if configured, otherwise use OPENAI_API_BASE_URL)
+const SORA_BASE_URL = process.env.SORA_SERVER || API_BASE_URL;
+app.use('/sora' ,authV2, turnstileCheck, proxy(SORA_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
-    return resolveProxyPath(API_BASE_URL, req.originalUrl, '/sora');
+    return resolveProxyPath(SORA_BASE_URL, req.originalUrl, '/sora');
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
+    // Use SORA_KEY if set, otherwise fall back to OPENAI_API_KEY
+    const apiKey = process.env.SORA_KEY || process.env.OPENAI_API_KEY;
+    proxyReqOpts.headers['Authorization'] ='Bearer '+ apiKey;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
